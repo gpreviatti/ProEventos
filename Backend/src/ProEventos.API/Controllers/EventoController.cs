@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -49,8 +47,7 @@ namespace ProEventos.API.Controllers
         {
             var evento = await _context
                 .Eventos
-                .Where(x => x.EventoId == id)
-                .FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(x => x.EventoId == id);
 
             if (evento != null)
             {
