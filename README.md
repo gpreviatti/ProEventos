@@ -20,6 +20,8 @@ Projeto do curso de fullstack com .Net + Angular
 
 - Angular 11
 - Reactive Forms
+- Ngx Bootstrap
+- Fontawesome
 - Interpolação, Diretivas e Binding
 - Eventos
 - Cors
