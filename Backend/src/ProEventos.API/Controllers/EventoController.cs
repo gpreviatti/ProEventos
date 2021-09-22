@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ProEventos.API.Data;
 using ProEventos.API.Models;
@@ -13,29 +15,6 @@ namespace ProEventos.API.Controllers
     public class EventoController : ControllerBase
     {
         private readonly ILogger<EventoController> _logger;
-        private readonly IEnumerable<Evento> _eventos = new Evento[]
-        {
-            new Evento
-            {
-                EventoId = 1,
-                Tema = "Angular 11 e .Net 5",
-                Local = "Belo Horizonte",
-                Lote = "1° Lote",
-                QtdPessoas = 250,
-                DataEvento = DateTime.Now.AddDays(2).ToString(),
-                ImagemUrl = "foto.png"
-            },
-            new Evento
-            {
-                EventoId = 2,
-                Tema = "Angular e suas novidas",
-                Local = "São Paulo",
-                Lote = "2° Lote",
-                QtdPessoas = 350,
-                DataEvento = DateTime.Now.AddDays(20).ToString(),
-                ImagemUrl = "foto.png"
-            },
-        };
         private readonly DataContext _context;
 
         public EventoController(
@@ -48,25 +27,35 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Evento> Get() => _context.Eventos;
+        public async Task<IEnumerable<Evento>> Get() => await _context
+            .Eventos
+            .ToListAsync();
 
         [HttpGet("{id}")]
-        public Evento GetById(int id) => _context.Eventos.FirstOrDefault(x => x.EventoId == id);
+        public async Task<Evento> GetById(int id) => await _context
+            .Eventos
+            .FirstOrDefaultAsync(x => x.EventoId == id);
 
         [HttpPost]
-        public Evento Post(Evento evento)
+        public async Task<Evento> Post(Evento evento)
         {
-            _context.Eventos.Add(evento);
+            await _context.Eventos.AddAsync(evento);
+            await _context.SaveChangesAsync();
             return evento;
         }
 
         [HttpDelete]
-        public bool Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            var evento = _context.Eventos.Where(x => x.EventoId == id).FirstOrDefault();
+            var evento = await _context
+                .Eventos
+                .Where(x => x.EventoId == id)
+                .FirstOrDefaultAsync();
+
             if (evento != null)
             {
                 _context.Eventos.Remove(evento);
+                await _context.SaveChangesAsync();
                 return true;
             }
             return false;
