@@ -24,24 +24,47 @@ namespace ProEventos.API.Controllers
             _logger = logger;
         }
 
+        /// <summary>
+        /// Get all resources
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<IEnumerable<Evento>> Get() => await _context
             .Eventos
             .ToListAsync();
 
+        /// <summary>
+        /// Get resource by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<Evento> GetById(int id) => await _context
             .Eventos
             .FirstOrDefaultAsync(x => x.EventoId == id);
 
+        /// <summary>
+        /// Add or update resource
+        /// </summary>
+        /// <param name="evento"></param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<Evento> Post(Evento evento)
         {
-            await _context.Eventos.AddAsync(evento);
+            if (evento.EventoId > 0)
+                _context.Eventos.Update(evento);
+            else
+                await _context.Eventos.AddAsync(evento);
+
             await _context.SaveChangesAsync();
             return evento;
         }
 
+        /// <summary>
+        /// Delete resource
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete]
         public async Task<bool> Delete(int id)
         {
