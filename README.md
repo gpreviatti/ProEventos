@@ -6,9 +6,7 @@ Projeto do curso de fullstack com .Net + Angular
 
 ## Objetivo do projeto
 
-`
 Criar uma aplicação para controle de eventos utilizando as tecnologias a seguir e além disso fazer o push automatizado através do github actions para o docker.io e incluir também os arquivos de deployments e service para utilização no kubernates
-`
 
 ## Tecnologias
 
@@ -21,6 +19,7 @@ Criar uma aplicação para controle de eventos utilizando as tecnologias a segui
 - Web Api
 - Dtos
 - Data Annotations
+- Msql
 
 #### FrontEnd
 
@@ -31,3 +30,13 @@ Criar uma aplicação para controle de eventos utilizando as tecnologias a segui
 - Interpolação, Diretivas e Binding
 - Eventos
 - Cors
+
+### Diagramas
+
+#### MER/DER
+
+wip
+
+#### DSA
+
+wip
