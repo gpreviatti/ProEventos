@@ -5,7 +5,12 @@ namespace ProEventos.Persistence
 {
     public class ProEventosContext : DbContext
     {
-        public ProEventosContext(DbContextOptions<ProEventosContext> options) : base(options) { }
+        public ProEventosContext(DbContextOptions<ProEventosContext> options) : base(options) 
+        { 
+            // Se tem uma migração nova faz no startup do projeto
+            Database.Migrate();
+        }
+
         public DbSet<Evento> Eventos { get; set; }
         public DbSet<Lote> Lotes { get; set; }
         public DbSet<Palestrante> Palestrantes { get; set; }
