@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using ProEventos.API.Data;
-using ProEventos.API.Models;
+using ProEventos.Domain;
 
 namespace ProEventos.API.Controllers
 {
@@ -12,73 +13,179 @@ namespace ProEventos.API.Controllers
     [Route("[controller]")]
     public class EventosController : ControllerBase
     {
-        private readonly ILogger<EventosController> _logger;
-        private readonly DataContext _context;
+        private readonly IEventoService _eventoService;
+        private readonly IWebHostEnvironment _hostEnvironment;
 
         public EventosController(
-            ILogger<EventosController> logger,
-            DataContext context
+            IEventoService eventoService, 
+            IWebHostEnvironment hostEnvironment
         )
         {
-            _context = context;
-            _logger = logger;
+            _hostEnvironment = hostEnvironment;
+            _eventoService = eventoService;
         }
 
-        /// <summary>
-        /// Get all resources
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
-        public async Task<IEnumerable<Evento>> Get() => await _context
-            .Eventos
-            .ToListAsync();
-
-        /// <summary>
-        /// Get resource by id
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpGet("{id}")]
-        public async Task<Evento> GetById(int id) => await _context
-            .Eventos
-            .FirstOrDefaultAsync(x => x.EventoId == id);
-
-        /// <summary>
-        /// Add or update resource
-        /// </summary>
-        /// <param name="evento"></param>
-        /// <returns></returns>
-        [HttpPost]
-        public async Task<Evento> Post(Evento evento)
+        public async Task<IActionResult> Get()
         {
-            if (evento.EventoId > 0)
-                _context.Eventos.Update(evento);
-            else
-                await _context.Eventos.AddAsync(evento);
+            try
+            {
+                var eventos = await _eventoService.GetAllEventosAsync(true);
+                if (eventos == null) return NoContent();
 
-            await _context.SaveChangesAsync();
-            return evento;
+                return Ok(eventos);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
+            }
         }
 
-        /// <summary>
-        /// Delete resource
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        [HttpDelete]
-        public async Task<bool> Delete(int id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
         {
-            var evento = await _context
-                .Eventos
-                .FirstOrDefaultAsync(x => x.EventoId == id);
-
-            if (evento != null)
+            try
             {
-                _context.Eventos.Remove(evento);
-                await _context.SaveChangesAsync();
-                return true;
+                var evento = await _eventoService.GetEventoByIdAsync(id, true);
+                if (evento == null) return NoContent();
+
+                return Ok(evento);
             }
-            return false;
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpGet("{tema}/tema")]
+        public async Task<IActionResult> GetByTema(string tema)
+        {
+            try
+            {
+                var evento = await _eventoService.GetAllEventosByTemaAsync(tema, true);
+                if (evento == null) return NoContent();
+
+                return Ok(evento);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpPost("upload-image/{eventoId}")]
+        public async Task<IActionResult> UploadImage(int eventoId)
+        {
+            try
+            {
+                var evento = await _eventoService.GetEventoByIdAsync(eventoId, true);
+                if (evento == null) return NoContent();
+
+                var file = Request.Form.Files[0];
+                if (file.Length > 0)
+                {
+                    DeleteImage(evento.ImagemURL);
+                    evento.ImagemURL = await SaveImage(file);
+                }
+                var EventoRetorno = await _eventoService.UpdateEvento(eventoId, evento);
+
+                return Ok(EventoRetorno);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar adicionar eventos. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Post(EventoDto model)
+        {
+            try
+            {
+                var evento = await _eventoService.AddEventos(model);
+                if (evento == null) return NoContent();
+
+                return Ok(evento);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar adicionar eventos. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(int id, EventoDto model)
+        {
+            try
+            {
+                var evento = await _eventoService.UpdateEvento(id, model);
+                if (evento == null) return NoContent();
+
+                return Ok(evento);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar atualizar eventos. Erro: {ex.Message}");
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            try
+            {
+                var evento = await _eventoService.GetEventoByIdAsync(id, true);
+                if (evento == null) return NoContent();
+
+                if (await _eventoService.DeleteEvento(id))
+                {
+                    DeleteImage(evento.ImagemURL);
+                    return Ok(new { message = "Deletado" });
+                }
+                else
+                {
+                    throw new Exception("Ocorreu um problem não específico ao tentar deletar Evento.");
+                }
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar deletar eventos. Erro: {ex.Message}");
+            }
+        }
+
+        [NonAction]
+        public async Task<string> SaveImage(IFormFile imageFile)
+        {
+            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName)
+                                              .Take(10)
+                                              .ToArray()
+                                         ).Replace(' ', '-');
+
+            imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
+
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imageName);
+
+            using (var fileStream = new FileStream(imagePath, FileMode.Create))
+            {
+                await imageFile.CopyToAsync(fileStream);
+            }
+
+            return imageName;
+        }
+
+        [NonAction]
+        public void DeleteImage(string imageName)
+        {
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imageName);
+            if (System.IO.File.Exists(imagePath))
+                System.IO.File.Delete(imagePath);
         }
     }
 }

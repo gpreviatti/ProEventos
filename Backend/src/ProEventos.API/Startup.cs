@@ -1,3 +1,4 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -5,7 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using ProEventos.API.Data;
+using ProEventos.Application;
+using ProEventos.Domain;
+using ProEventos.Persistence;
 
 namespace ProEventos.API
 {
@@ -21,15 +24,26 @@ namespace ProEventos.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(
-                context => context.UseSqlServer(Configuration.GetConnectionString("App"))
-            );
             services.AddControllers();
             services.AddCors();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProEventos.API", Version = "v1" });
             });
+
+            // Services
+            services.AddScoped<IEventoService, EventoService>();
+            services.AddScoped<ILoteService, LoteService>();
+
+            // AutoMappers
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            // Data
+            services.AddDbContext<ProEventosContext>(
+                context => context.UseSqlServer(Configuration.GetConnectionString("App"))
+            );
+            services.AddScoped<IEventoRespository, EventoRepository>();
+            services.AddScoped<ILoteRepository, LoteRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
