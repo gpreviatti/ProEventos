@@ -175,10 +175,9 @@ namespace ProEventos.API.Controllers
         #region Private Methods
         private async Task<string> SaveImage(IFormFile imageFile)
         {
-            string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName)
-                                              .Take(10)
-                                              .ToArray()
-                                         ).Replace(' ', '-');
+            string imageName = new string(
+                Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()
+            ).Replace(' ', '-');
 
             imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
 
