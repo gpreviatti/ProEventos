@@ -37,8 +37,10 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
+                return this.StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"
+                );
             }
         }
 
@@ -54,8 +56,10 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
+                return this.StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"
+                );
             }
         }
 
@@ -71,8 +75,10 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}");
+                return this.StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"
+                );
             }
         }
 
@@ -109,12 +115,14 @@ namespace ProEventos.API.Controllers
                 var evento = await _eventoService.AddEventos(model);
                 if (evento == null) return NoContent();
 
-                return Ok(evento);
+                return Created("", evento);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar adicionar eventos. Erro: {ex.Message}");
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar adicionar eventos. Erro: {ex.Message}"
+                );
             }
         }
 
@@ -130,8 +138,10 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar atualizar eventos. Erro: {ex.Message}");
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar atualizar eventos. Erro: {ex.Message}"
+                );
             }
         }
 
@@ -155,13 +165,15 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar deletar eventos. Erro: {ex.Message}");
+                return StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar deletar eventos. Erro: {ex.Message}"
+                );
             }
         }
 
-        [NonAction]
-        public async Task<string> SaveImage(IFormFile imageFile)
+        #region Private Methods
+        private async Task<string> SaveImage(IFormFile imageFile)
         {
             string imageName = new String(Path.GetFileNameWithoutExtension(imageFile.FileName)
                                               .Take(10)
@@ -180,12 +192,12 @@ namespace ProEventos.API.Controllers
             return imageName;
         }
 
-        [NonAction]
-        public void DeleteImage(string imageName)
+        private void DeleteImage(string imageName)
         {
             var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imageName);
             if (System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
         }
+        #endregion
     }
 }

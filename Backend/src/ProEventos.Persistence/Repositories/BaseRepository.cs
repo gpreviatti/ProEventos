@@ -11,15 +11,37 @@ namespace ProEventos.Persistence
             _context = context;
         }
 
-        public async Task Add(T entity) => await _context.AddAsync(entity);
+        public async Task<bool> Add(T entity) 
+        {
+            await _context.AddAsync(entity);
 
-        public void Update(T entity) => _context.Update(entity);
+            return await SaveChangesAsync();
+        } 
+            
 
-        public void Delete(T entity) => _context.Remove(entity);
+        public async Task<bool> Update(T entity) 
+        {
+            await Task.Run(() => _context.Update(entity));
 
-        public void DeleteRange(T[] entityArray) => _context.RemoveRange(entityArray);
+            return await SaveChangesAsync();
+        }
 
-        public async Task<bool> SaveChangesAsync() => await _context.SaveChangesAsync() > 0;
+        public async Task<bool> Delete(T entity) 
+        {
+            await Task.Run(() =>_context.Remove(entity));
+
+            return await SaveChangesAsync();
+        } 
+
+        public async Task<bool> DeleteRange(T[] entityArray)
+        {
+            await Task.Run(() => _context.RemoveRange(entityArray));
+
+            return await SaveChangesAsync();
+        } 
+
+
+        private async Task<bool> SaveChangesAsync() => await _context.SaveChangesAsync() > 0;
 
     }
 }

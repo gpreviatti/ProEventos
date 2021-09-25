@@ -29,8 +29,10 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar recuperar lotes. Erro: {ex.Message}");
+                return this.StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar lotes. Erro: {ex.Message}"
+                );
             }
         }
 
@@ -42,12 +44,14 @@ namespace ProEventos.API.Controllers
                 var lotes = await _loteService.SaveLotes(eventoId, models);
                 if (lotes == null) return NoContent();
 
-                return Ok(lotes);
+                return Created("",lotes);
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar salvar lotes. Erro: {ex.Message}");
+                return this.StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar salvar lotes. Erro: {ex.Message}"
+                );
             }
         }
 
@@ -65,8 +69,10 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar deletar lotes. Erro: {ex.Message}");
+                return this.StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar deletar lotes. Erro: {ex.Message}"
+                );
             }
         }
     }
