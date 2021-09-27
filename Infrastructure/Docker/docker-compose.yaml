@@ -1,0 +1,50 @@
+version: '2'
+
+services:
+
+  mssql:
+    image: 'mcr.microsoft.com/mssql/server'
+    ports:
+      - '1433:1433'
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Secret1234
+    volumes:
+      - './volumes:/var/opt/mssql'
+
+  mongo:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: Secret1234
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./volumes:/data/db
+    networks:
+      - mongo-compose-network
+
+  grafana:
+    image: grafana/grafana:5.1.0
+    ports:
+      - 3000:3000
+    user: '104'
+
+    redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - ./volumes:/data
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+      - HTTP_USER=root
+      - HTTP_PASSWORD=root
+    ports:
+      - 8081:8081
+    depends_on:
+      - redis
