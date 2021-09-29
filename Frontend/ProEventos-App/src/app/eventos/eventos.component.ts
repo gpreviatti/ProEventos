@@ -18,14 +18,7 @@ export class EventosComponent implements OnInit
   public widthImg: number = 150;
   public marginImg: number = 2;
   public showImg: boolean = true;
-
-  private _temaAtual : string = '';
-  public get temaAtual() : string {
-    return this._temaAtual;
-  }
-  public set temaAtual(v : string) {
-    this._temaAtual = v;
-  }
+  public temaAtual: string = '';
 
   private _filtroLista : string = '';
 
@@ -36,7 +29,6 @@ export class EventosComponent implements OnInit
     this._filtroLista = v;
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
-
 
   constructor(
     private eventoService: EventoService,
@@ -77,14 +69,15 @@ export class EventosComponent implements OnInit
   }
 
   //#region Modal
-  public openModal(template: TemplateRef<any>) : void
+  public openModal(template: TemplateRef<any>, evento: Evento) : void
   {
+    this.temaAtual = evento.tema;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
 
   public confirm(): void
   {
-    this.showSuccess(`Evento ${this.temaAtual} deletado com Sucesso!`)
+    this.showSuccess(`Evento de ${this.temaAtual} deletado com Sucesso!`)
     this.modalRef?.hide();
   }
 
@@ -93,7 +86,8 @@ export class EventosComponent implements OnInit
     this.modalRef?.hide();
   }
 
-  private showSuccess(mensagem : string) {
+  private showSuccess(mensagem : string) : void
+  {
     this.toastr.success(mensagem);
   }
   //#endregion
