@@ -3,6 +3,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Evento } from '../models/Evento';
 import { EventoService } from '../services/evento.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-eventos',
@@ -33,25 +34,31 @@ export class EventosComponent implements OnInit
   constructor(
     private eventoService: EventoService,
     private modalService: BsModalService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) { }
 
-  ngOnInit(): void
+  public ngOnInit(): void
   {
     this.getEventos();
   }
 
   public getEventos(): any
   {
+    this.spinner.show();
     this.eventoService
       .getEventos()
-      .subscribe(
-        (eventos : Evento[]) => {
+      .subscribe({
+        next: (eventos : Evento[]) => {
           this.eventos = eventos;
           this.eventosFiltrados = this.eventos
         },
-        error => console.log(error)
-      )
+        error: (error:any) => {
+          this.spinner.hide()
+          this.toastr.error(error.message, 'Erro!')
+        },
+        complete: () => this.spinner.hide()
+      })
   }
 
   public alterarImage(): any
