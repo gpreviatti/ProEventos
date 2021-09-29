@@ -13,20 +13,28 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EventosComponent } from './eventos/eventos.component';
-import { PalestrantesComponent } from './palestrantes/palestrantes.component';
-import { NavComponent } from './nav/nav.component';
+import { EventosComponent } from './components/eventos/eventos.component';
+import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
+import { NavComponent } from './shared/nav/nav.component';
 import { EventoService } from './services/evento.service';
 import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { TituloComponent } from './shared/titulo/titulo.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ContatoComponent } from './components/contato/contato.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
 @NgModule({
   declarations: [
     AppComponent,
     EventosComponent,
     PalestrantesComponent,
     NavComponent,
-    DateTimeFormatPipe
+    DateTimeFormatPipe,
+    TituloComponent,
+    DashboardComponent,
+    ContatoComponent,
+    PerfilComponent
   ],
   imports: [
     CommonModule,

@@ -1,7 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Evento } from '../models/Evento';
-import { EventoService } from '../services/evento.service';
+import { Evento } from '../../models/Evento';
+import { EventoService } from '../../services/evento.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxSpinnerService } from 'ngx-spinner';
 
@@ -10,8 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   templateUrl: './eventos.component.html',
   styleUrls: ['./eventos.component.scss']
 })
-export class EventosComponent implements OnInit
-{
+export class EventosComponent implements OnInit {
   modalRef?: BsModalRef;
 
   public eventosFiltrados: Evento[] = [];
@@ -21,12 +20,12 @@ export class EventosComponent implements OnInit
   public showImg: boolean = true;
   public temaAtual: string = '';
 
-  private _filtroLista : string = '';
+  private _filtroLista: string = '';
 
-  public get filtroLista() : string {
+  public get filtroLista(): string {
     return this._filtroLista;
   }
-  public set filtroLista(v : string) {
+  public set filtroLista(v: string) {
     this._filtroLista = v;
     this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
   }
@@ -38,22 +37,20 @@ export class EventosComponent implements OnInit
     private spinner: NgxSpinnerService
   ) { }
 
-  public ngOnInit(): void
-  {
+  public ngOnInit(): void {
     this.getEventos();
   }
 
-  public getEventos(): any
-  {
+  public getEventos(): any {
     this.spinner.show();
     this.eventoService
       .getEventos()
       .subscribe({
-        next: (eventos : Evento[]) => {
+        next: (eventos: Evento[]) => {
           this.eventos = eventos;
           this.eventosFiltrados = this.eventos
         },
-        error: (error:any) => {
+        error: (error: any) => {
           this.spinner.hide()
           this.toastr.error(error.message, 'Erro!')
         },
@@ -61,40 +58,34 @@ export class EventosComponent implements OnInit
       })
   }
 
-  public alterarImage(): any
-  {
+  public alterarImage(): any {
     this.showImg = !this.showImg;
   }
 
-  public filtrarEventos(filtrarPor : string) : Evento[]
-  {
+  public filtrarEventos(filtrarPor: string): Evento[] {
     filtrarPor = filtrarPor.toLowerCase();
     return this.eventos.filter(
-      (evento : Evento) => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
-          evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
+      (evento: Evento) => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
+        evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
     )
   }
 
   //#region Modal
-  public openModal(template: TemplateRef<any>, evento: Evento) : void
-  {
+  public openModal(template: TemplateRef<any>, evento: Evento): void {
     this.temaAtual = evento.tema;
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
 
-  public confirm(): void
-  {
+  public confirm(): void {
     this.showSuccess(`Evento de ${this.temaAtual} deletado com Sucesso!`)
     this.modalRef?.hide();
   }
 
-  public decline(): void
-  {
+  public decline(): void {
     this.modalRef?.hide();
   }
 
-  private showSuccess(mensagem : string) : void
-  {
+  private showSuccess(mensagem: string): void {
     this.toastr.success(mensagem);
   }
   //#endregion
