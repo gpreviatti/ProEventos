@@ -1,25 +1,25 @@
-<div class="card shadow-sm">
-  <div>
-    <div class="d-flex">
-      <div class="flex-fill m-3">
-        <div class="input-group-text">
-          <div class="input-group-prepend">
-            <div class="input-group-text">Filtro: </div>
-          </div>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="buscar"
-            [(ngModel)]="filtroLista"
-          >
+<div class="card shadow-sm p3">
+
+  <div class="d-flex">
+    <div class="flex-fill m-3">
+      <div class="input-group-text">
+        <div class="input-group-prepend">
+          <div class="input-group-text">Filtro: </div>
         </div>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="buscar"
+          [(ngModel)]="filtroLista"
+        >
       </div>
-      <div class="m-4">
-        <a class="d-flex btn btn-primary" routerLink="/eventos/datalhe">
-          <i class="fa fa-plus-circle my-1" aria-hidden="true"></i>
-          <b class="ml-1 d-none d-sm-block">novo</b>
-        </a>
-      </div>
+    </div>
+
+    <div class="m-4">
+      <a class="d-flex btn btn-primary" routerLink="/eventos/datalhe">
+        <i class="fa fa-plus-circle my-1" aria-hidden="true"></i>
+        <b class="ml-1 d-none d-sm-block">novo</b>
+      </a>
     </div>
   </div>
 
