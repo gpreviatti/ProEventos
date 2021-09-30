@@ -23,18 +23,30 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { TituloComponent } from './shared/titulo/titulo.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContatoComponent } from './components/contato/contato.component';
-import { PerfilComponent } from './components/perfil/perfil.component';
+import { PerfilComponent } from './components/user/perfil/perfil.component';
+import { EventosDatalheComponent } from './components/eventos/eventos-datalhe/eventos-datalhe.component';
+import { EventosListaComponent } from './components/eventos/eventos-lista/eventos-lista.component';
+import { UserComponent } from './components/user/user.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { NotfoundComponent } from './components/notfound/notfound.component';
 @NgModule({
   declarations: [
     AppComponent,
     EventosComponent,
+    EventosDatalheComponent,
+    EventosListaComponent,
     PalestrantesComponent,
     NavComponent,
     DateTimeFormatPipe,
     TituloComponent,
     DashboardComponent,
     ContatoComponent,
-    PerfilComponent
+    PerfilComponent,
+    UserComponent,
+    LoginComponent,
+    RegistrationComponent,
+    NotfoundComponent,
   ],
   imports: [
     CommonModule,
