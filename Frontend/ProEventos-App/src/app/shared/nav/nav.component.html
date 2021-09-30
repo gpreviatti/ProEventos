@@ -1,5 +1,8 @@
 <nav class="navbar navbar-expand-sm navbar-dark bg-primary">
-  <a class="navbar-brand" routerLink="/dashboard">ProEventos</a>
+  <a class="navbar-brand" routerLink="/dashboard">
+    <i class="fa fa-calendar mr-2"></i>
+    ProEventos
+  </a>
   <button class="navbar-toggler" (click)="isCollapsed = !isCollapsed" type="button" data-toggle="collapse"
     data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -37,11 +40,14 @@
         >
           Giovanni
         </a>
-        <div *dropdownMenu class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <div
+          *dropdownMenu
+          class="dropdown-menu"
+          aria-labelledby="navbarDropdownMenuLink"
+        >
           <a class="dropdown-item" routerLink="/user/perfil">
             Perfil
           </a>
-          <div role="separator" class="divider"></div>
           <a class="dropdown-item" routerLink="/login">
             Sair
           </a>
