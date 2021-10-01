@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'contatos', component: ContatoComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'notfound', component: NotfoundComponent },
-  { path: '', redirectTo: 'notfound', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'notfound', pathMatch: 'full' },
 ];
 
