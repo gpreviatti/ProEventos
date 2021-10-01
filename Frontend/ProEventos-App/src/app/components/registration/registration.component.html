@@ -91,8 +91,7 @@
         <div *ngIf="formControls.userName.errors?.minlength" class="invalid-feedback">
           Minimum length 4 caracters.
         </div>
-
-        <div *ngIf="formControls.userName.errors?.maxLength" class="invalid-feedback">
+        <div *ngIf="formControls.userName.errors?.max" class="invalid-feedback">
           Max length 120000 caracters.
         </div>
       </div>
@@ -122,6 +121,9 @@
           <div *ngIf="formControls.confirmPassword.errors?.required" class="invalid-feedback">
             Required field.
           </div>
+          <div *ngIf="formControls.confirmPassword.errors?.mustMatch" class="invalid-feedback">
+            Passwords aren't equals.
+          </div>
         </div>
       </div>
       <div class="form-row p-1 mb-3 form-group">
@@ -137,7 +139,10 @@
       </div>
       <div class="form-row">
         <div class="form-group col-12">
-          <button class="btn btn-md btn-primary btn-block px-5">
+          <button
+            [disabled]="!form.valid"
+            class="btn btn-md btn-primary btn-block px-5"
+          >
             Registar
           </button>
         </div>

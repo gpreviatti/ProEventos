@@ -8,7 +8,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class EventosDatalheComponent implements OnInit
 {
-
   form = this.formBuilder.group({
     tema: ['', [Validators.required, Validators.minLength(4), Validators.max(50)]],
     local: ['', Validators.required, ],

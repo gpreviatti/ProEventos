@@ -1,5 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControlOptions, FormBuilder, Validators } from '@angular/forms';
+import { ValidatorField } from '@app/helpers/ValidatorField';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -11,14 +12,18 @@ export class RegistrationComponent implements OnInit
 {
   modalRef?: BsModalRef;
 
+  formOptions : AbstractControlOptions = {
+    validators: ValidatorField.MustMatch('password', 'confirmPassword')
+  };
+
   form = this.formBuilder.group({
     firstName: ['', [Validators.required, Validators.minLength(4), Validators.max(120000)]],
     lastName: ['', [Validators.required, Validators.minLength(4), Validators.max(120000)]],
     email: ['', [Validators.required, Validators.email]],
     userName: ['', [Validators.required, Validators.minLength(4), Validators.max(120000)]],
-    password: ['', [Validators.required, ]],
+    password: ['', [Validators.required ]],
     confirmPassword: ['', [Validators.required ]]
-  });
+  }, this.formOptions);
 
   formControls = this.form.controls;
 
