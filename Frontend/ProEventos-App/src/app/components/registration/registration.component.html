@@ -24,7 +24,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid' : formControls.firstName.errors && formControls.firstName.touched}"
+            [ngClass]="validators.cssValidator(formControls.firstName)"
             formControlName="firstName"
             placeholder="Insira o Primeiro nome"
           />
@@ -44,7 +44,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid' : formControls.lastName.errors && formControls.lastName.touched}"
+            [ngClass]="validators.cssValidator(formControls.lastName)"
             formControlName="lastName"
             placeholder="Insira o Último nome"
           />
@@ -64,7 +64,7 @@
         <label for="">Email:</label>
         <input
           class="form-control"
-          [ngClass]="{'is-invalid' : formControls.email.errors && formControls.email.touched}"
+          [ngClass]="validators.cssValidator(formControls.email)"
           formControlName="email"
           type="text"
           placeholder="Insira o Nome Completo"
@@ -80,7 +80,7 @@
         <label for="">Usuario:</label>
         <input
           class="form-control"
-          [ngClass]="{'is-invalid' : formControls.userName.errors && formControls.userName.touched}"
+          [ngClass]="validators.cssValidator(formControls.userName)"
           formControlName="userName"
           type="text"
           placeholder="Insira o nome de Usuário"
@@ -100,7 +100,7 @@
           <label for="">Senha:</label>
           <input
             class="form-control"
-            [ngClass]="{'is-invalid' : formControls.password.errors && formControls.password.touched}"
+            [ngClass]="validators.cssValidator(formControls.password)"
             formControlName="password"
             type="password"
             placeholder="Digite uma Senha"
@@ -113,7 +113,7 @@
           <label for="">Confirmar Senha:</label>
           <input
             class="form-control"
-            [ngClass]="{'is-invalid' : formControls.confirmPassword.errors && formControls.confirmPassword.touched}"
+            [ngClass]="validators.cssValidator(formControls.confirmPassword)"
             formControlName="confirmPassword"
             type="password"
             placeholder="Confirme a Senha"

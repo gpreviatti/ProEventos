@@ -1,8 +1,10 @@
-﻿import { AbstractControl, FormGroup } from "@angular/forms";
+﻿import { Injectable } from "@angular/core";
+import { AbstractControl, FormGroup } from "@angular/forms";
 
+@Injectable()
 export class ValidatorField
 {
-  static MustMatch(controlName: string, matchingControlName: string): any
+  public mustMatch(controlName: string, matchingControlName: string): any
   {
     return (group: AbstractControl) => {
       const formGroup = group as FormGroup;
@@ -23,5 +25,10 @@ export class ValidatorField
       return null;
     }
 
+  }
+
+  public cssValidator(campo : AbstractControl) : any
+  {
+    return {'is-invalid' : campo.errors && campo.touched}
   }
 }

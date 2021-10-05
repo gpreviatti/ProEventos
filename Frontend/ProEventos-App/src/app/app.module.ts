@@ -30,6 +30,7 @@ import { UserComponent } from './components/user/user.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { NotfoundComponent } from './components/notfound/notfound.component';
+import { ValidatorField } from './helpers/ValidatorField';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,9 +44,9 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
     DashboardComponent,
     ContatoComponent,
     PerfilComponent,
+    RegistrationComponent,
     UserComponent,
     LoginComponent,
-    RegistrationComponent,
     NotfoundComponent,
   ],
   imports: [
@@ -71,6 +72,7 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     EventoService,
+    ValidatorField
   ],
   bootstrap: [AppComponent]
 })

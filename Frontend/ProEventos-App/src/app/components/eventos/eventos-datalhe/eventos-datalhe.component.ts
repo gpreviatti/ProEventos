@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ValidatorField } from '@app/helpers/ValidatorField';
 
 @Component({
   selector: 'app-eventos-datalhe',
@@ -18,9 +19,13 @@ export class EventosDatalheComponent implements OnInit
     imagemUrl: ['', Validators.required ]
   });
 
-  formControls = this.form.controls;
+  public formControls = this.form.controls;
 
-  constructor(private formBuilder: FormBuilder) { }
+
+  constructor(
+    private formBuilder: FormBuilder,
+    public validators: ValidatorField
+  ) { }
 
   ngOnInit(): void { }
 

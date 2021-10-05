@@ -6,7 +6,7 @@
         <div class="form-group col-md-12">
           <input
             type="text"
-            [ngClass]="{'is-invalid' : formControls.tema.errors && formControls.tema.touched}"
+            [ngClass]="validators.cssValidator(formControls.tema)"
             class="form-control"
             formControlName="tema"
             placeholder="Insira o Tema"
@@ -31,7 +31,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid' : formControls.local.errors && formControls.local.touched}"
+            [ngClass]="validators.cssValidator(formControls.local)"
             formControlName="local"
             placeholder=""
           >
@@ -44,7 +44,7 @@
           <input
             type="datetime-local"
             class="form-control"
-            [ngClass]="{'is-invalid' : formControls.dataEvento.errors && formControls.dataEvento.touched}"
+            [ngClass]="validators.cssValidator(formControls.dataEvento)"
             formControlName="dataEvento"
             tooltip=""
           >
@@ -60,7 +60,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid' : formControls.qtdPessoas.errors && formControls.qtdPessoas.touched}"
+            [ngClass]="validators.cssValidator(formControls.qtdPessoas)"
             formControlName="qtdPessoas"
             placeholder=""
           >
@@ -76,7 +76,7 @@
           <input
             type="phone"
             class="form-control"
-            [ngClass]="{'is-invalid' : formControls.telefone.errors && formControls.telefone.touched}"
+            [ngClass]="validators.cssValidator(formControls.telefone)"
             formControlName="telefone"
             placeholder="(000) 90000-0000"
           >
@@ -89,7 +89,7 @@
           <input
             type="email"
             class="form-control"
-            [ngClass]="{'is-invalid' : formControls.email.errors && formControls.email.touched}"
+            [ngClass]="validators.cssValidator(formControls.email)"
             formControlName="email"
             placeholder="e-mail"
           >
@@ -105,7 +105,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="{'is-invalid' : formControls.imagemUrl.errors && formControls.imagemUrl.touched}"
+            [ngClass]="validators.cssValidator(formControls.imagemUrl)"
             formControlName="imagemUrl"
             placeholder=""
           >

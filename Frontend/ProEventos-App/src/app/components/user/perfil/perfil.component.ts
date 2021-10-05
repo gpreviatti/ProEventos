@@ -10,7 +10,7 @@ import { ValidatorField } from '@app/helpers/ValidatorField';
 export class PerfilComponent implements OnInit {
 
   formOptions : AbstractControlOptions = {
-    validators: ValidatorField.MustMatch('password', 'confirmPassword')
+    validators: this.validators.mustMatch('password', 'confirmPassword')
   };
 
   form = this.formBuilder.group({
@@ -24,7 +24,10 @@ export class PerfilComponent implements OnInit {
 
   formControls = this.form.controls;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    public validators: ValidatorField
+  ) { }
 
   ngOnInit(): void
   {

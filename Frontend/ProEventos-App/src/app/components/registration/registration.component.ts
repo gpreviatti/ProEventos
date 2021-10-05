@@ -13,7 +13,7 @@ export class RegistrationComponent implements OnInit
   modalRef?: BsModalRef;
 
   formOptions : AbstractControlOptions = {
-    validators: ValidatorField.MustMatch('password', 'confirmPassword')
+    validators: this.validators.mustMatch('password', 'confirmPassword')
   };
 
   form = this.formBuilder.group({
@@ -25,11 +25,12 @@ export class RegistrationComponent implements OnInit
     confirmPassword: ['', [Validators.required ]]
   }, this.formOptions);
 
-  formControls = this.form.controls;
+  public formControls = this.form.controls;
 
   constructor(
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
+    public validators: ValidatorField,
   ) { }
 
   ngOnInit(): void
