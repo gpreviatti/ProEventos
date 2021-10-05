@@ -73,7 +73,8 @@ export class EventosListaComponent implements OnInit {
   }
 
   //#region Modal
-  public openModal(template: TemplateRef<any>, evento: Evento): void {
+  public openModal(event: any, template: TemplateRef<any>, evento: Evento): void {
+    event.stopPropagation();
     this.temaAtual = evento.tema;
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
   }
