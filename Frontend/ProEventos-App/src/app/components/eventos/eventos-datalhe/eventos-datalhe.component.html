@@ -42,10 +42,17 @@
         <div class="form-group col-md-4">
           <label>Data e Hora</label>
           <input
-            type="datetime-local"
+            type="text"
             class="form-control"
             [ngClass]="validators.cssValidator(formControls.dataEvento)"
             formControlName="dataEvento"
+            bsDatepicker
+            [bsConfig]="{
+              adaptivePosition: true,
+              dateInputFormat: 'DD/MM/YYYY hh:mm a',
+              containerClass: 'bg-primary text-light',
+              showWeekNumbers: false
+            }"
             tooltip=""
           >
           <div class="invalid-feedback">
