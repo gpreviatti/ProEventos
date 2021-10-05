@@ -14,6 +14,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EventosDatalheComponent implements OnInit
 {
+  public eventoId : any;
+  public evento = {} as Evento;
+
   form = this.formBuilder.group({
     tema: ['', [Validators.required, Validators.minLength(4), Validators.max(50)]],
     local: ['', Validators.required, ],
@@ -25,8 +28,6 @@ export class EventosDatalheComponent implements OnInit
   });
 
   public formControls = this.form.controls;
-  public evento = {} as Evento;
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,10 +45,11 @@ export class EventosDatalheComponent implements OnInit
   }
 
   public carregarEvento() : void {
-    const eventoIdParam = this.activatedrouter.snapshot.paramMap.get('id')
-    if (eventoIdParam != null) {
+    this.eventoId = this.activatedrouter.snapshot.paramMap.get('id')
+
+    if (this.eventoId != null) {
       this.spinner.show();
-      this.eventoService.getById(+eventoIdParam)
+      this.eventoService.getById(+this.eventoId)
         .subscribe(
           (evento: Evento) => {
             this.evento = {...evento}
@@ -73,31 +75,18 @@ export class EventosDatalheComponent implements OnInit
     }
 
     this.evento = {...this.form.value}
-    let id = this.activatedrouter.snapshot.paramMap.get('id')
-    if (id) {
-      this.eventoService.put(+id, this.evento).subscribe(
-        (evento : Evento) => {
-          this.form.patchValue(evento);
-          this.toastr.success(`Evento ${evento.tema} atualizado com sucesso`, 'Sucesso')
-          this.router.navigate([`/eventos/`]);
-        },
-        (error : any) => {
-          this.spinner.hide()
-          this.toastr.error(error?.title, 'Erro ao alterar evento')
-        },
-        () => this.spinner.hide(),
-      )
-      return
-    }
 
-    this.eventoService.post(this.evento).subscribe(
+    if (this.eventoId)
+      this.evento.id = +this.eventoId;
+
+    this.eventoService[this.eventoId ? 'put' : 'post'](this.evento).subscribe(
       (evento : Evento) => {
-        this.toastr.success(`Evento ${evento.tema} salvo com sucesso`, 'Sucesso');
+        this.toastr.success(`Evento ${evento.tema} cadastrado/alterado com sucesso`, 'Sucesso');
         this.router.navigate([`/eventos/`]);
       },
       (error : any) => {
         this.spinner.hide()
-        this.toastr.error(error?.title, 'Erro ao cadastrar evento')
+        this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento')
       },
       () => this.spinner.hide(),
     )
