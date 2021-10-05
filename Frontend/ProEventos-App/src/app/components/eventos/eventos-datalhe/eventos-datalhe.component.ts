@@ -84,12 +84,8 @@ export class EventosDatalheComponent implements OnInit
         this.toastr.success(`Evento ${evento.tema} cadastrado/alterado com sucesso`, 'Sucesso');
         this.router.navigate([`/eventos/`]);
       },
-      (error : any) => {
-        this.spinner.hide()
-        this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento')
-      },
-      () => this.spinner.hide(),
-    )
+      (error : any) => this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento'),
+    ).add(() => this.spinner.hide())
   }
 
   public resetForm() : void
