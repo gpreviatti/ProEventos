@@ -113,9 +113,8 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="validators.cssValidator(formControls.imagemUrl)"
-            formControlName="imagemUrl"
-            placeholder=""
+            [ngClass]="validators.cssValidator(formControls.imagemURL)"
+            formControlName="imagemURL"
           >
           <div class="invalid-feedback">
             Required field.
@@ -128,16 +127,17 @@
     <div class="card-footer">
       <div class="d-flex">
         <button
-          class="btn btn-outline-primary mr-auto border"
+        class="btn btn-primary"
+        [disabled]="!form.valid"
+        (click)="salvarAlteracao()"
+        >
+          Salvar Evento
+        </button>
+        <button
+          class="btn btn-outline-primary ml-auto border"
           (click)="resetForm()"
         >
           Cancelar Alteração
-        </button>
-        <button
-          class="btn btn-primary"
-          [disabled]="!form.valid"
-        >
-          Salvar Evento
         </button>
       </div>
     </div>

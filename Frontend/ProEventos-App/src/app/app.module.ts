@@ -67,7 +67,7 @@ import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
     BsDatepickerModule.forRoot(),
     ModalModule.forRoot(),
     ToastrModule.forRoot({
-      timeOut: 5000,
+      timeOut: 3000,
       positionClass: 'toast-bottom-right',
       preventDuplicates: true,
       progressBar: true
