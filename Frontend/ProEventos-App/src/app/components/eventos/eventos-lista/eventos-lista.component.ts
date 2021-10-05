@@ -46,7 +46,7 @@ export class EventosListaComponent implements OnInit {
   public getEventos(): any {
     this.spinner.show();
     this.eventoService
-      .getEventos()
+      .get()
       .subscribe({
         next: (eventos: Evento[]) => {
           this.eventos = eventos;

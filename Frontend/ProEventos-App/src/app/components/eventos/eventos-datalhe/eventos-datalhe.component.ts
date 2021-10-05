@@ -46,7 +46,7 @@ export class EventosDatalheComponent implements OnInit
     const eventoIdParam = this.router.snapshot.paramMap.get('id')
     if (eventoIdParam != null) {
       this.spinner.show();
-      this.eventoService.getEventoById(+eventoIdParam)
+      this.eventoService.getById(+eventoIdParam)
         .subscribe(
           (evento: Evento) => {
             this.evento = {...evento}
