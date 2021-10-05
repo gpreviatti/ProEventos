@@ -14,12 +14,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventosComponent } from './components/eventos/eventos.component';
+import { LotesComponent } from './components/eventos/lotes/lotes.component';
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { CommonModule } from '@angular/common';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { TituloComponent } from './shared/titulo/titulo.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContatoComponent } from './components/contato/contato.component';
 import { PerfilComponent } from './components/user/perfil/perfil.component';
 import { EventosDatalheComponent } from './components/eventos/eventos-datalhe/eventos-datalhe.component';
@@ -30,6 +30,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { NotfoundComponent } from './components/notfound/notfound.component';
 
 import { EventoService } from './services/evento.service';
+import { LoteService } from './services/lote.service';
 
 import { ValidatorField } from './helpers/ValidatorField';
 import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
@@ -44,13 +45,13 @@ import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
     NavComponent,
     DateTimeFormatPipe,
     TituloComponent,
-    DashboardComponent,
     ContatoComponent,
     PerfilComponent,
     RegistrationComponent,
     UserComponent,
     LoginComponent,
     NotfoundComponent,
+    LotesComponent,
   ],
   imports: [
     CommonModule,
@@ -76,6 +77,7 @@ import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
     EventoService,
+    LoteService,
     ValidatorField
   ],
   bootstrap: [AppComponent]

@@ -12,7 +12,6 @@ import { EventosListaComponent } from './components/eventos/eventos-lista/evento
 import { EventosComponent } from './components/eventos/eventos.component';
 
 import { ContatoComponent } from './components/contato/contato.component';
-import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
 
 // Respeitar a precedencia
@@ -34,7 +33,6 @@ const routes: Routes = [
       { path: 'lista', component: EventosListaComponent },
     ]
   },
-  { path: 'dashboard', component: DashboardComponent },
   { path: 'palestrantes', component: PalestrantesComponent },
   { path: 'contatos', component: ContatoComponent },
   { path: 'perfil', component: PerfilComponent },

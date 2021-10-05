@@ -33,7 +33,6 @@ export class EventosDatalheComponent implements OnInit
     private formBuilder: FormBuilder,
     public validators: ValidatorField,
     private activatedrouter: ActivatedRoute,
-    private router: Router,
     private eventoService : EventoService,
     private spinner : NgxSpinnerService,
     private toastr: ToastrService,
@@ -82,7 +81,7 @@ export class EventosDatalheComponent implements OnInit
     this.eventoService[this.eventoId ? 'put' : 'post'](this.evento).subscribe(
       (evento : Evento) => {
         this.toastr.success(`Evento ${evento.tema} cadastrado/alterado com sucesso`, 'Sucesso');
-        this.router.navigate([`/eventos/`]);
+        this.evento.id = evento.id;
       },
       (error : any) => this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento'),
     ).add(() => this.spinner.hide())
