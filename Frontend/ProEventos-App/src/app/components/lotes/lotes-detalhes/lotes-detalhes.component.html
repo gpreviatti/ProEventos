@@ -1,0 +1,128 @@
+<div class="modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <legend class="modal-title pull-left">
+        <i class="fa fa-money-bill" aria-hidden="true"></i>
+        Lotes
+      </legend>
+      <button
+        class="btn-close close pull-right"
+        (click)="bsModalRef?.hide()"
+        aria-label="Close"
+      >
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="col-lg-12">
+      <div class="form-row p-1">
+        <div class="col">
+          <div>
+            <form [formGroup]="formLotes">
+              <div class="row">
+                <div class="form-group col-md-8">
+                  <label>Nome</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="nome"
+                    placeholder="Lote"
+                    [ngClass]="validators.cssValidator(formLoteControls.nome)"
+                  />
+                  <div *ngIf="formLoteControls.nome.errors?.required" class="invalid-feedback">
+                    Required field.
+                  </div>
+
+                  <div *ngIf="formLoteControls.nome.errors?.minlength" class="invalid-feedback">
+                    Minimum length 4 caracters.
+                  </div>
+
+                  <div *ngIf="formLoteControls.nome.errors?.max" class="invalid-feedback">
+                    Max length 100 caracters.
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Quantidade</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="quantidade"
+                    placeholder="00000"
+                    [ngClass]="validators.cssValidator(formLoteControls.quantidade)"
+                  />
+                  <div *ngIf="formLoteControls.quantidade.errors?.required" class="invalid-feedback">
+                    Required field.
+                  </div>
+
+                  <div *ngIf="formLoteControls.quantidade.errors?.max" class="invalid-feedback">
+                    Max length 99999 caracters.
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Preço</label>
+                  <input
+                    type="money"
+                    currencyMask
+                    class="form-control"
+                    formControlName="preco"
+                    placeholder="R$ 0,00"
+                    [ngClass]="validators.cssValidator(formLoteControls.preco)"
+                  />
+                  <div *ngIf="formLoteControls.preco.errors?.required" class="invalid-feedback">
+                    Required field.
+                  </div>
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Data Início</label>
+                  <input
+                    type="date-time"
+                    class="form-control"
+                    formControlName="dataInicio"
+                    placeholder="01/01/2019"
+                    [ngClass]="validators.cssValidator(formLoteControls.dataInicio)"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                  <label>Data Fim</label>
+                  <input
+                    type="date-time"
+                    class="form-control"
+                    formControlName="dataFim"
+                    placeholder="01/01/2019"
+                    [ngClass]="validators.cssValidator(formLoteControls.dataFim)"
+                  />
+                </div>
+                <div class="form-group col-md-4">
+                </div>
+              </div>
+              <div class="col-lg=12 text-center">
+                <button
+                  class="btn btn-primary col-lg-3 m-1"
+                  [disabled]="!formLotes.valid"
+                  (click)="cadastrarAlterar()"
+                  [disabled]="!formLotes.valid"
+                >
+                  {{ lote.id === undefined ? 'Cadastrar' : 'Alterar'}}
+                </button>
+                <button
+                  class="btn btn-warning col-lg-3 m-1"
+                  (click)="resetLotesForm()"
+                >
+                  Limpar
+                </button>
+                <button
+                  class="btn btn-danger col-lg-3 m-1"
+                  (click)="deletar()"
+                  [disabled]="lote.id === undefined"
+                >
+                Excluir
+              </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

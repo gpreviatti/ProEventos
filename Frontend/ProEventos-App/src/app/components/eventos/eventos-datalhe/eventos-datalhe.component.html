@@ -2,15 +2,10 @@
   <form [formGroup]="form">
     <div class="p-3">
       <label class="text">Tema</label>
-        <div class="form-row">
+      <div class="form-row">
         <div class="form-group col-md-12">
-          <input
-            type="text"
-            [ngClass]="validators.cssValidator(formControls.tema)"
-            class="form-control"
-            formControlName="tema"
-            placeholder="Insira o Tema"
-          >
+          <input type="text" [ngClass]="validators.cssValidator(formControls.tema)" class="form-control"
+            formControlName="tema" placeholder="Insira o Tema">
           <div *ngIf="formControls.tema.errors?.required" class="invalid-feedback">
             Required field.
           </div>
@@ -28,34 +23,21 @@
       <div class="form-row">
         <div class="form-group col-md-8">
           <label>Local</label>
-          <input
-            type="text"
-            class="form-control"
-            [ngClass]="validators.cssValidator(formControls.local)"
-            formControlName="local"
-            placeholder=""
-          >
+          <input type="text" class="form-control" [ngClass]="validators.cssValidator(formControls.local)"
+            formControlName="local" placeholder="">
           <div class="invalid-feedback">
             Required field.
           </div>
         </div>
         <div class="form-group col-md-4">
           <label>Data e Hora</label>
-          <input
-            type="text"
-            class="form-control"
-            [ngClass]="validators.cssValidator(formControls.dataEvento)"
-            formControlName="dataEvento"
-            bsDatepicker
-            value="{{evento?.dataEvento | dateTimeFormat}}"
-            [bsConfig]="{
+          <input type="text" class="form-control" [ngClass]="validators.cssValidator(formControls.dataEvento)"
+            formControlName="dataEvento" bsDatepicker value="{{evento?.dataEvento | dateTimeFormat}}" [bsConfig]="{
               adaptivePosition: true,
               dateInputFormat: 'DD/MM/YYYY hh:mm a',
               containerClass: 'bg-primary text-light',
               showWeekNumbers: false
-            }"
-            tooltip=""
-          >
+            }" tooltip="">
           <div class="invalid-feedback">
             Required field.
           </div>
@@ -65,13 +47,8 @@
       <div class="form-row">
         <div class="form-group col-md-2">
           <label>Quantidade Pessoas</label>
-          <input
-            type="text"
-            class="form-control"
-            [ngClass]="validators.cssValidator(formControls.qtdPessoas)"
-            formControlName="qtdPessoas"
-            placeholder=""
-          >
+          <input type="text" class="form-control" [ngClass]="validators.cssValidator(formControls.qtdPessoas)"
+            formControlName="qtdPessoas" placeholder="">
           <div *ngIf="formControls.qtdPessoas.errors?.required" class="invalid-feedback">
             Required field.
           </div>
@@ -81,26 +58,16 @@
         </div>
         <div class="form-group col-md-2">
           <label>Telefone</label>
-          <input
-            type="phone"
-            class="form-control"
-            [ngClass]="validators.cssValidator(formControls.telefone)"
-            formControlName="telefone"
-            placeholder="(000) 90000-0000"
-          >
+          <input type="phone" class="form-control" [ngClass]="validators.cssValidator(formControls.telefone)"
+            formControlName="telefone" placeholder="(000) 90000-0000">
           <div class="invalid-feedback">
             Required field.
           </div>
         </div>
         <div class="form-group col-md-4">
           <label>Email</label>
-          <input
-            type="email"
-            class="form-control"
-            [ngClass]="validators.cssValidator(formControls.email)"
-            formControlName="email"
-            placeholder="e-mail"
-          >
+          <input type="email" class="form-control" [ngClass]="validators.cssValidator(formControls.email)"
+            formControlName="email" placeholder="e-mail">
           <div *ngIf="formControls.email.errors?.required" class="invalid-feedback">
             Required field.
           </div>
@@ -114,8 +81,7 @@
             type="text"
             class="form-control"
             [ngClass]="validators.cssValidator(formControls.imagemURL)"
-            formControlName="imagemURL"
-          >
+            formControlName="imagemURL">
           <div class="invalid-feedback">
             Required field.
           </div>
@@ -125,32 +91,51 @@
     </div>
 
     <div class="card-footer">
-      <div class="d-flex">
+      <div>
         <button
-        class="btn btn-primary"
-        [disabled]="!form.valid"
-        (click)="salvarAlteracao()"
+          class="btn btn-primary col-lg-2 m-1"
+          [disabled]="!form.valid"
+          (click)="salvarAlteracao()"
         >
-          Salvar Evento
+          Salvar
         </button>
         <button
-          class="btn btn-outline-primary ml-auto border"
-          (click)="resetForm()"
+          *ngIf="eventoId"
+          type="button"
+          class="btn btn-secondary col-lg-2 m-1"
+          (click)="abrirModalLotes()"
         >
-          Cancelar Alteração
+          Novo Lote
         </button>
+        <button class="btn btn-warning col-lg-2 m-1"
+        (click)="resetForm()">
+          Limpar
+        </button>
+        <button
+          class="btn btn-danger col-lg-2 m-1"
+          (click)="modalExcluirEvento($event, template, evento)"
+        >
+        Excluir
+      </button>
       </div>
     </div>
   </form>
 </div>
-<ngx-spinner
-  bdColor="rgba(0,0,0,0.8)"
-  size="medium"
-  color="#fff"
-  type="ball-scale-multiple"
->
+
+<ngx-spinner bdColor="rgba(0,0,0,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
   <p style="font-size: 20px; color: white">Carregando...</p>
 </ngx-spinner>
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja excluir esse evento</p>
+    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+  </div>
+</ng-template>
+
 <div *ngIf="eventoId">
   <app-lotes [eventoId]="eventoId"></app-lotes>
 </div>
+
+<br>

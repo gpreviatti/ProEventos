@@ -34,7 +34,6 @@ export class EventosListaComponent implements OnInit {
 
   constructor(
     private eventoService: EventoService,
-    private modalService: BsModalService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
     private router: Router
@@ -72,38 +71,6 @@ export class EventosListaComponent implements OnInit {
         evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
     )
   }
-
-  //#region Modal
-  public openModal(event: any, template: TemplateRef<any>, evento: Evento): void {
-    event.stopPropagation();
-    this.evento = evento;
-    this.temaAtual = evento.tema;
-    this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
-  }
-
-  public confirm(): void {
-    this.modalRef?.hide();
-    this.spinner.show();
-    this.eventoService.delete(this.evento.id).subscribe(
-      (result: boolean) => {
-        if(result) {
-          this.showSuccess(`Evento de ${this.temaAtual} deletado com Sucesso!`)
-          this.getEventos();
-        }
-      },
-      (error : any) => this.toastr.error(error.errors, 'Erro ao deletar evento'),
-      () => this.spinner.hide()
-    );
-  }
-
-  public decline(): void {
-    this.modalRef?.hide();
-  }
-
-  private showSuccess(mensagem: string): void {
-    this.toastr.success(mensagem);
-  }
-  //#endregion
 
   public detalheEvento(id : number) :void
   {

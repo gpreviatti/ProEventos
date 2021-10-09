@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LotesDetalhesComponent } from '@app/components/lotes/lotes-detalhes/lotes-detalhes.component';
 import { ValidatorField } from '@app/helpers/ValidatorField';
 import { Evento } from '@app/models/Evento';
 import { EventoService } from '@app/services/evento.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
@@ -14,7 +16,25 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EventosDatalheComponent implements OnInit
 {
+  public bsModalRef?: BsModalRef;
   public eventoId : any;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    public validators: ValidatorField,
+    private activatedrouter: ActivatedRoute,
+    private eventoService : EventoService,
+    private spinner : NgxSpinnerService,
+    private toastr: ToastrService,
+    private modalService: BsModalService,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void
+  {
+    this.carregarEvento();
+  }
+
   public evento = {} as Evento;
 
   form = this.formBuilder.group({
@@ -29,20 +49,6 @@ export class EventosDatalheComponent implements OnInit
 
   public formControls = this.form.controls;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    public validators: ValidatorField,
-    private activatedrouter: ActivatedRoute,
-    private eventoService : EventoService,
-    private spinner : NgxSpinnerService,
-    private toastr: ToastrService,
-  ) { }
-
-  ngOnInit(): void
-  {
-    this.carregarEvento();
-  }
-
   public carregarEvento() : void {
     this.eventoId = this.activatedrouter.snapshot.paramMap.get('id')
 
@@ -55,12 +61,9 @@ export class EventosDatalheComponent implements OnInit
             this.form.patchValue(this.evento);
           },
           (error : any) => {
-            console.log(error)
-            this.spinner.hide()
             this.toastr.error(error?.message, 'Erro ao carregar evento')
-          },
-          () => {this.spinner.hide()}
-        )
+          }
+        ).add(() => this.spinner.hide())
     }
   }
 
@@ -90,5 +93,50 @@ export class EventosDatalheComponent implements OnInit
   public resetForm() : void
   {
     this.form.reset();
+  }
+
+  //#region Modal Evento
+  public temaAtual = '';
+
+  public modalExcluirEvento(event: any, template: TemplateRef<any>, evento: Evento): void {
+    event.stopPropagation();
+    this.evento = evento;
+    this.temaAtual = evento.tema;
+    this.bsModalRef = this.modalService.show(template, { class: 'modal-sm' });
+  }
+
+  public confirm(): void {
+    this.bsModalRef?.hide();
+    this.spinner.show();
+    this.eventoService.delete(this.evento.id).subscribe(
+      (result: boolean) => {
+        if(result) {
+          this.showSuccess(`Evento de ${this.temaAtual} deletado com Sucesso!`);
+          this.router.navigate(['/eventos']);
+        }
+      },
+      (error : any) => this.toastr.error(error.errors, 'Erro ao deletar evento'),
+      () => this.spinner.hide()
+    );
+  }
+
+  public decline(): void {
+    this.bsModalRef?.hide();
+  }
+
+  private showSuccess(mensagem: string): void {
+    this.toastr.success(mensagem);
+  }
+  //#endregion
+
+  public abrirModalLotes() : void
+  {
+    const initialState = {
+      eventoId: this.eventoId
+    };
+    this.bsModalRef = this.modalService.show(
+      LotesDetalhesComponent,
+      {initialState}
+    );
   }
 }

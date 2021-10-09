@@ -1,5 +1,4 @@
 <div class="card shadow-sm p3">
-
   <div class="d-flex">
     <div class="flex-fill m-3">
       <div class="input-group-text">
@@ -40,7 +39,6 @@
         <th class="d-none d-md-table-cell">Local</th>
         <th>Data</th>
         <th class="d-none d-md-table-cell">Qtd Pessoas</th>
-        <th>Opções</th>
       </tr>
     </thead>
     <tbody *ngIf="eventos && eventosFiltrados.length">
@@ -64,15 +62,6 @@
         <td class="d-none d-md-table-cell">{{evento.local}}</td>
         <td>{{evento.dataEvento | dateTimeFormat}}</td>
         <td class="d-none d-md-table-cell">{{evento.qtdPessoas}}</td>
-        <td>
-          <button
-            class="btn btn-sm btn-danger"
-            tooltip="Excluir"
-            (click)="openModal($event, template, evento)"
-          >
-            <i class="fa fa-trash"></i>
-          </button>
-        </td>
       </tr>
     </tbody>
     <tfoot *ngIf="!eventos.length" class="text-center">
@@ -94,11 +83,3 @@
   >
   <p style="font-size: 20px; color: white">Carregando...</p>
 </ngx-spinner>
-
-<ng-template #template>
-  <div class="modal-body text-center">
-    <p>Tem certeza que deseja excluir esse evento</p>
-    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
-    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
-  </div>
-</ng-template>

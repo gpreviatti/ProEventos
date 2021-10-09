@@ -14,7 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventosComponent } from './components/eventos/eventos.component';
-import { LotesComponent } from './components/eventos/lotes/lotes.component';
+import { LotesComponent } from './components/lotes/lotes.component';
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { CommonModule } from '@angular/common';
@@ -34,6 +34,7 @@ import { LoteService } from './services/lote.service';
 
 import { ValidatorField } from './helpers/ValidatorField';
 import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
+import { LotesDetalhesComponent } from './components/lotes/lotes-detalhes/lotes-detalhes.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
     LoginComponent,
     NotfoundComponent,
     LotesComponent,
+    LotesDetalhesComponent
   ],
   imports: [
     CommonModule,
@@ -80,6 +82,7 @@ import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
     LoteService,
     ValidatorField
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [LotesDetalhesComponent]
 })
 export class AppModule { }
