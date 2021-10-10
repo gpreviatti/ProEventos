@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, Validators } from '@angular/forms';
-import { ValidatorField } from '@app/helpers/ValidatorField';
+import { FormHelper } from '@app/helpers/FormHelper';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
@@ -13,7 +13,7 @@ export class RegistrationComponent implements OnInit
   modalRef?: BsModalRef;
 
   formOptions : AbstractControlOptions = {
-    validators: this.validators.mustMatch('password', 'confirmPassword')
+    validators: this.formHelper.mustMatch('password', 'confirmPassword')
   };
 
   form = this.formBuilder.group({
@@ -30,7 +30,7 @@ export class RegistrationComponent implements OnInit
   constructor(
     private modalService: BsModalService,
     private formBuilder: FormBuilder,
-    public validators: ValidatorField,
+    public formHelper: FormHelper,
   ) { }
 
   ngOnInit(): void

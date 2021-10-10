@@ -2,8 +2,9 @@
 import { AbstractControl, FormGroup } from "@angular/forms";
 
 @Injectable()
-export class ValidatorField
+export class FormHelper
 {
+  //#region Custom Validators
   public mustMatch(controlName: string, matchingControlName: string): any
   {
     return (group: AbstractControl) => {
@@ -24,7 +25,12 @@ export class ValidatorField
 
       return null;
     }
+  }
+  //#endregion
 
+  public resetForm(formGroup: FormGroup): void
+  {
+    formGroup.reset();
   }
 
   public cssValidator(campo : AbstractControl) : any

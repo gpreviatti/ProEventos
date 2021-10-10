@@ -7,7 +7,7 @@
           <input
             type="text"
             placeholder="Insira o Tema"
-            [ngClass]="validators.cssValidator(formControls.tema)"
+            [ngClass]="formHelper.cssValidator(formControls.tema)"
             class="form-control"
             formControlName="tema"
           >
@@ -31,7 +31,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="validators.cssValidator(formControls.local)"
+            [ngClass]="formHelper.cssValidator(formControls.local)"
             formControlName="local"
           >
           <div class="invalid-feedback">
@@ -43,7 +43,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="validators.cssValidator(formControls.dataEvento)"
+            [ngClass]="formHelper.cssValidator(formControls.dataEvento)"
             formControlName="dataEvento"
             value="{{evento?.dataEvento | dateTimeFormat}}"
             bsDatepicker
@@ -67,7 +67,7 @@
             type="text"
             class="form-control"
             placeholder="99999"
-            [ngClass]="validators.cssValidator(formControls.qtdPessoas)"
+            [ngClass]="formHelper.cssValidator(formControls.qtdPessoas)"
             formControlName="qtdPessoas"
           >
           <div *ngIf="formControls.qtdPessoas.errors?.required" class="invalid-feedback">
@@ -83,7 +83,7 @@
             type="phone"
             class="form-control"
             placeholder="(000) 90000-0000"
-            [ngClass]="validators.cssValidator(formControls.telefone)"
+            [ngClass]="formHelper.cssValidator(formControls.telefone)"
             formControlName="telefone"
           >
           <div class="invalid-feedback">
@@ -96,7 +96,7 @@
             type="email"
             class="form-control"
             placeholder="e-mail"
-            [ngClass]="validators.cssValidator(formControls.email)"
+            [ngClass]="formHelper.cssValidator(formControls.email)"
             formControlName="email"
           >
           <div *ngIf="formControls.email.errors?.required" class="invalid-feedback">
@@ -111,7 +111,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="validators.cssValidator(formControls.imagemURL)"
+            [ngClass]="formHelper.cssValidator(formControls.imagemURL)"
             formControlName="imagemURL">
           <div class="invalid-feedback">
             Required field.
@@ -139,7 +139,7 @@
           Novo Lote
         </button>
         <button class="btn btn-warning col-lg-2 m-1"
-        (click)="resetForm()">
+        (click)="formHelper.resetForm(form)">
           Limpar
         </button>
         <button

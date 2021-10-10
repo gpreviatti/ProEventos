@@ -1,24 +1,21 @@
 <div class="card shadow-sm p3">
-  <div class="d-flex">
-    <div class="flex-fill m-3">
-      <div class="input-group-text">
-        <div class="input-group-prepend">
-          <div class="input-group-text">Filtro: </div>
-        </div>
+  <div class="col-lg-12">
+    <div class="row m-3">
+      <div class="col-lg-8 mt-1">
         <input
           type="text"
+          placeholder="Filtro"
           class="form-control"
           placeholder="buscar"
           [(ngModel)]="filtroLista"
         >
       </div>
-    </div>
 
-    <div class="m-4">
-      <a class="d-flex btn btn-primary" routerLink="/eventos/datalhe">
-        <i class="fa fa-plus-circle my-1" aria-hidden="true"></i>
-        <b class="ml-1 d-none d-sm-block">novo</b>
-      </a>
+      <div class="col-lg-4 mt-1">
+        <a class="btn btn-primary btn-block" routerLink="/eventos/datalhe">
+          novo
+        </a>
+      </div>
     </div>
   </div>
 

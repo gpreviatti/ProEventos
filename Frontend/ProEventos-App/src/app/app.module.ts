@@ -31,10 +31,11 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 
 import { EventoService } from './services/evento.service';
 import { LoteService } from './services/lote.service';
-import { ValidatorField } from './helpers/ValidatorField';
+import { FormHelper } from './helpers/FormHelper';
 
 import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
 import { LotesDetalhesComponent } from './components/lotes/lotes-detalhes/lotes-detalhes.component';
+import { RouterHelper } from './helpers/RouterHelper';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { LotesDetalhesComponent } from './components/lotes/lotes-detalhes/lotes-
   providers: [
     EventoService,
     LoteService,
-    ValidatorField
+    FormHelper,
+    RouterHelper
   ],
   bootstrap: [AppComponent],
   entryComponents: [LotesDetalhesComponent]

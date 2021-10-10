@@ -2,7 +2,8 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LotesDetalhesComponent } from '@app/components/lotes/lotes-detalhes/lotes-detalhes.component';
-import { ValidatorField } from '@app/helpers/ValidatorField';
+import { FormHelper } from '@app/helpers/FormHelper';
+import { RouterHelper } from '@app/helpers/RouterHelper';
 import { Evento } from '@app/models/Evento';
 import { EventoService } from '@app/services/evento.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
@@ -21,13 +22,13 @@ export class EventosDatalheComponent implements OnInit
 
   constructor(
     private formBuilder: FormBuilder,
-    public validators: ValidatorField,
+    public formHelper: FormHelper,
     private activatedrouter: ActivatedRoute,
     private eventoService : EventoService,
     private spinner : NgxSpinnerService,
     private toastr: ToastrService,
     private modalService: BsModalService,
-    private router: Router
+    private routerHelper: RouterHelper
   ) { }
 
   ngOnInit(): void
@@ -89,15 +90,10 @@ export class EventosDatalheComponent implements OnInit
 
         this.toastr.success(`Evento ${evento.tema} ${message} com sucesso`, 'Sucesso');
         this.evento.id = evento.id;
-        this.reloadComponent(`/eventos/datalhe/${evento.id}`);
+        this.routerHelper.reloadComponent(`/eventos/datalhe/${evento.id}`);
       },
       (error : any) => this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento'),
     ).add(() => this.spinner.hide())
-  }
-
-  public resetForm() : void
-  {
-    this.form.reset();
   }
 
   //#region Modal Evento
@@ -117,7 +113,7 @@ export class EventosDatalheComponent implements OnInit
       (result: boolean) => {
         if(result) {
           this.showSuccess(`Evento de ${this.temaAtual} deletado com Sucesso!`);
-          this.reloadComponent('/eventos');
+          this.routerHelper.reloadComponent('/eventos');
         }
       },
       (error : any) => this.toastr.error(error.errors, 'Erro ao deletar evento'),
@@ -143,12 +139,5 @@ export class EventosDatalheComponent implements OnInit
       LotesDetalhesComponent,
       {initialState}
     );
-  }
-
-  public reloadComponent(route : string) : void
-  {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([route]);
   }
 }

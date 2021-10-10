@@ -24,7 +24,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="validators.cssValidator(formControls.firstName)"
+            [ngClass]="formHelper.cssValidator(formControls.firstName)"
             formControlName="firstName"
             placeholder="Insira o Primeiro nome"
           />
@@ -44,7 +44,7 @@
           <input
             type="text"
             class="form-control"
-            [ngClass]="validators.cssValidator(formControls.lastName)"
+            [ngClass]="formHelper.cssValidator(formControls.lastName)"
             formControlName="lastName"
             placeholder="Insira o Último nome"
           />
@@ -64,7 +64,7 @@
         <label for="">Email:</label>
         <input
           class="form-control"
-          [ngClass]="validators.cssValidator(formControls.email)"
+          [ngClass]="formHelper.cssValidator(formControls.email)"
           formControlName="email"
           type="text"
           placeholder="Insira o Nome Completo"
@@ -80,7 +80,7 @@
         <label for="">Usuario:</label>
         <input
           class="form-control"
-          [ngClass]="validators.cssValidator(formControls.userName)"
+          [ngClass]="formHelper.cssValidator(formControls.userName)"
           formControlName="userName"
           type="text"
           placeholder="Insira o nome de Usuário"
@@ -100,7 +100,7 @@
           <label for="">Senha:</label>
           <input
             class="form-control"
-            [ngClass]="validators.cssValidator(formControls.password)"
+            [ngClass]="formHelper.cssValidator(formControls.password)"
             formControlName="password"
             type="password"
             placeholder="Digite uma Senha"
@@ -113,7 +113,7 @@
           <label for="">Confirmar Senha:</label>
           <input
             class="form-control"
-            [ngClass]="validators.cssValidator(formControls.confirmPassword)"
+            [ngClass]="formHelper.cssValidator(formControls.confirmPassword)"
             formControlName="confirmPassword"
             type="password"
             placeholder="Confirme a Senha"

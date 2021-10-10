@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ValidatorField } from '@app/helpers/ValidatorField';
+import { FormHelper } from '@app/helpers/FormHelper';
+import { RouterHelper } from '@app/helpers/RouterHelper';
 import { Lote } from '@app/models/Lote';
 import { LoteService } from '@app/services/lote.service';
 import { BsModalRef} from 'ngx-bootstrap/modal';
@@ -32,11 +33,12 @@ export class LotesDetalhesComponent implements OnInit {
   constructor(
     private loteService: LoteService,
     private formBuilderLotes: FormBuilder,
-    public validators: ValidatorField,
+    public formHelper: FormHelper,
     public bsModalRef: BsModalRef,
     private spinner: NgxSpinnerService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private routerHelper: RouterHelper,
   ) { }
 
   ngOnInit(): void
@@ -70,7 +72,7 @@ export class LotesDetalhesComponent implements OnInit {
         if (loteResponse) {
           this.toastr.success("Lote criado com sucesso", "Sucesso!")
           this.bsModalRef.hide();
-          this.reloadComponent(`/eventos/datalhe/${this.eventoId}`)
+          this.routerHelper.reloadComponent(`/eventos/datalhe/${this.eventoId}`)
         }
       },
       (error : any) => this.toastr.error(error.message, 'Error!')
@@ -85,22 +87,10 @@ export class LotesDetalhesComponent implements OnInit {
         if (response) {
           this.toastr.success("Lote removido com sucesso", "Sucesso!")
           this.bsModalRef.hide();
-          this.reloadComponent(`/eventos/datalhe/${this.eventoId}`)
+          this.routerHelper.reloadComponent(`/eventos/datalhe/${this.eventoId}`)
         }
       },
       (error : any) => this.toastr.error(error.message, 'Error!')
     ).add(() => this.spinner.hide());
-  }
-
-  public resetLotesForm() : void
-  {
-    this.formLotes.reset();
-  }
-
-  public reloadComponent(route : string) : void
-  {
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate([route]);
   }
 }

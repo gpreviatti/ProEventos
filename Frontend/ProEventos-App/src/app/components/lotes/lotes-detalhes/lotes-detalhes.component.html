@@ -28,7 +28,7 @@
                     class="form-control"
                     formControlName="nome"
                     placeholder="Lote"
-                    [ngClass]="validators.cssValidator(formLoteControls.nome)"
+                    [ngClass]="formHelper.cssValidator(formLoteControls.nome)"
                   />
                   <div *ngIf="formLoteControls.nome.errors?.required" class="invalid-feedback">
                     Required field.
@@ -49,7 +49,7 @@
                     class="form-control"
                     formControlName="quantidade"
                     placeholder="00000"
-                    [ngClass]="validators.cssValidator(formLoteControls.quantidade)"
+                    [ngClass]="formHelper.cssValidator(formLoteControls.quantidade)"
                   />
                   <div *ngIf="formLoteControls.quantidade.errors?.required" class="invalid-feedback">
                     Required field.
@@ -67,7 +67,7 @@
                     class="form-control"
                     formControlName="preco"
                     placeholder="R$ 0,00"
-                    [ngClass]="validators.cssValidator(formLoteControls.preco)"
+                    [ngClass]="formHelper.cssValidator(formLoteControls.preco)"
                   />
                   <div *ngIf="formLoteControls.preco.errors?.required" class="invalid-feedback">
                     Required field.
@@ -80,7 +80,7 @@
                     class="form-control"
                     formControlName="dataInicio"
                     placeholder="01/01/2019"
-                    [ngClass]="validators.cssValidator(formLoteControls.dataInicio)"
+                    [ngClass]="formHelper.cssValidator(formLoteControls.dataInicio)"
                     value="{{lote?.dataInicio | dateTimeFormat}}"
                     bsDatepicker
                     [bsConfig]="{
@@ -98,7 +98,7 @@
                     class="form-control"
                     formControlName="dataFim"
                     placeholder="01/03/2019"
-                    [ngClass]="validators.cssValidator(formLoteControls.dataFim)"
+                    [ngClass]="formHelper.cssValidator(formLoteControls.dataFim)"
                     value="{{lote?.dataFim | dateTimeFormat}}"
                     bsDatepicker
                     [bsConfig]="{
@@ -123,7 +123,7 @@
                 </button>
                 <button
                   class="btn btn-warning col-lg-3 m-1"
-                  (click)="resetLotesForm()"
+                  (click)="formHelper.resetForm(formLotes)"
                 >
                   Limpar
                 </button>
