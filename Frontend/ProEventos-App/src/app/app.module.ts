@@ -31,8 +31,8 @@ import { NotfoundComponent } from './components/notfound/notfound.component';
 
 import { EventoService } from './services/evento.service';
 import { LoteService } from './services/lote.service';
-
 import { ValidatorField } from './helpers/ValidatorField';
+
 import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
 import { LotesDetalhesComponent } from './components/lotes/lotes-detalhes/lotes-detalhes.component';
 

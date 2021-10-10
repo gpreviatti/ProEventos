@@ -59,14 +59,18 @@ export class LotesDetalhesComponent implements OnInit {
       return
     }
 
-    this.lote = {...this.formLotes.value}
-    console.log(this.lote)
-    this.loteService.put(this.eventoId, this.lote).subscribe(
-      (lote : Lote) => {
-        if (lote) {
+    let lote = {...this.formLotes.value} as Lote
+    lote.eventoId = this.eventoId;
+
+    if (this.lote.id != undefined) {}
+      lote.id = this.lote.id;
+
+    this.loteService.put(lote.eventoId, lote).subscribe(
+      (loteResponse : Lote) => {
+        if (loteResponse) {
           this.toastr.success("Lote criado com sucesso", "Sucesso!")
           this.bsModalRef.hide();
-          this.router.navigate([`/eventos/datalhe/${this.eventoId}`]);
+          this.reloadComponent(`/eventos/datalhe/${this.eventoId}`)
         }
       },
       (error : any) => this.toastr.error(error.message, 'Error!')
@@ -81,7 +85,7 @@ export class LotesDetalhesComponent implements OnInit {
         if (response) {
           this.toastr.success("Lote removido com sucesso", "Sucesso!")
           this.bsModalRef.hide();
-          this.router.navigate([`/eventos/datalhe/${this.lote.eventoId}`]);
+          this.reloadComponent(`/eventos/datalhe/${this.eventoId}`)
         }
       },
       (error : any) => this.toastr.error(error.message, 'Error!')
@@ -93,4 +97,10 @@ export class LotesDetalhesComponent implements OnInit {
     this.formLotes.reset();
   }
 
+  public reloadComponent(route : string) : void
+  {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([route]);
+  }
 }

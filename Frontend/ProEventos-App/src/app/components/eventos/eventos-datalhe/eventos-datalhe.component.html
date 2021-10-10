@@ -4,8 +4,13 @@
       <label class="text">Tema</label>
       <div class="form-row">
         <div class="form-group col-md-12">
-          <input type="text" [ngClass]="validators.cssValidator(formControls.tema)" class="form-control"
-            formControlName="tema" placeholder="Insira o Tema">
+          <input
+            type="text"
+            placeholder="Insira o Tema"
+            [ngClass]="validators.cssValidator(formControls.tema)"
+            class="form-control"
+            formControlName="tema"
+          >
           <div *ngIf="formControls.tema.errors?.required" class="invalid-feedback">
             Required field.
           </div>
@@ -23,21 +28,32 @@
       <div class="form-row">
         <div class="form-group col-md-8">
           <label>Local</label>
-          <input type="text" class="form-control" [ngClass]="validators.cssValidator(formControls.local)"
-            formControlName="local" placeholder="">
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="validators.cssValidator(formControls.local)"
+            formControlName="local"
+          >
           <div class="invalid-feedback">
             Required field.
           </div>
         </div>
         <div class="form-group col-md-4">
           <label>Data e Hora</label>
-          <input type="text" class="form-control" [ngClass]="validators.cssValidator(formControls.dataEvento)"
-            formControlName="dataEvento" bsDatepicker value="{{evento?.dataEvento | dateTimeFormat}}" [bsConfig]="{
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="validators.cssValidator(formControls.dataEvento)"
+            formControlName="dataEvento"
+            value="{{evento?.dataEvento | dateTimeFormat}}"
+            bsDatepicker
+            [bsConfig]="{
               adaptivePosition: true,
               dateInputFormat: 'DD/MM/YYYY hh:mm a',
               containerClass: 'bg-dark text-light',
               showWeekNumbers: false
-            }" tooltip="">
+            }"
+          >
           <div class="invalid-feedback">
             Required field.
           </div>
@@ -47,8 +63,13 @@
       <div class="form-row">
         <div class="form-group col-md-2">
           <label>Quantidade Pessoas</label>
-          <input type="text" class="form-control" [ngClass]="validators.cssValidator(formControls.qtdPessoas)"
-            formControlName="qtdPessoas" placeholder="">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="99999"
+            [ngClass]="validators.cssValidator(formControls.qtdPessoas)"
+            formControlName="qtdPessoas"
+          >
           <div *ngIf="formControls.qtdPessoas.errors?.required" class="invalid-feedback">
             Required field.
           </div>
@@ -58,16 +79,26 @@
         </div>
         <div class="form-group col-md-2">
           <label>Telefone</label>
-          <input type="phone" class="form-control" [ngClass]="validators.cssValidator(formControls.telefone)"
-            formControlName="telefone" placeholder="(000) 90000-0000">
+          <input
+            type="phone"
+            class="form-control"
+            placeholder="(000) 90000-0000"
+            [ngClass]="validators.cssValidator(formControls.telefone)"
+            formControlName="telefone"
+          >
           <div class="invalid-feedback">
             Required field.
           </div>
         </div>
         <div class="form-group col-md-4">
           <label>Email</label>
-          <input type="email" class="form-control" [ngClass]="validators.cssValidator(formControls.email)"
-            formControlName="email" placeholder="e-mail">
+          <input
+            type="email"
+            class="form-control"
+            placeholder="e-mail"
+            [ngClass]="validators.cssValidator(formControls.email)"
+            formControlName="email"
+          >
           <div *ngIf="formControls.email.errors?.required" class="invalid-feedback">
             Required field.
           </div>

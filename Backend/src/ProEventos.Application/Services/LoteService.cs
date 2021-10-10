@@ -28,7 +28,7 @@ namespace ProEventos.Application
             return await _loteRepository.Add(lote);
         }
 
-        public async Task<LoteDto[]> Salvar(int eventoId, LoteDto lote)
+        public async Task<LoteDto> Salvar(int eventoId, LoteDto lote)
         {
             if (lote.Id == 0)
             {
@@ -48,9 +48,7 @@ namespace ProEventos.Application
                 await _loteRepository.Update(loteEntity);
             }
 
-            var loteRetorno = await _loteRepository.GetLotesByEventoIdAsync(eventoId);
-
-            return _mapper.Map<LoteDto[]>(loteRetorno);
+            return lote;
         }
 
         public async Task<bool> Deletar(int eventoId, int loteId)

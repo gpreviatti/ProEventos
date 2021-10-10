@@ -83,8 +83,13 @@ export class EventosDatalheComponent implements OnInit
 
     this.eventoService[this.eventoId ? 'put' : 'post'](this.evento).subscribe(
       (evento : Evento) => {
-        this.toastr.success(`Evento ${evento.tema} cadastrado/alterado com sucesso`, 'Sucesso');
+        let message = 'cadastrado'
+        if (this.eventoId != undefined)
+          message = 'alterado';
+
+        this.toastr.success(`Evento ${evento.tema} ${message} com sucesso`, 'Sucesso');
         this.evento.id = evento.id;
+        this.reloadComponent(`/eventos/datalhe/${evento.id}`);
       },
       (error : any) => this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento'),
     ).add(() => this.spinner.hide())
@@ -112,7 +117,7 @@ export class EventosDatalheComponent implements OnInit
       (result: boolean) => {
         if(result) {
           this.showSuccess(`Evento de ${this.temaAtual} deletado com Sucesso!`);
-          this.router.navigate(['/eventos']);
+          this.reloadComponent('/eventos');
         }
       },
       (error : any) => this.toastr.error(error.errors, 'Erro ao deletar evento'),
@@ -138,5 +143,12 @@ export class EventosDatalheComponent implements OnInit
       LotesDetalhesComponent,
       {initialState}
     );
+  }
+
+  public reloadComponent(route : string) : void
+  {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([route]);
   }
 }

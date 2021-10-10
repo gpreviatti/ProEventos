@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <legend class="modal-title pull-left">
-        <i class="fa fa-money-bill" aria-hidden="true"></i>
+        <i class="fa fa-money-bill mr-3" aria-hidden="true"></i>
         Lotes
       </legend>
       <button
@@ -21,7 +21,7 @@
           <div>
             <form [formGroup]="formLotes">
               <div class="row">
-                <div class="form-group col-md-8">
+                <div class="form-group col-md-12">
                   <label>Nome</label>
                   <input
                     type="text"
@@ -42,7 +42,7 @@
                     Max length 100 caracters.
                   </div>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                   <label>Quantidade</label>
                   <input
                     type="number"
@@ -59,7 +59,7 @@
                     Max length 99999 caracters.
                   </div>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                   <label>Preço</label>
                   <input
                     type="money"
@@ -73,24 +73,40 @@
                     Required field.
                   </div>
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                   <label>Data Início</label>
                   <input
-                    type="date-time"
+                    type="text"
                     class="form-control"
                     formControlName="dataInicio"
                     placeholder="01/01/2019"
                     [ngClass]="validators.cssValidator(formLoteControls.dataInicio)"
+                    value="{{lote?.dataInicio | dateTimeFormat}}"
+                    bsDatepicker
+                    [bsConfig]="{
+                      adaptivePosition: true,
+                      dateInputFormat: 'DD/MM/YYYY hh:mm a',
+                      containerClass: 'bg-dark text-light',
+                      showWeekNumbers: false
+                    }"
                   />
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-6">
                   <label>Data Fim</label>
                   <input
-                    type="date-time"
+                    type="text"
                     class="form-control"
                     formControlName="dataFim"
-                    placeholder="01/01/2019"
+                    placeholder="01/03/2019"
                     [ngClass]="validators.cssValidator(formLoteControls.dataFim)"
+                    value="{{lote?.dataFim | dateTimeFormat}}"
+                    bsDatepicker
+                    [bsConfig]="{
+                      adaptivePosition: true,
+                      dateInputFormat: 'DD/MM/YYYY hh:mm a',
+                      containerClass: 'bg-dark text-light',
+                      showWeekNumbers: false
+                    }"
                   />
                 </div>
                 <div class="form-group col-md-4">
