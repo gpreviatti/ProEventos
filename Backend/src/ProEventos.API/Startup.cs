@@ -61,8 +61,13 @@ namespace ProEventos.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProEventos.API v1"));
+                app.UseSwaggerUI(c => {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ProEventos.API v1");
+                    c.InjectStylesheet("/swagger-ui/SwaggerDark.css");
+                });
             }
+
+            app.UseStaticFiles();
 
             app.UseHttpsRedirection();
 

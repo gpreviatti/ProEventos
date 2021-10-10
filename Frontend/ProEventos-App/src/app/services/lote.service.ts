@@ -15,9 +15,14 @@ export class LoteService {
     return this.http.get<Lote[]>(`${this.baseUrl}/${eventoId}`);
   }
 
-  public put(eventoId : number, lotes : Lote[]) : Observable<Lote[]>
+  public getByEventoByIdAndLoteId(eventoId : number, loteId : number) : Observable<Lote>
   {
-    return this.http.put<Lote[]>(`${this.baseUrl}/${eventoId}`, lotes);
+    return this.http.get<Lote>(`${this.baseUrl}/${eventoId}/${loteId}`);
+  }
+
+  public put(eventoId : number, lote : Lote) : Observable<Lote>
+  {
+    return this.http.put<Lote>(`${this.baseUrl}/${eventoId}`, lote);
   }
 
   public delete(eventoId : number, id : number) : Observable<boolean>

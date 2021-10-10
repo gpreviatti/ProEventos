@@ -37,11 +37,11 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpPut("{eventoId}")]
-        public async Task<IActionResult> SaveLotes(int eventoId, LoteDto[] models)
+        public async Task<IActionResult> SaveLotes(int eventoId, LoteDto lote)
         {
             try
             {
-                var lotes = await _loteService.SaveLotes(eventoId, models);
+                var lotes = await _loteService.Salvar(eventoId, lote);
                 if (lotes == null) return NoContent();
 
                 return Created("",lotes);
@@ -63,7 +63,7 @@ namespace ProEventos.API.Controllers
                 var lote = await _loteService.GetLoteByIdsAsync(eventoId, loteId);
                 if (lote == null) return NoContent();
 
-                return await _loteService.DeleteLote(lote.EventoId, lote.Id) 
+                return await _loteService.Deletar(lote.EventoId, lote.Id) 
                        ? Ok(new { message = "Lote Deletado" }) 
                        : throw new Exception("Ocorreu um problem não específico ao tentar deletar Lote.");
             }

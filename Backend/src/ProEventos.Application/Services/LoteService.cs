@@ -28,26 +28,24 @@ namespace ProEventos.Application
             return await _loteRepository.Add(lote);
         }
 
-        public async Task<LoteDto[]> SaveLotes(int eventoId, LoteDto[] models)
+        public async Task<LoteDto[]> Salvar(int eventoId, LoteDto lote)
         {
-            var lotes = await _loteRepository.GetLotesByEventoIdAsync(eventoId);
-            if (lotes == null) return null;
-
-            foreach (var model in models)
+            if (lote.Id == 0)
             {
-                if (model.Id == 0)
-                {
-                    await AddLote(eventoId, model);
-                }
-                else
-                {
-                    var lote = lotes.FirstOrDefault(lote => lote.Id == model.Id);
-                    model.EventoId = eventoId;
+                await AddLote(eventoId, lote);
+            }
+            else
+            {
+                var lotes = await _loteRepository
+                    .GetLotesByEventoIdAsync(eventoId);
+                if (lotes == null) return null;
 
-                    _mapper.Map(model, lote);
+                var loteEntity = lotes.FirstOrDefault(lote => lote.Id == lote.Id);
+                lote.EventoId = eventoId;
 
-                    await _loteRepository.Update(lote);
-                }
+                loteEntity = _mapper.Map<Lote>(lote);
+
+                await _loteRepository.Update(loteEntity);
             }
 
             var loteRetorno = await _loteRepository.GetLotesByEventoIdAsync(eventoId);
@@ -55,7 +53,7 @@ namespace ProEventos.Application
             return _mapper.Map<LoteDto[]>(loteRetorno);
         }
 
-        public async Task<bool> DeleteLote(int eventoId, int loteId)
+        public async Task<bool> Deletar(int eventoId, int loteId)
         {
             var lote = await _loteRepository.GetLoteByIdsAsync(eventoId, loteId);
             if (lote == null) throw new Exception("Lote para delete não encontrado.");

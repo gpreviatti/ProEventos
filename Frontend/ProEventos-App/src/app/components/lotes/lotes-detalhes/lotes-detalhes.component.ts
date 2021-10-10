@@ -60,9 +60,9 @@ export class LotesDetalhesComponent implements OnInit {
     }
 
     this.lote = {...this.formLotes.value}
-
-    this.loteService.put(this.eventoId, [this.lote]).subscribe(
-      (lote : Lote[]) => {
+    console.log(this.lote)
+    this.loteService.put(this.eventoId, this.lote).subscribe(
+      (lote : Lote) => {
         if (lote) {
           this.toastr.success("Lote criado com sucesso", "Sucesso!")
           this.bsModalRef.hide();
