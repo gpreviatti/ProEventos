@@ -33,9 +33,9 @@ import { EventoService } from './services/evento.service';
 import { LoteService } from './services/lote.service';
 import { FormHelper } from './helpers/FormHelper';
 
-import { DateTimeFormatPipe } from './helpers/date-time-format.pipe';
 import { LotesDetalhesComponent } from './components/lotes/lotes-detalhes/lotes-detalhes.component';
 import { RouterHelper } from './helpers/RouterHelper';
+import { NgxCurrencyModule } from 'ngx-currency';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,6 @@ import { RouterHelper } from './helpers/RouterHelper';
     EventosListaComponent,
     PalestrantesComponent,
     NavComponent,
-    DateTimeFormatPipe,
     TituloComponent,
     ContatoComponent,
     PerfilComponent,
@@ -65,6 +64,7 @@ import { RouterHelper } from './helpers/RouterHelper';
     HttpClientModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    NgxCurrencyModule,
     CollapseModule.forRoot(),
     TooltipModule.forRoot(),
     BsDropdownModule.forRoot(),

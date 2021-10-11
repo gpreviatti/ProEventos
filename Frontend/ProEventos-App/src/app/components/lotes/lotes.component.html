@@ -21,12 +21,12 @@
         style="cursor: pointer;"
         (click)="detalhar(lote)"
       >
-        <td scope="row" class="d-none d-md-table-cell">{{lote.id}}</td>
+        <td>{{lote.id}}</td>
         <td>{{lote.nome }}</td>
         <td>{{lote.quantidade}}</td>
-        <td>{{lote.preco}}</td>
-        <td class="d-none d-md-table-cell">{{lote.dataInicio}}</td>
-        <td class="d-none d-md-table-cell">{{lote.dataFim}}</td>
+        <td>{{lote.preco | currency: 'BRL' }}</td>
+        <td class="d-none d-md-table-cell">{{lote.dataInicio | date:'short' }}</td>
+        <td class="d-none d-md-table-cell">{{lote.dataFim | date:'short' }}</td>
       </tr>
     </tbody>
     <tfoot *ngIf="!lotes.length" class="text-center">

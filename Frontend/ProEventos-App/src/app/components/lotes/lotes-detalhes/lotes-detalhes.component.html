@@ -62,11 +62,11 @@
                 <div class="form-group col-md-6">
                   <label>Preço</label>
                   <input
-                    type="money"
-                    currencyMask
                     class="form-control"
                     formControlName="preco"
                     placeholder="R$ 0,00"
+                    currencyMask
+                    [options]="{prefix: 'R$ ', thousands: '.', decimal: ',', align: 'left' }"
                     [ngClass]="formHelper.cssValidator(formLoteControls.preco)"
                   />
                   <div *ngIf="formLoteControls.preco.errors?.required" class="invalid-feedback">
@@ -81,12 +81,11 @@
                     formControlName="dataInicio"
                     placeholder="01/01/2019"
                     [ngClass]="formHelper.cssValidator(formLoteControls.dataInicio)"
-                    value="{{lote?.dataInicio | dateTimeFormat}}"
+                    value="{{lote?.dataInicio | date:'short'}}"
                     bsDatepicker
                     [bsConfig]="{
                       adaptivePosition: true,
                       dateInputFormat: 'DD/MM/YYYY hh:mm a',
-                      containerClass: 'bg-dark text-light',
                       showWeekNumbers: false
                     }"
                   />
@@ -99,12 +98,11 @@
                     formControlName="dataFim"
                     placeholder="01/03/2019"
                     [ngClass]="formHelper.cssValidator(formLoteControls.dataFim)"
-                    value="{{lote?.dataFim | dateTimeFormat}}"
+                    value="{{lote?.dataFim | date:'short'}}"
                     bsDatepicker
                     [bsConfig]="{
                       adaptivePosition: true,
                       dateInputFormat: 'DD/MM/YYYY hh:mm a',
-                      containerClass: 'bg-dark text-light',
                       showWeekNumbers: false
                     }"
                   />

@@ -45,12 +45,11 @@
             class="form-control"
             [ngClass]="formHelper.cssValidator(formControls.dataEvento)"
             formControlName="dataEvento"
-            value="{{evento?.dataEvento | dateTimeFormat}}"
+            value="{{evento?.dataEvento | date:'short'}}"
             bsDatepicker
             [bsConfig]="{
               adaptivePosition: true,
               dateInputFormat: 'DD/MM/YYYY hh:mm a',
-              containerClass: 'bg-dark text-light',
               showWeekNumbers: false
             }"
           >
