@@ -9,6 +9,7 @@ import { EventoService } from '@app/services/evento.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-eventos-datalhe',
@@ -19,6 +20,7 @@ export class EventosDatalheComponent implements OnInit
 {
   public bsModalRef?: BsModalRef;
   public eventoId : any;
+  public file : any;
   public imageUrl = 'assets/upload.png';
 
   constructor(
@@ -46,7 +48,7 @@ export class EventosDatalheComponent implements OnInit
     qtdPessoas: ['', [Validators.required, Validators.max(120000)]],
     telefone: ['', Validators.required ],
     email: ['', [Validators.required, Validators.email]],
-    imagemURL: ['', Validators.required ]
+    imagemURL: ['']
   });
 
   public formControls = this.form.controls;
@@ -61,6 +63,9 @@ export class EventosDatalheComponent implements OnInit
           (evento: Evento) => {
             this.evento = {...evento}
             this.form.patchValue(this.evento);
+            if(this.evento.imagemURL !== '') {
+              this.imageUrl = environment.apiUrl + 'Resources/Images/' + this.evento.imagemURL
+            }
           },
           (error : any) => {
             this.toastr.error(error?.message, 'Erro ao carregar evento')
@@ -91,7 +96,7 @@ export class EventosDatalheComponent implements OnInit
 
         this.toastr.success(`Evento ${evento.tema} ${message} com sucesso`, 'Sucesso');
         this.evento.id = evento.id;
-        this.routerHelper.reloadComponent(`/eventos/datalhe/${evento.id}`);
+        this.routerHelper.reloadComponent(`/eventos/detalhe/${evento.id}`);
       },
       (error : any) => this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento'),
     ).add(() => this.spinner.hide())
@@ -117,9 +122,8 @@ export class EventosDatalheComponent implements OnInit
           this.routerHelper.reloadComponent('/eventos');
         }
       },
-      (error : any) => this.toastr.error(error.errors, 'Erro ao deletar evento'),
-      () => this.spinner.hide()
-    );
+      (error : any) => this.toastr.error(error.errors, 'Erro ao deletar evento')
+    ).add(() => this.spinner.hide());
   }
 
   public decline(): void {
@@ -140,5 +144,31 @@ export class EventosDatalheComponent implements OnInit
       LotesDetalhesComponent,
       {initialState}
     );
+  }
+
+  // Evento para atualizar a imagem
+  public onFileChange(event: any) : void
+  {
+    const reader = new FileReader();
+
+    reader.onload = (e : any) => this.imageUrl = e.target.result;
+
+    this.file = event.target.files;
+    reader.readAsDataURL(this.file[0]);
+
+    this.uploadImage()
+  }
+
+  public uploadImage() : void
+  {
+    this.spinner.show();
+
+    this.eventoService.postUpload(this.eventoId, this.file).subscribe(
+      () => {
+        this.routerHelper.reloadComponent(`/eventos/detalhe/${this.eventoId}`);
+        this.showSuccess(`Imagem inserida com sucesso!`)
+      },
+      (error : any) => this.toastr.error(error.errors, 'Erro ao inserir imagem')
+    ).add(() => this.spinner.hide());
   }
 }

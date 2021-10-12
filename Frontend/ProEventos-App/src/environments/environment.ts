@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  appName: 'Pro Eventos'
+  appName: 'Pro Eventos',
+  apiUrl: 'https://localhost:5001/'
 };
 
 /*

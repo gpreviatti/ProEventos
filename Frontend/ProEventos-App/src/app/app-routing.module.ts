@@ -28,8 +28,8 @@ const routes: Routes = [
   {
     path: 'eventos', component: EventosComponent,
     children: [
-      { path: 'datalhe/:id', component: EventosDatalheComponent },
-      { path: 'datalhe', component: EventosDatalheComponent },
+      { path: 'detalhe/:id', component: EventosDatalheComponent },
+      { path: 'detalhe', component: EventosDatalheComponent },
       { path: 'lista', component: EventosListaComponent },
     ]
   },

@@ -72,7 +72,7 @@ export class LotesDetalhesComponent implements OnInit {
         if (loteResponse) {
           this.toastr.success("Lote criado com sucesso", "Sucesso!")
           this.bsModalRef.hide();
-          this.routerHelper.reloadComponent(`/eventos/datalhe/${this.eventoId}`)
+          this.routerHelper.reloadComponent(`/eventos/detalhe/${this.eventoId}`)
         }
       },
       (error : any) => this.toastr.error(error.message, 'Error!')
@@ -87,7 +87,7 @@ export class LotesDetalhesComponent implements OnInit {
         if (response) {
           this.toastr.success("Lote removido com sucesso", "Sucesso!")
           this.bsModalRef.hide();
-          this.routerHelper.reloadComponent(`/eventos/datalhe/${this.eventoId}`)
+          this.routerHelper.reloadComponent(`/eventos/detalhe/${this.eventoId}`)
         }
       },
       (error : any) => this.toastr.error(error.message, 'Error!')

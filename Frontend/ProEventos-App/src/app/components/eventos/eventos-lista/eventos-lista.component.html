@@ -12,7 +12,7 @@
       </div>
 
       <div class="col-lg-4 mt-1">
-        <a class="btn btn-primary btn-block" routerLink="/eventos/datalhe">
+        <a class="btn btn-primary btn-block" routerLink="/eventos/detalhe">
           novo
         </a>
       </div>
@@ -48,7 +48,7 @@
           <img
             [collapse]="showImg"
             [isAnimated]="true"
-            src="/assets/{{evento.imagemURL}}"
+            [src]="showImage(evento.imagemURL)"
             alt="{{evento.imagemURL}}"
             [style.width.px]="widthImg"
             [style.margin.px]="marginImg"

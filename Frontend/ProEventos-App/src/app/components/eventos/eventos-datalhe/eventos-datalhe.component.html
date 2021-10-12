@@ -13,6 +13,7 @@
                 type="text"
                 placeholder="Insira o Tema"
                 [ngClass]="formHelper.cssValidator(formControls.tema)"
+                [(ngModel)]="evento.tema"
                 class="form-control"
                 formControlName="tema"
               >
@@ -37,6 +38,7 @@
                 type="text"
                 class="form-control"
                 [ngClass]="formHelper.cssValidator(formControls.local)"
+                [(ngModel)]="evento.local"
                 formControlName="local"
               >
               <div class="invalid-feedback">
@@ -51,6 +53,7 @@
                 [ngClass]="formHelper.cssValidator(formControls.dataEvento)"
                 formControlName="dataEvento"
                 value="{{evento?.dataEvento | date:'short'}}"
+                [(ngModel)]="evento.dataEvento"
                 bsDatepicker
                 [bsConfig]="{
                   adaptivePosition: true,
@@ -65,7 +68,7 @@
           </div>
 
           <div class="form-row">
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <label>Quantidade Pessoas</label>
               <input
                 type="text"
@@ -81,26 +84,28 @@
                 Shouldn't greater than 120000.
               </div>
             </div>
-            <div class="form-group col-md-2">
+            <div class="form-group col-md-3">
               <label>Telefone</label>
               <input
                 type="phone"
                 class="form-control"
                 placeholder="(000) 90000-0000"
                 [ngClass]="formHelper.cssValidator(formControls.telefone)"
+                [(ngModel)]="evento.telefone"
                 formControlName="telefone"
               >
               <div class="invalid-feedback">
                 Required field.
               </div>
             </div>
-            <div class="form-group col-md-4">
+            <div class="form-group col-md-6">
               <label>Email</label>
               <input
                 type="email"
                 class="form-control"
                 placeholder="e-mail"
                 [ngClass]="formHelper.cssValidator(formControls.email)"
+                [(ngModel)]="evento.email"
                 formControlName="email"
               >
               <div *ngIf="formControls.email.errors?.required" class="invalid-feedback">
@@ -108,17 +113,6 @@
               </div>
               <div *ngIf="formControls.email.errors?.email" class="invalid-feedback">
                 Invalid format.
-              </div>
-            </div>
-            <div class="form-group col-md-4">
-              <label>Imagem</label>
-              <input
-                type="text"
-                class="form-control"
-                [ngClass]="formHelper.cssValidator(formControls.imagemURL)"
-                formControlName="imagemURL">
-              <div class="invalid-feedback">
-                Required field.
               </div>
             </div>
           </div>
@@ -165,6 +159,7 @@
           <input
             type="file"
             #file
+            (change)="onFileChange($event)"
             class="form-control is-invalid"
             style="display: none"
           >
@@ -199,6 +194,8 @@
           <b>Contatos</b>
           <br>
           <small class="text-muted"> Telefone: {{evento.telefone}}</small>
+          <br>
+          <small class="text-muted"> Email: {{evento.email}}</small>
         </p>
       </div>
     </div>

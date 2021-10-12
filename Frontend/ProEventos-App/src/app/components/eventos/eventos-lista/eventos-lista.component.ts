@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from '@app/models/Evento';
 import { EventoService } from '@app/services/evento.service';
+import { environment } from '@environments/environment';
 
 @Component({
   selector: 'app-eventos-lista',
@@ -17,7 +18,7 @@ export class EventosListaComponent implements OnInit {
   public eventosFiltrados: Evento[] = [];
   public evento = {} as Evento;
   public eventos: Evento[] = [];
-  public widthImg: number = 150;
+  public widthImg: number = 100;
   public marginImg: number = 2;
   public showImg: boolean = true;
   public temaAtual: string = '';
@@ -74,6 +75,12 @@ export class EventosListaComponent implements OnInit {
 
   public detalheEvento(id : number) :void
   {
-    this.router.navigate([`/eventos/datalhe/${id}`])
+    this.router.navigate([`/eventos/detalhe/${id}`])
+  }
+
+  public showImage(imagemURL : any) {
+    if (imagemURL === '')
+      return '/assets/upload.png'
+    return environment.apiUrl + 'Resources/Images/' + imagemURL
   }
 }
