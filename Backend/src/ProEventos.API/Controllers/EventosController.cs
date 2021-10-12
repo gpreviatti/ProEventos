@@ -102,8 +102,10 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar adicionar eventos. Erro: {ex.Message}");
+                return this.StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar adicionar eventos. Erro: {ex.Message}"
+                );
             }
         }
 
@@ -176,12 +178,15 @@ namespace ProEventos.API.Controllers
         private async Task<string> SaveImage(IFormFile imageFile)
         {
             string imageName = new string(
-                Path.GetFileNameWithoutExtension(imageFile.FileName).Take(10).ToArray()
+                Path
+                .GetFileNameWithoutExtension(imageFile.FileName)
+                .Take(10)
+                .ToArray()
             ).Replace(' ', '-');
 
             imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
 
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imageName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Images", imageName);
 
             using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
@@ -193,7 +198,7 @@ namespace ProEventos.API.Controllers
 
         private void DeleteImage(string imageName)
         {
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/images", imageName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Images", imageName);
             if (System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
         }

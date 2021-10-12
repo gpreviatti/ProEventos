@@ -19,6 +19,7 @@ export class EventosDatalheComponent implements OnInit
 {
   public bsModalRef?: BsModalRef;
   public eventoId : any;
+  public imageUrl = 'assets/upload.png';
 
   constructor(
     private formBuilder: FormBuilder,

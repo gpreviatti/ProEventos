@@ -1,156 +1,210 @@
-<div class="card shadow-sm">
-  <form [formGroup]="form">
-    <div class="p-3">
-      <label class="text">Tema</label>
-      <div class="form-row">
-        <div class="form-group col-md-12">
-          <input
-            type="text"
-            placeholder="Insira o Tema"
-            [ngClass]="formHelper.cssValidator(formControls.tema)"
-            class="form-control"
-            formControlName="tema"
-          >
-          <div *ngIf="formControls.tema.errors?.required" class="invalid-feedback">
-            Required field.
+<div class="row">
+  <div
+    class="p-0"
+    [ngClass]="{'col-md-8 pr-4' : eventoId,  'col-md-12' : !eventoId}"
+  >
+    <div class="card shadow-sm">
+      <form [formGroup]="form">
+        <div class="p-3">
+          <label class="text">Tema</label>
+          <div class="form-row">
+            <div class="form-group col-md-12">
+              <input
+                type="text"
+                placeholder="Insira o Tema"
+                [ngClass]="formHelper.cssValidator(formControls.tema)"
+                class="form-control"
+                formControlName="tema"
+              >
+              <div *ngIf="formControls.tema.errors?.required" class="invalid-feedback">
+                Required field.
+              </div>
+
+              <div *ngIf="formControls.tema.errors?.minlength" class="invalid-feedback">
+                Minimum length 4 caracters.
+              </div>
+
+              <div *ngIf="formControls.tema.errors?.max" class="invalid-feedback">
+                Max length 50 caracters.
+              </div>
+            </div>
           </div>
 
-          <div *ngIf="formControls.tema.errors?.minlength" class="invalid-feedback">
-            Minimum length 4 caracters.
+          <div class="form-row">
+            <div class="form-group col-md-8">
+              <label>Local</label>
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="formHelper.cssValidator(formControls.local)"
+                formControlName="local"
+              >
+              <div class="invalid-feedback">
+                Required field.
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Data e Hora</label>
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="formHelper.cssValidator(formControls.dataEvento)"
+                formControlName="dataEvento"
+                value="{{evento?.dataEvento | date:'short'}}"
+                bsDatepicker
+                [bsConfig]="{
+                  adaptivePosition: true,
+                  dateInputFormat: 'DD/MM/YYYY hh:mm a',
+                  showWeekNumbers: false
+                }"
+              >
+              <div class="invalid-feedback">
+                Required field.
+              </div>
+            </div>
           </div>
 
-          <div *ngIf="formControls.tema.errors?.max" class="invalid-feedback">
-            Max length 50 caracters.
+          <div class="form-row">
+            <div class="form-group col-md-2">
+              <label>Quantidade Pessoas</label>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="99999"
+                [ngClass]="formHelper.cssValidator(formControls.qtdPessoas)"
+                formControlName="qtdPessoas"
+              >
+              <div *ngIf="formControls.qtdPessoas.errors?.required" class="invalid-feedback">
+                Required field.
+              </div>
+              <div *ngIf="formControls.qtdPessoas.errors?.max" class="invalid-feedback">
+                Shouldn't greater than 120000.
+              </div>
+            </div>
+            <div class="form-group col-md-2">
+              <label>Telefone</label>
+              <input
+                type="phone"
+                class="form-control"
+                placeholder="(000) 90000-0000"
+                [ngClass]="formHelper.cssValidator(formControls.telefone)"
+                formControlName="telefone"
+              >
+              <div class="invalid-feedback">
+                Required field.
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Email</label>
+              <input
+                type="email"
+                class="form-control"
+                placeholder="e-mail"
+                [ngClass]="formHelper.cssValidator(formControls.email)"
+                formControlName="email"
+              >
+              <div *ngIf="formControls.email.errors?.required" class="invalid-feedback">
+                Required field.
+              </div>
+              <div *ngIf="formControls.email.errors?.email" class="invalid-feedback">
+                Invalid format.
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label>Imagem</label>
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="formHelper.cssValidator(formControls.imagemURL)"
+                formControlName="imagemURL">
+              <div class="invalid-feedback">
+                Required field.
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div class="form-row">
-        <div class="form-group col-md-8">
-          <label>Local</label>
-          <input
-            type="text"
-            class="form-control"
-            [ngClass]="formHelper.cssValidator(formControls.local)"
-            formControlName="local"
-          >
-          <div class="invalid-feedback">
-            Required field.
-          </div>
         </div>
-        <div class="form-group col-md-4">
-          <label>Data e Hora</label>
-          <input
-            type="text"
-            class="form-control"
-            [ngClass]="formHelper.cssValidator(formControls.dataEvento)"
-            formControlName="dataEvento"
-            value="{{evento?.dataEvento | date:'short'}}"
-            bsDatepicker
-            [bsConfig]="{
-              adaptivePosition: true,
-              dateInputFormat: 'DD/MM/YYYY hh:mm a',
-              showWeekNumbers: false
-            }"
-          >
-          <div class="invalid-feedback">
-            Required field.
-          </div>
-        </div>
-      </div>
 
-      <div class="form-row">
-        <div class="form-group col-md-2">
-          <label>Quantidade Pessoas</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="99999"
-            [ngClass]="formHelper.cssValidator(formControls.qtdPessoas)"
-            formControlName="qtdPessoas"
-          >
-          <div *ngIf="formControls.qtdPessoas.errors?.required" class="invalid-feedback">
-            Required field.
-          </div>
-          <div *ngIf="formControls.qtdPessoas.errors?.max" class="invalid-feedback">
-            Shouldn't greater than 120000.
-          </div>
-        </div>
-        <div class="form-group col-md-2">
-          <label>Telefone</label>
-          <input
-            type="phone"
-            class="form-control"
-            placeholder="(000) 90000-0000"
-            [ngClass]="formHelper.cssValidator(formControls.telefone)"
-            formControlName="telefone"
-          >
-          <div class="invalid-feedback">
-            Required field.
-          </div>
-        </div>
-        <div class="form-group col-md-4">
-          <label>Email</label>
-          <input
-            type="email"
-            class="form-control"
-            placeholder="e-mail"
-            [ngClass]="formHelper.cssValidator(formControls.email)"
-            formControlName="email"
-          >
-          <div *ngIf="formControls.email.errors?.required" class="invalid-feedback">
-            Required field.
-          </div>
-          <div *ngIf="formControls.email.errors?.email" class="invalid-feedback">
-            Invalid format.
+        <div class="card-footer">
+          <div>
+            <button
+              class="btn btn-primary col-lg-2 m-1"
+              [disabled]="!form.valid"
+              (click)="salvarAlteracao()"
+            >
+              Salvar
+            </button>
+            <button
+              *ngIf="eventoId"
+              type="button"
+              class="btn btn-secondary col-lg-2 m-1"
+              (click)="abrirModalLotes()"
+            >
+              Novo Lote
+            </button>
+            <button class="btn btn-warning col-lg-2 m-1"
+            (click)="formHelper.resetForm(form)">
+              Limpar
+            </button>
+            <button
+              class="btn btn-danger col-lg-2 m-1"
+              (click)="modalExcluirEvento($event, template, evento)"
+            >
+            Excluir
+          </button>
           </div>
         </div>
-        <div class="form-group col-md-4">
-          <label>Imagem</label>
-          <input
-            type="text"
-            class="form-control"
-            [ngClass]="formHelper.cssValidator(formControls.imagemURL)"
-            formControlName="imagemURL">
-          <div class="invalid-feedback">
-            Required field.
-          </div>
-        </div>
-      </div>
-
+      </form>
     </div>
+  </div>
 
-    <div class="card-footer">
-      <div>
-        <button
-          class="btn btn-primary col-lg-2 m-1"
-          [disabled]="!form.valid"
-          (click)="salvarAlteracao()"
-        >
-          Salvar
-        </button>
-        <button
-          *ngIf="eventoId"
-          type="button"
-          class="btn btn-secondary col-lg-2 m-1"
-          (click)="abrirModalLotes()"
-        >
-          Novo Lote
-        </button>
-        <button class="btn btn-warning col-lg-2 m-1"
-        (click)="formHelper.resetForm(form)">
-          Limpar
-        </button>
-        <button
-          class="btn btn-danger col-lg-2 m-1"
-          (click)="modalExcluirEvento($event, template, evento)"
-        >
-        Excluir
-      </button>
+  <div class="card shadow-sm col-md-4" *ngIf="eventoId != undefined">
+    <div [formGroup]="form" class="card-evento-view">
+      <div class="form-row">
+        <div class="form-group m-0">
+          <input
+            type="file"
+            #file
+            class="form-control is-invalid"
+            style="display: none"
+          >
+        </div>
+      </div>
+
+      <div class="card profile-card-2 mt-3">
+        <div class="card-img-block">
+          <img
+            class="img img-fluid"
+            (click)="file.click()"
+            alt="Card image cap"
+            width="150"
+            [src]="imageUrl"
+            tooltip="Upload de Nova Imagem"
+            [adaptivePosition]=false
+          >
+        </div>
+      </div>
+
+      <div class="card-body pt-3">
+        <h3>{{evento.tema}}</h3>
+        <p class="card-text">
+          <b>Local: </b> {{evento.local}}
+          <br>
+          <b>Data: </b> {{evento.dataEvento | date:'short' }}
+        </p>
+
+        <hr>
+
+        <p class="card-text">
+          <b>Contatos</b>
+          <br>
+          <small class="text-muted"> Telefone: {{evento.telefone}}</small>
+        </p>
       </div>
     </div>
-  </form>
+  </div>
 </div>
+
 
 <ngx-spinner bdColor="rgba(0,0,0,0.8)" size="medium" color="#fff" type="ball-scale-multiple">
   <p style="font-size: 20px; color: white">Carregando...</p>
