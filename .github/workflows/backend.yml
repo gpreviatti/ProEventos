@@ -1,0 +1,27 @@
+name: Backend CI and CD
+
+on:
+  workflow_dispatch:
+
+jobs:
+  CI:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Docker Login
+        uses: docker/login-action@v1.10.0
+        with:
+          username: ${{ secrets.DOCKERHUB_USER }}
+          password: ${{ secrets.DOCKERHUB_PWD }}
+          
+      - name: Docker Build and Push
+        uses: docker/build-push-action@v2.7.0
+        with:
+          context: ./src
+          file: ./Backend/Dockerfile
+          push: true
+          tags: |
+            giov3nn10/proeventos-backend:latest
+            giov3nn10/proeventos-backend:${{ github.run_number }} 
