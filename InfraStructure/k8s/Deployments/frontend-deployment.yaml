@@ -1,0 +1,23 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: 'pro-eventos'
+spec:
+  selector:
+    matchLabels:
+      app: frontend-deployment
+  template:
+    metadata:
+      labels:
+        app: frontend-deployment
+    spec:
+      containers:
+      - name: frontend
+        image: giov3nn10/proeventos-frontend:latest
+        resources:
+          limits:
+            memory: "512M"
+            cpu: "512M"
+        ports:
+        - containerPort: 80

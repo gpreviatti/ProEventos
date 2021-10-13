@@ -1,0 +1,23 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: 'pro-eventos'
+spec:
+  selector:
+    matchLabels:
+      app: backend-deployment
+  template:
+    metadata:
+      labels:
+        app: backend-deployment
+    spec:
+      containers:
+      - name: backend
+        image: giov3nn10/proeventos-backend:latest
+        resources:
+          limits:
+            memory: "512M"
+            cpu: "512M"
+        ports:
+        - containerPort: 80
