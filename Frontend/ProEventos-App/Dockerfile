@@ -1,7 +1,7 @@
 # Stage 1: Compile and Build angular codebase
 
 # Use official node image as the base image
-FROM node:latest as build
+FROM node:lts-alpine3.14 as build
 
 # Set the working directory
 WORKDIR /usr/local/app
@@ -19,7 +19,7 @@ RUN npm run build
 # Stage 2: Serve app with nginx server
 
 # Use official nginx image as the base image
-FROM nginx:latest
+FROM nginx:stable
 
 # Copy the build output to replace the default nginx contents.
 COPY --from=build /usr/local/app/dist/ProEventos-App /usr/share/nginx/html
