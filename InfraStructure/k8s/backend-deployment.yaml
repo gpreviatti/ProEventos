@@ -4,6 +4,7 @@ metadata:
   name: backend-deployment
   namespace: 'pro-eventos'
 spec:
+  replicas: 4
   selector:
     matchLabels:
       app: backend-deployment
