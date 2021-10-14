@@ -23,15 +23,15 @@ Criar uma aplicação para controle de eventos utilizando as tecnologias a segui
 
 #### FrontEnd
 
-- Angular 11
+- Angular 12
 - Reactive Forms
 - Ngx Bootstrap
 - Fontawesome
 - Interpolação, Diretivas e Binding
-- Eventos
-- Cors
 
 ### Diagramas
+
+wip
 
 #### MER/DER
 
