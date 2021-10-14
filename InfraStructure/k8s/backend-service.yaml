@@ -7,6 +7,6 @@ spec:
   selector:
     app: backend-deployment
   ports:
-  - port: 80
-    targetPort: 5001
+  - port: 5000
+    targetPort: 5000
   type: ClusterIP
