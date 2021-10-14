@@ -13,7 +13,7 @@ import { LotesDetalhesComponent } from './lotes-detalhes/lotes-detalhes.componen
 })
 export class LotesComponent implements OnInit {
   public bsModalRef?: BsModalRef;
-  public lotes = [] as Lote[]
+  public lotes = [] as Lote[];
 
   constructor(
     private loteService: LoteService,
@@ -23,22 +23,19 @@ export class LotesComponent implements OnInit {
   ) { }
 
   @Input() eventoId = 0;
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
     this.carregar();
   }
 
-  public carregar() : void
-  {
+  public carregar(): void {
     this.spinner.show();
     this.loteService.getByEventoById(this.eventoId).subscribe(
-      (lotes : Lote[]) => this.lotes = lotes,
+      (lotes: Lote[]) => this.lotes = lotes,
       (error: any) => this.toastr.error(error.message, 'Erro!')
-    ).add(() => this.spinner.hide())
+    ).add(() => this.spinner.hide());
   }
 
-  public detalhar(lote : Lote) : void
-  {
+  public detalhar(lote: Lote): void {
     const initialState = {
       eventoId : this.eventoId,
       lote: lote
@@ -46,7 +43,6 @@ export class LotesComponent implements OnInit {
     this.bsModalRef = this.modalService.show(
       LotesDetalhesComponent,
       { initialState }
-    )
+    );
   }
-
 }

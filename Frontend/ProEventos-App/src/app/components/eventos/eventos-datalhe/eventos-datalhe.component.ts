@@ -16,28 +16,22 @@ import { environment } from '@environments/environment';
   templateUrl: './eventos-datalhe.component.html',
   styleUrls: ['./eventos-datalhe.component.scss']
 })
-export class EventosDatalheComponent implements OnInit
-{
-  public bsModalRef?: BsModalRef;
-  public eventoId : any;
-  public file : any;
-  public imageUrl = 'assets/upload.png';
+export class EventosDatalheComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
     public formHelper: FormHelper,
     private activatedrouter: ActivatedRoute,
-    private eventoService : EventoService,
-    private spinner : NgxSpinnerService,
+    private eventoService: EventoService,
+    private spinner: NgxSpinnerService,
     private toastr: ToastrService,
     private modalService: BsModalService,
     private routerHelper: RouterHelper
   ) { }
-
-  ngOnInit(): void
-  {
-    this.carregarEvento();
-  }
+  public bsModalRef?: BsModalRef;
+  public eventoId: any;
+  public file: any;
+  public imageUrl = 'assets/upload.png';
 
   public evento = {} as Evento;
 
@@ -53,57 +47,62 @@ export class EventosDatalheComponent implements OnInit
 
   public formControls = this.form.controls;
 
-  public carregarEvento() : void {
-    this.eventoId = this.activatedrouter.snapshot.paramMap.get('id')
+  //#region Modal Evento
+  public temaAtual = '';
+
+  ngOnInit(): void {
+    this.carregarEvento();
+  }
+
+  public carregarEvento(): void {
+    this.eventoId = this.activatedrouter.snapshot.paramMap.get('id');
 
     if (this.eventoId != null) {
       this.spinner.show();
       this.eventoService.getById(+this.eventoId)
         .subscribe(
           (evento: Evento) => {
-            this.evento = {...evento}
+            this.evento = {...evento};
             this.form.patchValue(this.evento);
-            if(this.evento.imagemURL !== '') {
-              this.imageUrl = environment.apiUrl + 'Resources/Images/' + this.evento.imagemURL
+            if (this.evento.imagemURL !== '') {
+              this.imageUrl = environment.apiUrl + 'Resources/Images/' + this.evento.imagemURL;
             }
           },
-          (error : any) => {
-            this.toastr.error(error?.message, 'Erro ao carregar evento')
+          (error: any) => {
+            this.toastr.error(error?.message, 'Erro ao carregar evento');
           }
-        ).add(() => this.spinner.hide())
+        ).add(() => this.spinner.hide());
     }
   }
 
-  public salvarAlteracao() : void
-  {
+  public salvarAlteracao(): void {
     this.spinner.show();
     if (this.form.invalid) {
-      this.toastr.error('Formulário invalido')
+      this.toastr.error('Formulário invalido');
       this.spinner.hide();
-      return
+      return;
     }
 
-    this.evento = {...this.form.value}
+    this.evento = {...this.form.value};
 
-    if (this.eventoId)
+    if (this.eventoId) {
       this.evento.id = +this.eventoId;
+    }
 
     this.eventoService[this.eventoId ? 'put' : 'post'](this.evento).subscribe(
-      (evento : Evento) => {
-        let message = 'cadastrado'
-        if (this.eventoId != undefined)
+      (evento: Evento) => {
+        let message = 'cadastrado';
+        if (this.eventoId !== undefined) {
           message = 'alterado';
+        }
 
         this.toastr.success(`Evento ${evento.tema} ${message} com sucesso`, 'Sucesso');
         this.evento.id = evento.id;
         this.routerHelper.reloadComponent(`/eventos/detalhe/${evento.id}`);
       },
-      (error : any) => this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento'),
-    ).add(() => this.spinner.hide())
+      (error: any) => this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento'),
+    ).add(() => this.spinner.hide());
   }
-
-  //#region Modal Evento
-  public temaAtual = '';
 
   public modalExcluirEvento(event: any, template: TemplateRef<any>, evento: Evento): void {
     event.stopPropagation();
@@ -117,12 +116,12 @@ export class EventosDatalheComponent implements OnInit
     this.spinner.show();
     this.eventoService.delete(this.evento.id).subscribe(
       (result: boolean) => {
-        if(result) {
+        if (result) {
           this.showSuccess(`Evento de ${this.temaAtual} deletado com Sucesso!`);
           this.routerHelper.reloadComponent('/eventos');
         }
       },
-      (error : any) => this.toastr.error(error.errors, 'Erro ao deletar evento')
+      (error: any) => this.toastr.error(error.errors, 'Erro ao deletar evento')
     ).add(() => this.spinner.hide());
   }
 
@@ -135,8 +134,7 @@ export class EventosDatalheComponent implements OnInit
   }
   //#endregion
 
-  public abrirModalLotes() : void
-  {
+  public abrirModalLotes(): void {
     const initialState = {
       eventoId: this.eventoId
     };
@@ -147,28 +145,26 @@ export class EventosDatalheComponent implements OnInit
   }
 
   // Evento para atualizar a imagem
-  public onFileChange(event: any) : void
-  {
+  public onFileChange(event: any): void {
     const reader = new FileReader();
 
-    reader.onload = (e : any) => this.imageUrl = e.target.result;
+    reader.onload = (e: any) => this.imageUrl = e.target.result;
 
     this.file = event.target.files;
     reader.readAsDataURL(this.file[0]);
 
-    this.uploadImage()
+    this.uploadImage();
   }
 
-  public uploadImage() : void
-  {
+  public uploadImage(): void {
     this.spinner.show();
 
     this.eventoService.postUpload(this.eventoId, this.file).subscribe(
       () => {
         this.routerHelper.reloadComponent(`/eventos/detalhe/${this.eventoId}`);
-        this.showSuccess(`Imagem inserida com sucesso!`)
+        this.showSuccess(`Imagem inserida com sucesso!`);
       },
-      (error : any) => this.toastr.error(error.errors, 'Erro ao inserir imagem')
+      (error: any) => this.toastr.error(error.errors, 'Erro ao inserir imagem')
     ).add(() => this.spinner.hide());
   }
 }
