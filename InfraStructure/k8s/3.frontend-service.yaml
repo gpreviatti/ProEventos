@@ -7,6 +7,8 @@ spec:
   selector:
     app: frontend-deployment
   ports:
-  - port: 80
-    targetPort: 8080
+    - name: "http"
+      nodePort: 32123 #externo
+      port: 8080 #service
+      targetPort: 80 #pod
   type: NodePort

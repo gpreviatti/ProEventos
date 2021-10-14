@@ -1,23 +1,28 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
+  name: mssql-deployment
   namespace: 'pro-eventos'
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
-      app: frontend-deployment
+      app: mssql-deployment
   template:
     metadata:
       labels:
-        app: frontend-deployment
+        app: mssql-deployment
     spec:
       containers:
-      - name: frontend-container
-        image: giov3nn10/proeventos-frontend:latest
+      - name: mssql-container
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          - name: "ACCEPT_EULA"
+            value: "Y"
+          - name: "SA_PASSWORD"
+            value: "change@123"
         ports:
-          - containerPort: 80
+          - containerPort: 1433
         resources:
           requests:
             cpu: "100m"
