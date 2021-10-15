@@ -75,7 +75,7 @@ namespace ProEventos.API
             //     RequestPath = new PathString("/Resources")
             // });
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 

@@ -4,10 +4,11 @@ metadata:
   name: backend-service
   namespace: 'pro-eventos'
 spec:
-  type: ClusterIP
   selector:
-    app: backend-service
+    app: backend-deployment
   ports:
-    - name: "http"
+    - name: "backend-service"
+      nodePort: 32700 #externo
       port: 5000 #service
       targetPort: 80 #pod
+  type: NodePort

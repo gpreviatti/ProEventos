@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   appName: 'Pro Eventos',
-  apiUrl: 'http://backend-service/'
+  apiUrl: 'http://localhost:32700/'
 };
