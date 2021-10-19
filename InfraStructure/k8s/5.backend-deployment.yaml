@@ -1,21 +1,21 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: frontend-deployment
+  name: backend-deployment
   namespace: 'pro-eventos'
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: frontend-deployment
+      app: backend-deployment
   template:
     metadata:
       labels:
-        app: frontend-deployment
+        app: backend-deployment
     spec:
       containers:
-      - name: frontend-container
-        image: giov3nn10/proeventos-frontend:latest
+      - name: backend-container
+        image: giov3nn10/proeventos-backend:latest
         ports:
           - containerPort: 80
         resources:
