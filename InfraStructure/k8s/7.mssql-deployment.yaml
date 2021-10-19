@@ -1,0 +1,31 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssql-deployment
+  namespace: 'pro-eventos'
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssql-deployment
+  template:
+    metadata:
+      labels:
+        app: mssql-deployment
+    spec:
+      containers:
+      - name: mssql
+        image: mcr.microsoft.com/mssql/rhel/server:2019-latest
+        env:
+        - name: MSSQL_PID
+          value: "Developer"
+        - name: ACCEPT_EULA
+          value: "Y"
+        - name: MSSQL_SA_PASSWORD
+          value: "change@123"
+        volumeMounts:
+        - name: mssqldb
+          mountPath: /var/opt/mssql
+      volumes:
+      - name: mssqldb   
+        emptyDir: {}
