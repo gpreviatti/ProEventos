@@ -1,25 +1,22 @@
 # ProEventos
 
-Projeto do curso de fullstack com .Net + Angular
+[Project curse fullstack com .Net + Angular](https://www.udemy.com/course/angular-dotnetcore-efcore/)
 
-[Link do curso](https://www.udemy.com/course/angular-dotnetcore-efcore/)
+## Goal
 
-## Objetivo do projeto
+Create an event control application using the following technologies and also do the automated push via github actions to docker.io and also include the deployments and service files for use in kubernates
 
-Criar uma aplicação para controle de eventos utilizando as tecnologias a seguir e além disso fazer o push automatizado através do github actions para o docker.io e incluir também os arquivos de deployments e service para utilização no kubernates
-
-## Tecnologias
+## Technolgies
 
 ### Backend
 
 - .Net 5
-- Modelo em camadas
+- DDD
 - Ef core
 - Migrations
 - Web Api
 - Dtos
-- Data Annotations
-- Msql
+- Mssql
 
 #### FrontEnd
 
@@ -27,11 +24,9 @@ Criar uma aplicação para controle de eventos utilizando as tecnologias a segui
 - Reactive Forms
 - Ngx Bootstrap
 - Fontawesome
-- Interpolação, Diretivas e Binding
+- Interpolation, Directives and Binding
 
 ### Diagramas
-
-wip
 
 #### MER/DER
 
