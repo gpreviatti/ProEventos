@@ -25,7 +25,7 @@ Create an event control application using the following technologies and also do
 - Ngx Bootstrap
 - Fontawesome
 - Interpolation, Directives and Binding
-- [Theme From Bootswatch](https://bootswatch.com/)
+- [Theme Flatly From Bootswatch](https://bootswatch.com/)
 
 ### Diagrams 🗺️
 
