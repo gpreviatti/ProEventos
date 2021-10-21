@@ -39,5 +39,4 @@ wip
 
 #### DSA
 
-<img src="https://user-images.githubusercontent.com/24505963/138283271-2858b093-8da7-447d-a03f-c186cf77eb7f.png" widght="150">
-
+<img src="https://user-images.githubusercontent.com/24505963/138284656-06337e31-449d-4f02-830c-1e3776954a2a.png" widght="150">
