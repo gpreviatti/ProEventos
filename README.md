@@ -26,7 +26,7 @@ Create an event control application using the following technologies and also do
 - Fontawesome
 - Interpolation, Directives and Binding
 
-### Diagramas 🗺️
+### Diagrams 🗺️
 
 #### MER/DER
 
