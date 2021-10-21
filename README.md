@@ -1,6 +1,6 @@
 # ProEventos 📅
 
-[Project curse fullstack com .Net + Angular](https://www.udemy.com/course/angular-dotnetcore-efcore/)
+[Project course fullstack com .Net + Angular](https://www.udemy.com/course/angular-dotnetcore-efcore/)
 
 ## Goal 🏁
 
