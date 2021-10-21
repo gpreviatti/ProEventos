@@ -4,7 +4,7 @@
 
 ## Goal
 
-Create an event control application using the following technologies and also do the automated push via github actions to docker.io and also include the deployments and service files for use in kubernates
+Create an event control application using the following technologies and also do the automated push via github actions to docker registry as public images and also include the deployments and service files for use with kubernates orchestration
 
 ## Technolgies
 
