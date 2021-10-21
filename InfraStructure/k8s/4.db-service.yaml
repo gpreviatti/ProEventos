@@ -1,13 +1,13 @@
 ﻿apiVersion: v1
 kind: Service
 metadata:
-  name: mssql-service
-  namespace: 'pro-eventos'
+  name: db-service
+  namespace: pro-eventos
 spec:
   selector:
-    app: mssql-deployment
+    app: db-deployment
   ports:
-    - name: "mssql-service"
+    - name: db-service
       port: 1433 #service
       targetPort: 1433 #pod
   type: ClusterIP

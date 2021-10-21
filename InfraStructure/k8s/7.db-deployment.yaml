@@ -1,17 +1,17 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mssql-deployment
-  namespace: 'pro-eventos'
+  name: db-deployment
+  namespace: pro-eventos
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mssql-deployment
+      app: db-deployment
   template:
     metadata:
       labels:
-        app: mssql-deployment
+        app: db-deployment
     spec:
       containers:
       - name: mssql

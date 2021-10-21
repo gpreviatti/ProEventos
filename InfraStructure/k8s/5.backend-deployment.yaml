@@ -4,7 +4,7 @@ metadata:
   name: backend-deployment
   namespace: 'pro-eventos'
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: backend-deployment
@@ -13,6 +13,7 @@ spec:
       labels:
         app: backend-deployment
     spec:
+      hostname: backend-pod
       containers:
       - name: backend-container
         image: giov3nn10/proeventos-backend:latest

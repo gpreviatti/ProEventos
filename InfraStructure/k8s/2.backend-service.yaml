@@ -2,12 +2,12 @@
 kind: Service
 metadata:
   name: backend-service
-  namespace: 'pro-eventos'
+  namespace: pro-eventos
 spec:
   selector:
     app: backend-deployment
   ports:
-    - name: "backend-service"
+    - name: backend-service
       nodePort: 32700 #externo
       port: 80 #service
       targetPort: 80 #pod
