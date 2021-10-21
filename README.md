@@ -1,12 +1,12 @@
-# ProEventos
+# ProEventos 📅
 
 [Project curse fullstack com .Net + Angular](https://www.udemy.com/course/angular-dotnetcore-efcore/)
 
-## Goal
+## Goal 🏁
 
 Create an event control application using the following technologies and also do the automated push via github actions to docker registry as public images and also include the deployments and service files for use with kubernates orchestration
 
-## Technolgies
+## Technolgies 💻
 
 ### Backend
 
@@ -26,7 +26,7 @@ Create an event control application using the following technologies and also do
 - Fontawesome
 - Interpolation, Directives and Binding
 
-### Diagramas
+### Diagramas 🗺️
 
 #### MER/DER
 
