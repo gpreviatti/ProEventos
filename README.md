@@ -15,6 +15,7 @@ Create an event control application using the following technologies and also do
 - Ef core
 - Migrations
 - Web Api
+- Swagger
 - Dtos
 - Mssql
 
