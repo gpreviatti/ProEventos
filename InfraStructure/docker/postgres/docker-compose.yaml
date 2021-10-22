@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "admin"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./volumes:/var/lib/postgresql/data 
+    networks:
+      - postgres-compose-network
+  
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+    networks:
+      - postgres-compose-network
+
+networks: 
+  postgres-compose-network:
+    driver: bridge

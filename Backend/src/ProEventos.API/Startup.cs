@@ -1,4 +1,3 @@
-using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +7,7 @@ using Microsoft.OpenApi.Models;
 using ProEventos.Application;
 using ProEventos.Domain;
 using ProEventos.Persistence;
+using System;
 
 namespace ProEventos.API
 {
@@ -31,13 +31,7 @@ namespace ProEventos.API
                 );
 
             services.AddCors();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { 
-                    Title = "ProEventos API", 
-                    Version = "v1"
-                });
-            });
+            services.AddSwaggerGen();
 
             // Services
             services.AddScoped<IEventoService, EventoService>();
@@ -48,7 +42,7 @@ namespace ProEventos.API
 
             // Data
             services.AddDbContext<ProEventosContext>(
-                context => context.UseSqlServer(Configuration.GetConnectionString("App"))
+                context => context.UseNpgsql(Configuration.GetConnectionString("App"))
             );
             services.AddScoped<IEventoRespository, EventoRepository>();
             services.AddScoped<ILoteRepository, LoteRepository>();
@@ -59,12 +53,11 @@ namespace ProEventos.API
         {
             app.UseDeveloperExceptionPage();
             app.UseSwagger();
-            app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-            });
+            app.UseSwaggerUI();
 
             // Configurando o storage das imagens
-            app.UseStaticFiles(new StaticFileOptions() { 
+            app.UseStaticFiles(new StaticFileOptions()
+            {
                 // FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources" )),
                 // RequestPath = new PathString("/Resources")
             });

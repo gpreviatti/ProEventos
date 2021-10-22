@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ProEventos.Persistence.Migrations
 {
@@ -11,15 +12,15 @@ namespace ProEventos.Persistence.Migrations
                 name: "Eventos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Local = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    DataEvento = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Tema = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    QtdPessoas = table.Column<int>(type: "int", nullable: false),
-                    ImagemURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Local = table.Column<string>(type: "text", nullable: true),
+                    DataEvento = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    Tema = table.Column<string>(type: "text", nullable: true),
+                    QtdPessoas = table.Column<int>(type: "integer", nullable: false),
+                    ImagemURL = table.Column<string>(type: "text", nullable: true),
+                    Telefone = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,13 +31,13 @@ namespace ProEventos.Persistence.Migrations
                 name: "Palestrantes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    MiniCurriculo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImagemURL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nome = table.Column<string>(type: "text", nullable: true),
+                    MiniCurriculo = table.Column<string>(type: "text", nullable: true),
+                    ImagemURL = table.Column<string>(type: "text", nullable: true),
+                    Telefone = table.Column<string>(type: "text", nullable: true),
+                    Email = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -47,14 +48,14 @@ namespace ProEventos.Persistence.Migrations
                 name: "Lotes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Preco = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    DataInicio = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    DataFim = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Quantidade = table.Column<int>(type: "int", nullable: false),
-                    EventoId = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nome = table.Column<string>(type: "text", nullable: true),
+                    Preco = table.Column<decimal>(type: "numeric", nullable: false),
+                    DataInicio = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    DataFim = table.Column<DateTime>(type: "timestamp without time zone", nullable: true),
+                    Quantidade = table.Column<int>(type: "integer", nullable: false),
+                    EventoId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,8 +72,8 @@ namespace ProEventos.Persistence.Migrations
                 name: "PalestrantesEventos",
                 columns: table => new
                 {
-                    PalestranteId = table.Column<int>(type: "int", nullable: false),
-                    EventoId = table.Column<int>(type: "int", nullable: false)
+                    PalestranteId = table.Column<int>(type: "integer", nullable: false),
+                    EventoId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -95,12 +96,12 @@ namespace ProEventos.Persistence.Migrations
                 name: "RedesSociais",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    URL = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    EventoId = table.Column<int>(type: "int", nullable: true),
-                    PalestranteId = table.Column<int>(type: "int", nullable: true)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Nome = table.Column<string>(type: "text", nullable: true),
+                    URL = table.Column<string>(type: "text", nullable: true),
+                    EventoId = table.Column<int>(type: "integer", nullable: true),
+                    PalestranteId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {

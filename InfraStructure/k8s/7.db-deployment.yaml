@@ -2,30 +2,38 @@
 kind: Deployment
 metadata:
   name: db-deployment
-  namespace: pro-eventos
 spec:
   replicas: 1
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
-      app: db-deployment
+      app: mssql
   template:
     metadata:
       labels:
-        app: db-deployment
+        app: mssql
     spec:
+      terminationGracePeriodSeconds: 10
       containers:
       - name: mssql
-        image: mcr.microsoft.com/mssql/rhel/server:2019-latest
+        image: mcr.microsoft.com/mssql/server:2019-CTP3.1-ubuntu
+        ports:
+        - containerPort: 1433
         env:
         - name: MSSQL_PID
           value: "Developer"
         - name: ACCEPT_EULA
           value: "Y"
         - name: MSSQL_SA_PASSWORD
-          value: "change@123"
+          valueFrom:
+            secretKeyRef:
+              name: mssql
+              key: SA_PASSWORD 
         volumeMounts:
         - name: mssqldb
           mountPath: /var/opt/mssql
       volumes:
-      - name: mssqldb   
-        emptyDir: {}
+      - name: mssqldb
+        persistentVolumeClaim:
+          claimName: mssql-data
