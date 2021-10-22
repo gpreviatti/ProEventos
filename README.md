@@ -17,7 +17,7 @@ Create an event control application using the following technologies and also do
 - Web Api
 - Swagger
 - Dtos
-- Mssql
+- Postgress
 
 #### FrontEnd
 
