@@ -4,7 +4,7 @@ metadata:
   name: frontend-deployment
   namespace: 'pro-eventos'
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: frontend-deployment
