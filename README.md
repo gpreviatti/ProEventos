@@ -4,7 +4,7 @@
 
 ## About 🏁
 
-Event control application using the following technologies and also do the automated push via github actions to docker registry as public images and also include the deployments and service files for use with kubernates orchestration
+Event control application using the following [technologies](https://github.com/gpreviatti/ProEventos/blob/main/README.md#technolgies-) and also do the automated push via github actions to docker registry as public images and also include the deployments and service files for use with kubernates orchestration
 
 ## Technolgies 💻
 
