@@ -36,6 +36,7 @@
               <label>Local</label>
               <input
                 type="text"
+                placeholder="Insira o Local do Eventos"
                 class="form-control"
                 [ngClass]="formHelper.cssValidator(formControls.local)"
                 [(ngModel)]="evento.local"
@@ -49,6 +50,7 @@
               <label>Data e Hora</label>
               <input
                 type="text"
+                placeholder="Insira a data do evento"
                 class="form-control"
                 [ngClass]="formHelper.cssValidator(formControls.dataEvento)"
                 formControlName="dataEvento"
