@@ -2,9 +2,9 @@
 
 [Project course fullstack com .Net + Angular](https://www.udemy.com/course/angular-dotnetcore-efcore/)
 
-## Goal 🏁
+## About 🏁
 
-Create an event control application using the following technologies and also do the automated push via github actions to docker registry as public images and also include the deployments and service files for use with kubernates orchestration
+Event control application using the following [technologies](https://github.com/gpreviatti/ProEventos/blob/main/README.md#technolgies-) and also automated push via github actions to docker registry as public images and also include the deployments and service files for use with kubernates orchestration
 
 ## Technolgies 💻
 
@@ -26,7 +26,7 @@ Create an event control application using the following technologies and also do
 - Ngx Bootstrap
 - Fontawesome
 - Interpolation, Directives and Binding
-- [Theme Flatly From Bootswatch](https://bootswatch.com/)
+- [Theme From Bootswatch](https://bootswatch.com/)
 
 ### Diagrams 🗺️
 
