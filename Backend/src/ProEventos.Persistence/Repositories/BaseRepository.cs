@@ -1,14 +1,33 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ProEventos.Domain;
 
 namespace ProEventos.Persistence
 {
-    public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
+    public abstract class BaseRepository<T> : IBaseRepository<T> where T : Entity
     {
         protected readonly ProEventosContext _context;
         public BaseRepository(ProEventosContext context)
         {
             _context = context;
+        }
+
+        public async Task<IEnumerable<T>> Get()
+        {
+            return await _context
+                .Set<T>()
+                .AsNoTracking()
+                .ToListAsync();
+        }
+
+        public async Task<T> GetById(int id)
+        {
+            return await _context.
+                Set<T>()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(c => c.Id == id);
         }
 
         public async Task<bool> Add(T entity) 
@@ -42,6 +61,5 @@ namespace ProEventos.Persistence
 
 
         private async Task<bool> SaveChangesAsync() => await _context.SaveChangesAsync() > 0;
-
     }
 }

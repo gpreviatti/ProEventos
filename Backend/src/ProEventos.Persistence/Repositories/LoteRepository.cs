@@ -14,8 +14,8 @@ namespace ProEventos.Persistence
             IQueryable<Lote> query = _context.Lotes;
 
             query = query
-                        .AsNoTracking()
-                        .Where(lote => lote.EventoId == eventoId && lote.Id == id);
+                .AsNoTracking()
+                .Where(lote => lote.EventoId == eventoId && lote.Id == id);
             return await query.FirstOrDefaultAsync();
         }
 
@@ -24,8 +24,8 @@ namespace ProEventos.Persistence
             IQueryable<Lote> query = _context.Lotes;
 
             query = query
-                        .AsNoTracking()
-                        .Where(lote => lote.EventoId == eventoId);
+                .AsNoTracking()
+                .Where(lote => lote.EventoId == eventoId);
 
             return await query.ToArrayAsync();
         }

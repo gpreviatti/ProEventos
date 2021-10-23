@@ -2,7 +2,7 @@ using System.Threading.Tasks;
 
 namespace ProEventos.Domain
 {
-    public interface IPalestrantreRepository : IBaseRepository<Palestrante>
+    public interface IPalestranteRepository : IBaseRepository<Palestrante>
     {
         Task<Palestrante[]> GetAllPalestrantesByNomeAsync(string nome, bool includeEventos);
         Task<Palestrante[]> GetAllPalestrantesAsync(bool includeEventos);
