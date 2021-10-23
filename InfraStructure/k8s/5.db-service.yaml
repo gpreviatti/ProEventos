@@ -1,0 +1,11 @@
+﻿kind: Service
+apiVersion: v1
+metadata:
+  name: postgres-service
+  namespace: pro-eventos
+spec:
+  selector:
+    app: postgres-deployment
+  ports:
+    - port: 5432
+  type: ClusterIP

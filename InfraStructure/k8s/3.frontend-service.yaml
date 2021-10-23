@@ -8,7 +8,7 @@ spec:
     app: frontend-deployment
   ports:
     - name: frontend-service
-      nodePort: 32123 #externo
+      nodePort: 32121 #externo
       port: 8080 #service
       targetPort: 80 #pod
   type: NodePort

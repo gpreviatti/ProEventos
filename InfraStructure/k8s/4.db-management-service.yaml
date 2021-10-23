@@ -1,0 +1,14 @@
+﻿apiVersion: v1
+kind: Service
+metadata:
+  name: db-management-service
+  namespace: pro-eventos
+spec:
+  selector:
+    app: db-management-deployment
+  ports:
+    - name: db-management-service
+      nodePort: 32123 #externo
+      port: 8080 #service
+      targetPort: 8080 #pod
+  type: NodePort
