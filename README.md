@@ -26,7 +26,7 @@ Event control application using the following [technologies](https://github.com/
 - Ngx Bootstrap
 - Fontawesome
 - Interpolation, Directives and Binding
-- [Theme Flatly From Bootswatch](https://bootswatch.com/)
+- [Theme Lux From Bootswatch](https://bootswatch.com/)
 
 ### Diagrams 🗺️
 
