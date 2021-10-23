@@ -5,7 +5,7 @@ using ProEventos.Domain;
 
 namespace ProEventos.Persistence
 {
-    public class PalestranteRepository : BaseRepository<Palestrante>, IPalestrantreRepository
+    public class PalestranteRepository : BaseRepository<Palestrante>, IPalestranteRepository
     {
         public PalestranteRepository(ProEventosContext context) : base(context) { }
 
@@ -22,24 +22,6 @@ namespace ProEventos.Persistence
             }
 
             query = query.AsNoTracking().OrderBy(p => p.Id);
-
-            return await query.ToArrayAsync();
-        }
-
-        public async Task<Palestrante[]> GetAllPalestrantesByNomeAsync(string nome, bool includeEventos)
-        {
-            IQueryable<Palestrante> query = _context.Palestrantes
-                .Include(p => p.RedesSociais);
-
-            if (includeEventos)
-            {
-                query = query
-                    .Include(p => p.PalestrantesEventos)
-                    .ThenInclude(pe => pe.Evento);
-            }
-
-            query = query.AsNoTracking().OrderBy(p => p.Id)
-                         .Where(p => p.Nome.ToLower().Contains(nome.ToLower()));
 
             return await query.ToArrayAsync();
         }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -20,83 +21,49 @@ namespace ProEventos.Application
             _mapper = mapper;
         }
 
-        public async Task<bool> AddPalestrante(int eventoId, PalestranteDto model)
+        public async Task<PalestranteDto[]> GetPalestrantesAsync() 
         {
-            var Palestrante = _mapper.Map<Palestrante>(model);
-            Palestrante.EventoId = eventoId;
+            var palestrantes = await _palestranteRepository.GetAllPalestrantesAsync(false);
 
-            return await _palestranteRepository.Add(Palestrante);
+            var palestrantesDto = _mapper.Map<IEnumerable<PalestranteDto>>(palestrantes);
+
+            return palestrantesDto.ToArray();
         }
 
-        public async Task<PalestranteDto> Salvar(int eventoId, PalestranteDto Palestrante)
+        public async Task<PalestranteDto> GetPalestranteByIdAsync(int palestranteId) 
         {
-            if (Palestrante.Id == 0)
+            var palestrante = await _palestranteRepository.GetPalestranteByIdAsync(palestranteId, false);
+
+            return _mapper.Map<PalestranteDto>(palestrante);
+        }
+
+        public async Task<PalestranteDto> Salvar(PalestranteDto palestranteDto)
+        {
+            if (palestranteDto.Id == 0)
             {
-                await AddPalestrante(eventoId, Palestrante);
+                var palestrante = _mapper.Map<Palestrante>(palestranteDto);
+
+                await _palestranteRepository.Add(palestrante);
             }
             else
             {
-                var Palestrantes = await _palestranteRepository
-                    .GetPalestrantesByEventoIdAsync(eventoId);
-                if (Palestrantes == null) return null;
+                var palestrante = await _palestranteRepository.GetById(palestranteDto.Id);
+                if (palestrante == null) return null;
 
-                var PalestranteEntity = Palestrantes.FirstOrDefault(Palestrante => Palestrante.Id == Palestrante.Id);
-                Palestrante.EventoId = eventoId;
+                palestrante = _mapper.Map<Palestrante>(palestranteDto);
 
-                PalestranteEntity = _mapper.Map<Palestrante>(Palestrante);
-
-                await _palestranteRepository.Update(PalestranteEntity);
+                await _palestranteRepository.Update(palestrante);
             }
 
-            return Palestrante;
+            return palestranteDto;
         }
 
-        public async Task<bool> Deletar(int eventoId, int PalestranteId)
+        public async Task<bool> Deletar(int palestranteId)
         {
-            var Palestrante = await _palestranteRepository.GetPalestranteByIdsAsync(eventoId, PalestranteId);
-            if (Palestrante == null) throw new Exception("Palestrante para delete não encontrado.");
+            var palestrante = await _palestranteRepository.GetById(palestranteId);
+            if (palestrante == null) throw new Exception("Palestrante para não encontrado.");
 
-            return await _palestranteRepository.Delete(Palestrante);
-        }
-
-        public async Task<PalestranteDto[]> GetPalestrantesByEventoIdAsync(int eventoId)
-        {
-            var Palestrantes = await _palestranteRepository.GetPalestrantesByEventoIdAsync(eventoId);
-            if (Palestrantes == null) return null;
-
-            var resultado = _mapper.Map<PalestranteDto[]>(Palestrantes);
-
-            return resultado;
-        }
-
-        public async Task<PalestranteDto> GetPalestranteByIdsAsync(int eventoId, int PalestranteId)
-        {
-            var Palestrante = await _palestranteRepository.GetPalestranteByIdsAsync(eventoId, PalestranteId);
-            if (Palestrante == null) return null;
-
-            var resultado = _mapper.Map<PalestranteDto>(Palestrante);
-
-            return resultado;
-        }
-
-        public Task<PalestranteDto> Salvar(PalestranteDto palestrante)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Deletar(int palestranteId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PalestranteDto[]> GetPalestrantesAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PalestranteDto> GetPalestranteByIdAsync(int palestranteId)
-        {
-            throw new NotImplementedException();
+            return await _palestranteRepository.Delete(palestrante);
         }
     }
 }
