@@ -1,7 +1,6 @@
-﻿import { Evento } from "./Evento";
+﻿import { Evento } from './Evento';
 
-export interface Lote
-{
+export interface Lote {
   id: number;
   nome: string;
   preco: number;
@@ -9,5 +8,5 @@ export interface Lote
   dataFim: Date;
   quantidade: number;
   eventoId: number;
-  evento: Evento
+  evento: Evento;
 }

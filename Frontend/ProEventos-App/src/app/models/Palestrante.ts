@@ -1,8 +1,7 @@
-﻿import { PalestranteEvento } from "./PalestranteEvento";
-import { RedeSocial } from "./RedeSocial";
+﻿import { PalestranteEvento } from './PalestranteEvento';
+import { RedeSocial } from './RedeSocial';
 
-export interface Palestrante
-{
+export interface Palestrante {
   id: number;
   nome: string;
   miniCurriculo: string;
