@@ -34,6 +34,8 @@ Create an event control application using the following technologies and also do
 
 [Link Mer/DER](https://drawsql.app/giovanni/diagrams/proeventos)
 
+<img src="https://user-images.githubusercontent.com/24505963/138561116-374cd2bd-8aea-4622-bc19-656c296ac30b.png" widght="150">
+
 #### DSA
 
 <img src="https://user-images.githubusercontent.com/24505963/138560488-0101c3ba-8a07-43ca-b5ac-2c09e3d0314f.png" widght="150">
