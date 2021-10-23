@@ -32,7 +32,7 @@ Create an event control application using the following technologies and also do
 
 #### MER/DER
 
-wip
+[Link Mer/DER](https://drawsql.app/giovanni/diagrams/proeventos)
 
 #### DSA
 
