@@ -1,4 +1,4 @@
-# ProEventos 📅
+  # ProEventos 📅
 
 [Project course fullstack com .Net + Angular](https://www.udemy.com/course/angular-dotnetcore-efcore/)
 
@@ -32,8 +32,8 @@ Create an event control application using the following technologies and also do
 
 #### MER/DER
 
-wip
+[Link Mer/DER](https://drawsql.app/giovanni/diagrams/proeventos)
 
 #### DSA
 
-<img src="https://user-images.githubusercontent.com/24505963/138284656-06337e31-449d-4f02-830c-1e3776954a2a.png" widght="150">
+<img src="https://user-images.githubusercontent.com/24505963/138560488-0101c3ba-8a07-43ca-b5ac-2c09e3d0314f.png" widght="150">
