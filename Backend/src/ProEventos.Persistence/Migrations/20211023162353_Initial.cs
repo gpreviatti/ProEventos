@@ -100,18 +100,11 @@ namespace ProEventos.Persistence.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Nome = table.Column<string>(type: "text", nullable: true),
                     URL = table.Column<string>(type: "text", nullable: true),
-                    EventoId = table.Column<int>(type: "integer", nullable: true),
-                    PalestranteId = table.Column<int>(type: "integer", nullable: true)
+                    PalestranteId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_RedesSociais", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RedesSociais_Eventos_EventoId",
-                        column: x => x.EventoId,
-                        principalTable: "Eventos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_RedesSociais_Palestrantes_PalestranteId",
                         column: x => x.PalestranteId,
@@ -129,11 +122,6 @@ namespace ProEventos.Persistence.Migrations
                 name: "IX_PalestrantesEventos_PalestranteId",
                 table: "PalestrantesEventos",
                 column: "PalestranteId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_RedesSociais_EventoId",
-                table: "RedesSociais",
-                column: "EventoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RedesSociais_PalestranteId",

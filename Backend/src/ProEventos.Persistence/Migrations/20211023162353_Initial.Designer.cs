@@ -10,7 +10,7 @@ using ProEventos.Persistence;
 namespace ProEventos.Persistence.Migrations
 {
     [DbContext(typeof(ProEventosContext))]
-    [Migration("20211022002046_Initial")]
+    [Migration("20211023162353_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,21 +135,16 @@ namespace ProEventos.Persistence.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("EventoId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Nome")
                         .HasColumnType("text");
 
-                    b.Property<int?>("PalestranteId")
+                    b.Property<int>("PalestranteId")
                         .HasColumnType("integer");
 
                     b.Property<string>("URL")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EventoId");
 
                     b.HasIndex("PalestranteId");
 
@@ -188,17 +183,11 @@ namespace ProEventos.Persistence.Migrations
 
             modelBuilder.Entity("ProEventos.Domain.RedeSocial", b =>
                 {
-                    b.HasOne("ProEventos.Domain.Evento", "Evento")
-                        .WithMany("RedesSociais")
-                        .HasForeignKey("EventoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("ProEventos.Domain.Palestrante", "Palestrante")
                         .WithMany("RedesSociais")
                         .HasForeignKey("PalestranteId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Evento");
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Palestrante");
                 });
@@ -208,8 +197,6 @@ namespace ProEventos.Persistence.Migrations
                     b.Navigation("Lotes");
 
                     b.Navigation("PalestrantesEventos");
-
-                    b.Navigation("RedesSociais");
                 });
 
             modelBuilder.Entity("ProEventos.Domain.Palestrante", b =>
