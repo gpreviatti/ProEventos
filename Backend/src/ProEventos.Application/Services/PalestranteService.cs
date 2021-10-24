@@ -7,23 +7,21 @@ using ProEventos.Domain;
 
 namespace ProEventos.Application
 {
-    public class PalestranteService : IPalestranteService
+    public class PalestranteService : BaseService<Palestrante>, IPalestranteService
     {
         private readonly IPalestranteRepository _palestranteRepository;
-        private readonly IMapper _mapper;
 
         public PalestranteService(
             IPalestranteRepository palestranteRepository,
             IMapper mapper
-        )
+        ) : base(mapper)
         {
             _palestranteRepository = palestranteRepository;
-            _mapper = mapper;
         }
 
         public async Task<PalestranteDto[]> GetPalestrantesAsync() 
         {
-            var palestrantes = await _palestranteRepository.GetAllPalestrantesAsync(false);
+            var palestrantes = await _palestranteRepository.GetAllPalestrantesAsync();
 
             var palestrantesDto = _mapper.Map<IEnumerable<PalestranteDto>>(palestrantes);
 
@@ -37,31 +35,35 @@ namespace ProEventos.Application
             return _mapper.Map<PalestranteDto>(palestrante);
         }
 
-        public async Task<PalestranteDto> Salvar(PalestranteDto palestranteDto)
+        public async Task<PalestranteDto> SalvarAsync(PalestranteDto palestranteDto)
         {
+            var palestrante = new Palestrante();
+
             if (palestranteDto.Id == 0)
             {
-                var palestrante = _mapper.Map<Palestrante>(palestranteDto);
+                palestrante = _mapper.Map<Palestrante>(palestranteDto);
 
                 await _palestranteRepository.Add(palestrante);
             }
             else
             {
-                var palestrante = await _palestranteRepository.GetById(palestranteDto.Id);
-                if (palestrante == null) return null;
+                palestrante = await _palestranteRepository.GetById(palestranteDto.Id);
+                if (palestrante == null) 
+                    return null;
 
                 palestrante = _mapper.Map<Palestrante>(palestranteDto);
 
                 await _palestranteRepository.Update(palestrante);
             }
 
-            return palestranteDto;
+            return _mapper.Map<PalestranteDto>(palestrante);
         }
 
-        public async Task<bool> Deletar(int palestranteId)
+        public async Task<bool> DeletarAsync(int palestranteId)
         {
             var palestrante = await _palestranteRepository.GetById(palestranteId);
-            if (palestrante == null) throw new Exception("Palestrante para não encontrado.");
+            if (palestrante == null) 
+                throw new Exception("Palestrante para encontrado.");
 
             return await _palestranteRepository.Delete(palestrante);
         }

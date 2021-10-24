@@ -6,7 +6,7 @@ namespace ProEventos.Domain
     {
         Task<PalestranteDto[]> GetPalestrantesAsync();
         Task<PalestranteDto> GetPalestranteByIdAsync(int palestranteId);
-        Task<PalestranteDto> Salvar(PalestranteDto palestrante);
-        Task<bool> Deletar(int palestranteId);
+        Task<PalestranteDto> SalvarAsync(PalestranteDto palestrante);
+        Task<bool> DeletarAsync(int palestranteId);
     }
 }

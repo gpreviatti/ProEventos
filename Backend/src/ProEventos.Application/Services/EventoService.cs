@@ -5,17 +5,15 @@ using ProEventos.Domain;
 
 namespace ProEventos.Application
 {
-    public class EventoService : IEventoService
+    public class EventoService : BaseService<Evento>, IEventoService
     {
         private readonly IEventoRespository _eventoRepository;
-        private readonly IMapper _mapper;
         public EventoService(
             IEventoRespository eventoRepository,
             IMapper mapper
-        )
+        ) : base(mapper)
         {
             _eventoRepository = eventoRepository;
-            _mapper = mapper;
         }
 
         public async Task<EventoDto> AddEventos(EventoDto model)

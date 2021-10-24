@@ -4,7 +4,7 @@ namespace ProEventos.Domain
 {
     public interface IPalestranteRepository : IBaseRepository<Palestrante>
     {
-        Task<Palestrante[]> GetAllPalestrantesAsync(bool includeEventos);
+        Task<Palestrante[]> GetAllPalestrantesAsync();
         Task<Palestrante> GetPalestranteByIdAsync(int palestranteId, bool includeEventos);
     }
 }

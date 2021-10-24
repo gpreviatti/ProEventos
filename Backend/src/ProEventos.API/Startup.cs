@@ -1,13 +1,15 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.FileProviders;
 using ProEventos.Application;
 using ProEventos.Domain;
 using ProEventos.Persistence;
 using System;
+using System.IO;
 
 namespace ProEventos.API
 {
@@ -36,6 +38,8 @@ namespace ProEventos.API
             // Services
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<ILoteService, LoteService>();
+            services.AddScoped<IPalestranteService, PalestranteService>();
+            services.AddScoped<IRedeSocialService, RedeSocialService>();
 
             // AutoMappers
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -46,6 +50,8 @@ namespace ProEventos.API
             );
             services.AddScoped<IEventoRespository, EventoRepository>();
             services.AddScoped<ILoteRepository, LoteRepository>();
+            services.AddScoped<IPalestranteRepository, PalestranteRepository>();
+            services.AddScoped<IRedeSocialRepository, RedeSocialRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,8 +64,8 @@ namespace ProEventos.API
             // Configurando o storage das imagens
             app.UseStaticFiles(new StaticFileOptions()
             {
-                // FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources" )),
-                // RequestPath = new PathString("/Resources")
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources")),
+                RequestPath = new PathString("/Resources")
             });
 
             app.UseHttpsRedirection();

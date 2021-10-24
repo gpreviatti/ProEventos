@@ -10,7 +10,7 @@ namespace ProEventos.Persistence
     {
         public RedeSocialRepository(ProEventosContext context) : base(context) { }
 
-            public async Task<RedeSocial[]> GetRedesSociaisByPalestranteIdAsync(int palestranteId, int redeSocialId) 
+            public async Task<RedeSocial[]> GetRedesSociaisByPalestranteIdAsync(int palestranteId) 
             {
                 var palestrante = await _context
                     .Palestrantes
@@ -19,9 +19,7 @@ namespace ProEventos.Persistence
                 if (palestrante is null)
                     throw new InvalidOperationException("Palestrante não encontrado");
 
-                return await _context.RedesSociais.Where(
-                    r => r.PalestranteId == palestranteId && r.Id == redeSocialId
-                ).ToArrayAsync();
+                return await _context.RedesSociais.Where(r => r.PalestranteId == palestranteId).ToArrayAsync();
             }
 
             public async Task<RedeSocial> GetRedeSocialByIdAsync(int redeSocialId) => await GetById(redeSocialId);

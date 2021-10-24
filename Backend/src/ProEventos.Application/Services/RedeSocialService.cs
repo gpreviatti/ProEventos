@@ -7,24 +7,22 @@ using ProEventos.Domain;
 
 namespace ProEventos.Application
 {
-    public class RedeSocialService : IRedeSocialService
+    public class RedeSocialService : BaseService<RedeSocial>, IRedeSocialService
     {
         private readonly IRedeSocialRepository _redeSocialRepository;
-        private readonly IMapper _mapper;
 
         public RedeSocialService(
             IRedeSocialRepository redeSocialRepository,
             IMapper mapper
-        )
+        ) : base(mapper)
         {
             _redeSocialRepository = redeSocialRepository;
-            _mapper = mapper;
         }
 
-        public async Task<RedeSocialDto[]> GetRedesSociaisByPalestranteIdAsync(int palestranteId, int redeSocialId)
+        public async Task<RedeSocialDto[]> GetRedesSociaisByPalestranteIdAsync(int palestranteId)
         {
             var redeSociais = await _redeSocialRepository
-                .GetRedesSociaisByPalestranteIdAsync(palestranteId, redeSocialId);
+                .GetRedesSociaisByPalestranteIdAsync(palestranteId);
 
             var redeSociaisDto = _mapper.Map<IEnumerable<RedeSocialDto>>(redeSociais);
 
@@ -39,31 +37,29 @@ namespace ProEventos.Application
             return _mapper.Map<RedeSocialDto>(redeSocial);
         }
 
-        public async Task<RedeSocialDto> Salvar(int palestranteId, RedeSocialDto redeSocialDto)
+        public async Task<RedeSocialDto> SalvarAsync(RedeSocialDto redeSocialDto)
         {
+            var redeSocial = new RedeSocial();
             if (redeSocialDto.Id == 0)
             {
-                var redeSocialModel = _mapper.Map<RedeSocial>(redeSocialDto);
-                redeSocialModel.PalestranteId = palestranteId;
+                redeSocial = _mapper.Map<RedeSocial>(redeSocialDto);
 
-                await _redeSocialRepository.Add(redeSocialModel);
+                await _redeSocialRepository.Add(redeSocial);
             }
             else
             {
-                var redeSocialEntity = await _redeSocialRepository.GetById(redeSocialDto.Id);
-                if (redeSocialEntity == null) return null;
+                redeSocial = await _redeSocialRepository.GetById(redeSocialDto.Id);
+                if (redeSocial == null) return null;
 
-                redeSocialEntity.PalestranteId = palestranteId;
+                redeSocial = _mapper.Map<RedeSocial>(redeSocialDto);
 
-                redeSocialEntity = _mapper.Map<RedeSocial>(redeSocialDto);
-
-                await _redeSocialRepository.Update(redeSocialEntity);
+                await _redeSocialRepository.Update(redeSocial);
             }
 
-            return redeSocialDto;
+            return _mapper.Map<RedeSocialDto>(redeSocial);
         }
 
-        public async Task<bool> Deletar(int id)
+        public async Task<bool> DeletarAsync(int id)
         {
             var redeSocial = await _redeSocialRepository.GetById(id);
 

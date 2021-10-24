@@ -6,18 +6,16 @@ using ProEventos.Domain;
 
 namespace ProEventos.Application
 {
-    public class LoteService : ILoteService
+    public class LoteService : BaseService<Lote>, ILoteService
     {
         private readonly ILoteRepository _loteRepository;
-        private readonly IMapper _mapper;
 
         public LoteService(
             ILoteRepository loteRepository,
             IMapper mapper
-        )
+        ) : base(mapper)
         {
             _loteRepository = loteRepository;
-            _mapper = mapper;
         }
 
         public async Task<bool> AddLote(int eventoId, LoteDto model)

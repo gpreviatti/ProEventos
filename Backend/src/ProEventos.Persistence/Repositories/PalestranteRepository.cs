@@ -9,21 +9,13 @@ namespace ProEventos.Persistence
     {
         public PalestranteRepository(ProEventosContext context) : base(context) { }
 
-        public async Task<Palestrante[]> GetAllPalestrantesAsync(bool includeEventos = false)
+        public async Task<Palestrante[]> GetAllPalestrantesAsync()
         {
-            IQueryable<Palestrante> query = _context.Palestrantes
-                .Include(p => p.RedesSociais);
-
-            if (includeEventos)
-            {
-                query = query
-                    .Include(p => p.PalestrantesEventos)
-                    .ThenInclude(pe => pe.Evento);
-            }
-
-            query = query.AsNoTracking().OrderBy(p => p.Id);
-
-            return await query.ToArrayAsync();
+            return await _context
+                .Palestrantes
+                .AsNoTracking()
+                .OrderBy(p => p.Id)
+                .ToArrayAsync();
         }
 
         public async Task<Palestrante> GetPalestranteByIdAsync(int palestranteId, bool includeEventos)
