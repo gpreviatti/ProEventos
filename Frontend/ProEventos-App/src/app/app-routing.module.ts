@@ -13,6 +13,8 @@ import { EventosComponent } from './components/eventos/eventos.component';
 
 import { ContatoComponent } from './components/contato/contato.component';
 import { PalestrantesComponent } from './components/palestrantes/palestrantes.component';
+import { PalestranteListaComponent } from './components/palestrantes/palestrante-lista/palestrante-lista.component';
+import { PalestranteDetalheComponent } from './components/palestrantes/palestrante-detalhe/palestrante-detalhe.component';
 
 // Respeitar a precedencia
 const routes: Routes = [
@@ -33,7 +35,14 @@ const routes: Routes = [
       { path: 'lista', component: EventosListaComponent },
     ]
   },
-  { path: 'palestrantes', component: PalestrantesComponent },
+  {
+    path: 'palestrantes', component: PalestrantesComponent,
+    children: [
+      { path: 'detalhe/:id', component: PalestranteDetalheComponent },
+      { path: 'detalhe', component: PalestranteDetalheComponent },
+      { path: 'lista', component: PalestranteListaComponent },
+    ]
+  },
   { path: 'contatos', component: ContatoComponent },
   { path: 'perfil', component: PerfilComponent },
   { path: 'notfound', component: NotfoundComponent },

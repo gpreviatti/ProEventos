@@ -11,40 +11,33 @@ export class EventoService {
 
   constructor(private http: HttpClient) { }
 
-  public get() : Observable<Evento[]>
-  {
-    return this.http.get<Evento[]>(this.baseUrl)
+  public get(): Observable<Evento[]> {
+    return this.http.get<Evento[]>(this.baseUrl);
   }
 
-  public getById(id : number) : Observable<Evento>
-  {
+  public getById(id: number): Observable<Evento> {
     return this.http.get<Evento>(`${this.baseUrl}/${id}`);
   }
 
-  public getByTema(tema : string) : Observable<Evento[]>
-  {
+  public getByTema(tema: string): Observable<Evento[]> {
     return this.http.get<Evento[]>(`${this.baseUrl}/${tema}/tema`);
   }
 
-  public post(evento : Evento) : Observable<Evento>
-  {
+  public post(evento: Evento): Observable<Evento> {
     return this.http.post<Evento>(`${this.baseUrl}`, evento);
   }
 
-  public put(evento : Evento) : Observable<Evento>
-  {
+  public put(evento: Evento): Observable<Evento> {
     return this.http.put<Evento>(`${this.baseUrl}/${evento.id}`, evento);
   }
 
-  public delete(id : number) : Observable<boolean>
-  {
+  public delete(id: number): Observable<boolean> {
     return this.http.delete<boolean>(`${this.baseUrl}/${id}`);
   }
 
-  public postUpload(eventoId : Number, file : any) : Observable<Evento>
-  {
+  public postUpload(eventoId: Number, file: any): Observable<Evento> {
     const fileToUpload = file[0] as File;
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append('file', fileToUpload);
 
     return this.http

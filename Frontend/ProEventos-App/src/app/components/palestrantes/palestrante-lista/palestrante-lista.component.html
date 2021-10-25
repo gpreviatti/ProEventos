@@ -1,0 +1,60 @@
+<div class="card shadow-sm p3">
+  <div class="col-lg-12">
+    <div class="row m-3">
+      <div class="col-lg-8 mt-1">
+        <input
+          type="text"
+          placeholder="Filtro"
+          class="form-control"
+          placeholder="buscar"
+        >
+      </div>
+
+      <div class="col-lg-4 mt-1">
+        <a class="btn btn-primary btn-block" routerLink="/palestrantes/detalhe">
+          novo
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-hover">
+    <thead class="bg-primary text-light">
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th>Telefone</th>
+        <th class="d-none d-md-table-cell">Email</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="palestrantes && palestrantes.length">
+      <tr
+        *ngFor="let palestrante of palestrantes"
+        (click)="detalhePalestrante(palestrante.id)"
+        style="cursor: pointer;"
+      >
+        <td scope="row">{{palestrante.id}}</td>
+        <td>{{palestrante.nome }}</td>
+        <td>{{palestrante.telefone}}</td>
+        <td class="d-none d-md-table-cell">{{palestrante.email}}</td>
+      </tr>
+    </tbody>
+    <tfoot class="text-center" *ngIf="!palestrantes.length">
+      <tr>
+        <td colspan="8">
+          <h4>Nenhum palestrante encontrado</h4>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+</div>
+
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+  >
+  <p style="font-size: 20px; color: white">Carregando...</p>
+</ngx-spinner>

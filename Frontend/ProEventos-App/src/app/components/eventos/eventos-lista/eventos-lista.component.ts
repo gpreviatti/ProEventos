@@ -18,12 +18,12 @@ export class EventosListaComponent implements OnInit {
   public eventosFiltrados: Evento[] = [];
   public evento = {} as Evento;
   public eventos: Evento[] = [];
-  public widthImg: number = 100;
-  public marginImg: number = 2;
-  public showImg: boolean = true;
-  public temaAtual: string = '';
+  public widthImg = 100;
+  public marginImg = 2;
+  public showImg = true;
+  public temaAtual = '';
 
-  private _filtroLista: string = '';
+  private _filtroLista = '';
 
   public get filtroLista(): string {
     return this._filtroLista;
@@ -51,14 +51,14 @@ export class EventosListaComponent implements OnInit {
       .subscribe({
         next: (eventos: Evento[]) => {
           this.eventos = eventos;
-          this.eventosFiltrados = this.eventos
+          this.eventosFiltrados = this.eventos;
         },
         error: (error: any) => {
-          this.spinner.hide()
-          this.toastr.error(error.message, 'Erro!')
+          this.spinner.hide();
+          this.toastr.error(error.message, 'Erro!');
         },
         complete: () => this.spinner.hide()
-      })
+      });
   }
 
   public alterarImage(): any {
@@ -70,17 +70,17 @@ export class EventosListaComponent implements OnInit {
     return this.eventos.filter(
       (evento: Evento) => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
         evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
-    )
+    );
   }
 
-  public detalheEvento(id : number) :void
-  {
-    this.router.navigate([`/eventos/detalhe/${id}`])
+  public detalheEvento(id: number): void {
+    this.router.navigate([`/eventos/detalhe/${id}`]);
   }
 
-  public showImage(imagemURL : any) {
-    if (imagemURL === '')
-      return '/assets/upload.png'
-    return environment.apiUrl + 'Resources/Images/' + imagemURL
+  public showImage(imagemURL: any) {
+    if (imagemURL === '') {
+      return '/assets/upload.png';
+    }
+    return environment.apiUrl + 'Resources/Images/' + imagemURL;
   }
 }
