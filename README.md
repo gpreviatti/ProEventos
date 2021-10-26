@@ -33,7 +33,7 @@ Event control application using the following [technologies](https://github.com/
 - Postgres
 - Adminer (For local development)
 
-### Diagrams 🗺️
+## Diagrams 🗺️
 
 #### MER/DER
 
