@@ -17,7 +17,8 @@ Event control application using the following [technologies](https://github.com/
 - Web Api
 - Swagger
 - Dtos
-- Postgress
+- Postgres
+- Adminer (For local development)
 
 #### FrontEnd
 
