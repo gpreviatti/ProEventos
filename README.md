@@ -8,17 +8,6 @@ Event control application using the following [technologies](https://github.com/
 
 ## Technolgies 💻
 
-### Backend
-
-- .Net 5
-- DDD
-- Ef core
-- Migrations
-- Web Api
-- Swagger
-- Dtos
-- Postgres
-- Adminer (For local development)
 
 #### FrontEnd
 
@@ -28,6 +17,21 @@ Event control application using the following [technologies](https://github.com/
 - Fontawesome
 - Interpolation, Directives and Binding
 - [Theme From Bootswatch](https://bootswatch.com/)
+
+### Backend
+
+- .Net 5
+- DDD
+- Ef core
+- Migrations
+- Web Api
+- Swagger
+- Dtos
+
+### Database
+
+- Postgres
+- Adminer (For local development)
 
 ### Diagrams 🗺️
 
