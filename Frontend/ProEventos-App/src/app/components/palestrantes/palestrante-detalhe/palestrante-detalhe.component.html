@@ -1,10 +1,10 @@
 <div class="row">
   <div
-    class="p-0"
+    class="p-0 mb-3 mr-3"
     [ngClass]="{'col-md-8 pr-4' : palestranteId,  'col-md-12' : !palestranteId}"
   >
     <div class="card shadow-sm">
-      <form [formGroup]="form">
+      <form [formGroup]="formPalestrante">
         <div class="p-3">
 
           <div class="form-row">
@@ -20,6 +20,13 @@
               >
               <div class="invalid-feedback">
                 Required field.
+              </div>
+              <div *ngIf="formControls.nome.errors?.minlength" class="invalid-feedback">
+                Minimum length 4 caracters.
+              </div>
+
+              <div *ngIf="formControls.nome.errors?.max" class="invalid-feedback">
+                Max length 50 caracters.
               </div>
             </div>
           </div>
@@ -80,7 +87,7 @@
           <div>
             <button
               class="btn btn-primary col-lg-2 m-1"
-              [disabled]="!form.valid"
+              [disabled]="!formPalestrante.valid"
               (click)="salvarAlteracao()"
             >
               Salvar
@@ -88,12 +95,12 @@
             <button
               *ngIf="palestranteId"
               type="button"
-              class="btn btn-secondary col-lg-2 m-1"
+              class="btn btn-outline-secondary col-lg-4 m-1"
             >
-              + Rede Social
+              Add Rede Social
             </button>
             <button class="btn btn-warning col-lg-2 m-1"
-            (click)="formHelper.resetForm(form)">
+            (click)="formHelper.resetForm(formPalestrante)">
               Limpar
             </button>
             <button
@@ -108,8 +115,8 @@
     </div>
   </div>
 
-  <div class="card shadow-sm col-md-4" *ngIf="palestranteId != undefined">
-    <div [formGroup]="form" class="card-palestrante-view">
+  <div class="card shadow-sm col-md-3" *ngIf="palestranteId != undefined">
+    <div class="card-view">
       <div class="form-row">
         <div class="form-group m-0">
           <input
@@ -124,6 +131,8 @@
       <div class="card profile-card-2 mt-3">
         <div class="card-img-block">
           <img
+            #file
+            [src]="imageUrl"
             class="img img-fluid"
             (click)="file.click()"
             alt="Card image cap"
@@ -135,19 +144,17 @@
       </div>
 
       <div class="card-body pt-3">
+
         <h3>{{palestrante.nome}}</h3>
-        <p class="card-text">
-          <b>Minicurriculo: </b> {{palestrante.miniCurriculo}}
-        </p>
 
-        <hr>
+        <b class="text-primary">Minicurriculo</b>
+        <p class="text-muted">{{palestrante.miniCurriculo}}</p>
 
-        <p class="card-text">
-          <b>Contatos</b>
+        <b class="text-primary">Contatos</b>
+        <p class="text-muted">
+          <b class="text-primary">Telefone:</b><small class="text-muted"> {{palestrante.telefone}}</small>
           <br>
-          <small class="text-muted"> Telefone: {{palestrante.telefone}}</small>
-          <br>
-          <small class="text-muted"> Email: {{palestrante.email}}</small>
+          <b class="text-primary">Email:</b><small class="text-muted"> {{palestrante.email}}</small>
         </p>
       </div>
     </div>

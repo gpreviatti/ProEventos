@@ -1,6 +1,6 @@
 <div class="row">
   <div
-    class="p-0"
+    class="p-0 mb-3 mr-3"
     [ngClass]="{'col-md-8 pr-4' : eventoId,  'col-md-12' : !eventoId}"
   >
     <div class="card shadow-sm">
@@ -60,6 +60,7 @@
                 [bsConfig]="{
                   adaptivePosition: true,
                   dateInputFormat: 'DD/MM/YYYY hh:mm a',
+                  containerClass: 'dark-blue',
                   showWeekNumbers: false
                 }"
               >
@@ -133,10 +134,10 @@
             <button
               *ngIf="eventoId"
               type="button"
-              class="btn btn-secondary col-lg-2 m-1"
+              class="btn btn-outline-secondary col-lg-3 m-1"
               (click)="abrirModalLotes()"
             >
-              + Lote
+              Add Lote
             </button>
             <button class="btn btn-warning col-lg-2 m-1"
             (click)="formHelper.resetForm(form)">
@@ -154,7 +155,7 @@
     </div>
   </div>
 
-  <div class="card shadow-sm col-md-4" *ngIf="eventoId != undefined">
+  <div class="card shadow-sm col-md-3" *ngIf="eventoId != undefined">
     <div [formGroup]="form" class="card-evento-view">
       <div class="form-row">
         <div class="form-group m-0">
@@ -184,20 +185,18 @@
 
       <div class="card-body pt-3">
         <h3>{{evento.tema}}</h3>
-        <p class="card-text">
+        <p class="card-text text-muted">
           <b>Local: </b> {{evento.local}}
           <br>
           <b>Data: </b> {{evento.dataEvento | date:'short' }}
         </p>
 
-        <hr>
-
-        <p class="card-text">
+        <p class="card-text text-muted">
           <b>Contatos</b>
           <br>
-          <small class="text-muted"> Telefone: {{evento.telefone}}</small>
+          <small> Telefone: {{evento.telefone}}</small>
           <br>
-          <small class="text-muted"> Email: {{evento.email}}</small>
+          <small> Email: {{evento.email}}</small>
         </p>
       </div>
     </div>

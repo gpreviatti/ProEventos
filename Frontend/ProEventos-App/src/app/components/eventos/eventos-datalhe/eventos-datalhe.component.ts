@@ -18,16 +18,6 @@ import { environment } from '@environments/environment';
 })
 export class EventosDatalheComponent implements OnInit {
 
-  constructor(
-    private formBuilder: FormBuilder,
-    public formHelper: FormHelper,
-    private activatedrouter: ActivatedRoute,
-    private eventoService: EventoService,
-    private spinner: NgxSpinnerService,
-    private toastr: ToastrService,
-    private modalService: BsModalService,
-    private routerHelper: RouterHelper
-  ) { }
   public bsModalRef?: BsModalRef;
   public eventoId: any;
   public file: any;
@@ -46,6 +36,17 @@ export class EventosDatalheComponent implements OnInit {
   });
 
   public formControls = this.form.controls;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    public formHelper: FormHelper,
+    private activatedrouter: ActivatedRoute,
+    private eventoService: EventoService,
+    private spinner: NgxSpinnerService,
+    private toastr: ToastrService,
+    private modalService: BsModalService,
+    private routerHelper: RouterHelper
+  ) { }
 
   //#region Modal Evento
   public temaAtual = '';

@@ -5,6 +5,7 @@ import { FormHelper } from '@app/helpers/FormHelper';
 import { RouterHelper } from '@app/helpers/RouterHelper';
 import { Palestrante } from '@app/models/Palestrante';
 import { PalestranteService } from '@app/services/palestrante.service';
+import { environment } from '@environments/environment';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -18,17 +19,17 @@ export class PalestranteDetalheComponent implements OnInit {
 
   public bsModalRef?: BsModalRef;
   public palestranteId: any;
-  public palestrante: any;
+  public palestrante = {} as Palestrante;
+  public imageUrl = 'assets/upload.png';
 
-  form = this.formBuilder.group({
+  formPalestrante = this.formBuilder.group({
     nome: ['', [Validators.required, Validators.minLength(4), Validators.max(50)]],
     miniCurriculo: [''],
     telefone: ['', Validators.required ],
     email: ['', [Validators.required, Validators.email]],
-    imagemURL: ['']
   });
 
-  public formControls = this.form.controls;
+  public formControls = this.formPalestrante.controls;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -54,7 +55,10 @@ export class PalestranteDetalheComponent implements OnInit {
         .subscribe(
           (palestrante: Palestrante) => {
             this.palestrante = {...palestrante};
-            this.form.patchValue(this.palestrante);
+            this.formPalestrante.patchValue(this.palestrante);
+            if (this.palestrante.imagemURL !== '' && this.palestrante.imagemURL !== null) {
+              this.imageUrl = environment.apiUrl + 'Resources/Images/' + this.palestrante.imagemURL;
+            }
           },
           (error: any) => {
             this.toastr.error(error?.message, 'Erro ao carregar evento');
@@ -65,13 +69,13 @@ export class PalestranteDetalheComponent implements OnInit {
 
   public salvarAlteracao(): void {
     this.spinner.show();
-    if (this.form.invalid) {
+    if (this.formPalestrante.invalid) {
       this.toastr.error('Formulário invalido');
       this.spinner.hide();
       return;
     }
 
-    this.palestrante = {...this.form.value};
+    this.palestrante = {...this.formPalestrante.value};
 
     if (this.palestranteId) {
       this.palestrante.id = +this.palestranteId;
@@ -85,8 +89,7 @@ export class PalestranteDetalheComponent implements OnInit {
         }
 
         this.toastr.success(`Evento ${palestrante.nome} ${message} com sucesso`, 'Sucesso');
-        this.palestranteId.id = palestrante.id;
-        this.routerHelper.reloadComponent(`/eventos/detalhe/${palestrante.id}`);
+        this.routerHelper.reloadComponent(`/palestrantes/detalhe/${palestrante.id}`);
       },
       (error: any) => this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento'),
     ).add(() => this.spinner.hide());
@@ -105,7 +108,7 @@ export class PalestranteDetalheComponent implements OnInit {
       (result: boolean) => {
         if (result) {
           this.showSuccess(`Evento de ${this.palestrante.nome} deletado com Sucesso!`);
-          this.routerHelper.reloadComponent('/eventos');
+          this.routerHelper.reloadComponent('/palestrantes/lista');
         }
       },
       (error: any) => this.toastr.error(error.errors, 'Erro ao deletar evento')
