@@ -63,7 +63,7 @@ export class LotesDetalhesComponent implements OnInit {
     if (this.lote.id !== undefined) {}
       lote.id = this.lote.id;
 
-    this.loteService.put(lote.eventoId, lote).subscribe(
+    this.loteService.post(lote).subscribe(
       (loteResponse: Lote) => {
         if (loteResponse) {
           this.toastr.success('Lote criado com sucesso', 'Sucesso!');
@@ -77,7 +77,7 @@ export class LotesDetalhesComponent implements OnInit {
 
   public deletar(): void {
     this.spinner.show();
-    this.loteService.delete(this.lote.eventoId, this.lote.id).subscribe(
+    this.loteService.delete(this.lote.id).subscribe(
       (response: boolean) => {
         if (response) {
           this.toastr.success('Lote removido com sucesso', 'Sucesso!');

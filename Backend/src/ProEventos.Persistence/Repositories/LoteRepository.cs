@@ -9,14 +9,13 @@ namespace ProEventos.Persistence
     {
         public LoteRepository(ProEventosContext context) : base(context) { }
 
-        public async Task<Lote> GetLoteByIdsAsync(int eventoId, int id)
+        public async Task<Lote> GetByIdsAsync(int id)
         {
             IQueryable<Lote> query = _context.Lotes;
 
-            query = query
+            return await query
                 .AsNoTracking()
-                .Where(lote => lote.EventoId == eventoId && lote.Id == id);
-            return await query.FirstOrDefaultAsync();
+                .FirstOrDefaultAsync(lote => lote.Id == id);
         }
 
         public async Task<Lote[]> GetLotesByEventoIdAsync(int eventoId)

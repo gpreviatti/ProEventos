@@ -14,9 +14,8 @@ namespace ProEventos.Domain
         /// <summary>
         /// Método get que retornará apenas 1 Lote
         /// </summary>
-        /// <param name="eventoId">Código chave da tabela Evento</param>
         /// <param name="id">Código chave da tabela Lote</param>
         /// <returns>Apenas 1 lote</returns>
-        Task<Lote> GetLoteByIdsAsync(int eventoId, int id);
+        Task<Lote> GetByIdsAsync(int id);
     }
 }
