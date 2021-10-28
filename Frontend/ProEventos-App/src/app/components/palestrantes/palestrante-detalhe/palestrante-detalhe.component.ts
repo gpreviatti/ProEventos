@@ -61,7 +61,7 @@ export class PalestranteDetalheComponent implements OnInit {
             }
           },
           (error: any) => {
-            this.toastr.error(error?.message, 'Erro ao carregar evento');
+            this.toastr.error(error?.message, 'Erro ao carregar palestrante');
           }
         ).add(() => this.spinner.hide());
     }
@@ -88,10 +88,10 @@ export class PalestranteDetalheComponent implements OnInit {
           message = 'alterado';
         }
 
-        this.toastr.success(`Evento ${palestrante.nome} ${message} com sucesso`, 'Sucesso');
+        this.toastr.success(`Palestrante ${palestrante.nome} ${message} com sucesso`, 'Sucesso');
         this.routerHelper.reloadComponent(`/palestrantes/detalhe/${palestrante.id}`);
       },
-      (error: any) => this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento'),
+      (error: any) => this.toastr.error(error?.title, 'Erro ao cadastrar/alterar palestrante'),
     ).add(() => this.spinner.hide());
   }
 
@@ -107,11 +107,11 @@ export class PalestranteDetalheComponent implements OnInit {
     this.palestranteService.delete(this.palestrante.id).subscribe(
       (result: boolean) => {
         if (result) {
-          this.showSuccess(`Evento de ${this.palestrante.nome} deletado com Sucesso!`);
+          this.showSuccess(`Palestrante ${this.palestrante.nome} deletado com Sucesso!`);
           this.routerHelper.reloadComponent('/palestrantes/lista');
         }
       },
-      (error: any) => this.toastr.error(error.errors, 'Erro ao deletar evento')
+      (error: any) => this.toastr.error(error.errors, 'Erro ao deletar palestrante')
     ).add(() => this.spinner.hide());
   }
 

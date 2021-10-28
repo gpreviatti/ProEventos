@@ -1,1 +1,43 @@
-<p>rede-social works!</p>
+<app-titulo
+  titulo="Redes Sociais"
+  iconClass="fa fa-share-alt"
+></app-titulo>
+
+<div class="card shadow-sm">
+  <table class="table table-hover">
+    <thead class="text-light bg-primary">
+      <tr>
+        <th>#</th>
+        <th>Nome</th>
+        <th class="d-none d-md-table-cell">Url</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="redesSociais">
+      <tr
+        *ngFor="let redeSocial of redesSociais"
+        style="cursor: pointer;"
+        (click)="detalhar(redeSocial)"
+      >
+        <td>{{redeSocial.id}}</td>
+        <td>{{redeSocial.nome }}</td>
+        <td class="d-none d-md-table-cell">{{redeSocial.url}}</td>
+      </tr>
+    </tbody>
+    <tfoot *ngIf="!redesSociais.length" class="text-center">
+      <tr>
+        <td colspan="8">
+          <legend>Nenhuma rede social encontrada</legend>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>
+
+<ngx-spinner
+  bdColor="rgba(0,0,0,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+  >
+  <p style="font-size: 20px; color: white">Carregando...</p>
+</ngx-spinner>

@@ -12,6 +12,7 @@ import { LotesDetalhesComponent } from './lotes-detalhes/lotes-detalhes.componen
   styleUrls: ['./lotes.component.scss']
 })
 export class LotesComponent implements OnInit {
+  @Input() eventoId = 0;
   public bsModalRef?: BsModalRef;
   public lotes = [] as Lote[];
 
@@ -22,7 +23,6 @@ export class LotesComponent implements OnInit {
     private modalService: BsModalService
   ) { }
 
-  @Input() eventoId = 0;
   ngOnInit(): void {
     this.carregar();
   }

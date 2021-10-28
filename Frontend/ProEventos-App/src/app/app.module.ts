@@ -37,7 +37,6 @@ import { PalestranteDetalheComponent } from './components/palestrantes/palestran
 import { PalestranteListaComponent } from './components/palestrantes/palestrante-lista/palestrante-lista.component';
 import { RedeSocialComponent } from './components/rede-social/rede-social.component';
 import { RedeSocialDetalheComponent } from './components/rede-social/rede-social-detalhe/rede-social-detalhe.component';
-import { RedeSocialListaComponent } from './components/rede-social/rede-social-lista/rede-social-lista.component';
 
 import { PerfilComponent } from './components/user/perfil/perfil.component';
 import { UserComponent } from './components/user/user.component';
@@ -66,8 +65,7 @@ import { ContatoComponent } from './components/contato/contato.component';
     PalestranteDetalheComponent,
     PalestranteListaComponent,
     RedeSocialComponent,
-    RedeSocialDetalheComponent,
-    RedeSocialListaComponent
+    RedeSocialDetalheComponent
   ],
   imports: [
     CommonModule,

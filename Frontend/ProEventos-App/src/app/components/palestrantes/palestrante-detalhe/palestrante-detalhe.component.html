@@ -1,8 +1,40 @@
 <div class="row">
-  <div
-    class="p-0 mb-3 mr-3"
-    [ngClass]="{'col-md-8 pr-4' : palestranteId,  'col-md-12' : !palestranteId}"
-  >
+  <div class="card shadow-sm col-md-3 mb-3 mr-3" *ngIf="palestranteId != undefined">
+    <div class="card-view">
+      <div class="form-row">
+        <div class="form-group m-0">
+          <input type="file" #file class="form-control is-invalid" style="display: none">
+        </div>
+      </div>
+
+      <div class="card profile-card-2 mt-3">
+        <div class="card-img-block">
+          <img #file [src]="imageUrl" class="img img-fluid" (click)="file.click()" alt="Card image cap" width="150"
+            tooltip="Upload de Nova Imagem" [adaptivePosition]=false>
+        </div>
+      </div>
+
+      <div class="card-body pt-3">
+
+        <h3>{{palestrante.nome}}</h3>
+
+        <b class="text-primary">Minicurriculo</b>
+        <p class="text-muted">{{palestrante.miniCurriculo}}</p>
+
+        <b class="text-primary">Contatos</b>
+        <p class="text-muted">
+          <b class="text-primary">Telefone:</b>
+          <small class="text-muted"> {{palestrante.telefone}}</small>
+
+          <br>
+          <b class="text-primary">Email:</b>
+          <small class="text-muted"> {{palestrante.email}}</small>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="p-0" [ngClass]="{'col-md-8' : palestranteId,  'col-md-12' : !palestranteId}">
     <div class="card shadow-sm">
       <form [formGroup]="formPalestrante">
         <div class="p-3">
@@ -10,14 +42,9 @@
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Nome</label>
-              <input
-                type="text"
-                placeholder="Insira o Nome do palestrante"
-                class="form-control"
-                [ngClass]="formHelper.cssValidator(formControls.nome)"
-                [(ngModel)]="palestrante.nome"
-                formControlName="nome"
-              >
+              <input type="text" placeholder="Insira o Nome do palestrante" class="form-control"
+                [ngClass]="formHelper.cssValidator(formControls.nome)" [(ngModel)]="palestrante.nome"
+                formControlName="nome">
               <div class="invalid-feedback">
                 Required field.
               </div>
@@ -34,14 +61,9 @@
           <div class="form-row">
             <div class="form-group col-md-12">
               <label>Mini Curriculo</label>
-              <textarea
-                type="textarea"
-                placeholder="Insira o curriculo do palestrante"
-                class="form-control"
-                [ngClass]="formHelper.cssValidator(formControls.miniCurriculo)"
-                [(ngModel)]="palestrante.miniCurriculo"
-                formControlName="miniCurriculo"
-              ></textarea>
+              <textarea type="textarea" placeholder="Insira o curriculo do palestrante" class="form-control"
+                [ngClass]="formHelper.cssValidator(formControls.miniCurriculo)" [(ngModel)]="palestrante.miniCurriculo"
+                formControlName="miniCurriculo"></textarea>
             </div>
           </div>
 
@@ -49,14 +71,9 @@
 
             <div class="form-group col-md-3">
               <label>Telefone</label>
-              <input
-                type="phone"
-                class="form-control"
-                placeholder="(000) 90000-0000"
-                [ngClass]="formHelper.cssValidator(formControls.telefone)"
-                [(ngModel)]="palestrante.telefone"
-                formControlName="telefone"
-              >
+              <input type="phone" class="form-control" placeholder="(000) 90000-0000"
+                [ngClass]="formHelper.cssValidator(formControls.telefone)" [(ngModel)]="palestrante.telefone"
+                formControlName="telefone">
               <div class="invalid-feedback">
                 Required field.
               </div>
@@ -64,14 +81,9 @@
 
             <div class="form-group col-md-9">
               <label>Email</label>
-              <input
-                type="email"
-                class="form-control"
-                placeholder="e-mail"
-                [ngClass]="formHelper.cssValidator(formControls.email)"
-                [(ngModel)]="palestrante.email"
-                formControlName="email"
-              >
+              <input type="email" class="form-control" placeholder="e-mail"
+                [ngClass]="formHelper.cssValidator(formControls.email)" [(ngModel)]="palestrante.email"
+                formControlName="email">
               <div *ngIf="formControls.email.errors?.required" class="invalid-feedback">
                 Required field.
               </div>
@@ -85,78 +97,23 @@
 
         <div class="card-footer">
           <div>
-            <button
-              class="btn btn-primary col-lg-2 m-1"
-              [disabled]="!formPalestrante.valid"
-              (click)="salvarAlteracao()"
-            >
+            <button class="btn btn-primary col-lg-2 m-1" [disabled]="!formPalestrante.valid"
+              (click)="salvarAlteracao()">
               Salvar
             </button>
-            <button
-              *ngIf="palestranteId"
-              type="button"
-              class="btn btn-outline-secondary col-lg-4 m-1"
-            >
+            <button *ngIf="palestranteId" type="button" class="btn btn-outline-secondary col-lg-4 m-1">
               Add Rede Social
             </button>
-            <button class="btn btn-warning col-lg-2 m-1"
-            (click)="formHelper.resetForm(formPalestrante)">
+            <button class="btn btn-warning col-lg-2 m-1" (click)="formHelper.resetForm(formPalestrante)">
               Limpar
             </button>
-            <button
-              class="btn btn-danger col-lg-2 m-1"
-              (click)="modalExcluirPalestrante($event, template, palestrante)"
-            >
-            Excluir
-          </button>
+            <button class="btn btn-danger col-lg-2 m-1"
+              (click)="modalExcluirPalestrante($event, template, palestrante)">
+              Excluir
+            </button>
           </div>
         </div>
       </form>
-    </div>
-  </div>
-
-  <div class="card shadow-sm col-md-3" *ngIf="palestranteId != undefined">
-    <div class="card-view">
-      <div class="form-row">
-        <div class="form-group m-0">
-          <input
-            type="file"
-            #file
-            class="form-control is-invalid"
-            style="display: none"
-          >
-        </div>
-      </div>
-
-      <div class="card profile-card-2 mt-3">
-        <div class="card-img-block">
-          <img
-            #file
-            [src]="imageUrl"
-            class="img img-fluid"
-            (click)="file.click()"
-            alt="Card image cap"
-            width="150"
-            tooltip="Upload de Nova Imagem"
-            [adaptivePosition]=false
-          >
-        </div>
-      </div>
-
-      <div class="card-body pt-3">
-
-        <h3>{{palestrante.nome}}</h3>
-
-        <b class="text-primary">Minicurriculo</b>
-        <p class="text-muted">{{palestrante.miniCurriculo}}</p>
-
-        <b class="text-primary">Contatos</b>
-        <p class="text-muted">
-          <b class="text-primary">Telefone:</b><small class="text-muted"> {{palestrante.telefone}}</small>
-          <br>
-          <b class="text-primary">Email:</b><small class="text-muted"> {{palestrante.email}}</small>
-        </p>
-      </div>
     </div>
   </div>
 </div>
@@ -169,13 +126,13 @@
 <ng-template #template>
   <div class="modal-body text-center">
     <p>Tem certeza que deseja excluir esse palestrante</p>
-    <button type="button" class="btn btn-default" (click)="confirm()" >Sim</button>
-    <button type="button" class="btn btn-primary" (click)="decline()" >Não</button>
+    <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
   </div>
 </ng-template>
 
-<!-- <div *ngIf="palestranteId">
-  <app-lotes [palestranteId]="palestranteId"></app-lotes>
-</div> -->
+<div *ngIf="palestranteId">
+  <app-rede-social [palestranteId]="palestranteId"></app-rede-social>
+</div>
 
 <br>
