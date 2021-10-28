@@ -9,7 +9,7 @@ import { FormHelper } from '@app/helpers/FormHelper';
 })
 export class PerfilComponent implements OnInit {
 
-  formOptions : AbstractControlOptions = {
+  formOptions: AbstractControlOptions = {
     validators: this.formHelper.mustMatch('password', 'confirmPassword')
   };
 
@@ -17,7 +17,6 @@ export class PerfilComponent implements OnInit {
     firstName: ['', [Validators.required, Validators.minLength(4), Validators.max(120000)]],
     lastName: ['', [Validators.required, Validators.minLength(4), Validators.max(120000)]],
     email: ['', [Validators.required, Validators.email]],
-    userName: ['', [Validators.required, Validators.minLength(4), Validators.max(120000)]],
     password: ['', [Validators.required ]],
     confirmPassword: ['', [Validators.required ]]
   }, this.formOptions);
@@ -29,11 +28,10 @@ export class PerfilComponent implements OnInit {
     public formHelper: FormHelper
   ) { }
 
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
   }
 
-  public resetForm() : void{
+  public resetForm(): void {
     this.form.reset();
   }
 

@@ -101,8 +101,13 @@
               (click)="salvarAlteracao()">
               Salvar
             </button>
-            <button *ngIf="palestranteId" type="button" class="btn btn-outline-secondary col-lg-4 m-1">
-              Add Rede Social
+            <button
+              *ngIf="palestranteId"
+              type="button"
+              class="btn btn-outline-secondary col-lg-5 m-1"
+              (click)="detalharRedeSocial()"
+            >
+              Cadastrar Rede Social
             </button>
             <button class="btn btn-warning col-lg-2 m-1" (click)="formHelper.resetForm(formPalestrante)">
               Limpar

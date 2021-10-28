@@ -1,1 +1,96 @@
-<p>rede-social-detalhe works!</p>
+<div class="modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">
+        <i class="fa fa-share-alt mr-3" aria-hidden="true"></i>
+        Rede Social
+      </h4>
+      <button
+        class="btn-close close pull-right"
+        (click)="bsModalRef?.hide()"
+        aria-label="Close"
+      >
+        <span aria-hidden="true" class="visually-hidden">&times;</span>
+      </button>
+    </div>
+  </div>
+  <div class="modal-body">
+    <div class="col-lg-12">
+      <div class="form-row p-1">
+        <div class="col">
+          <div>
+            <form [formGroup]="formRedeSocial">
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <label>Nome</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="nome"
+                    placeholder="Nome"
+                    [ngClass]="formHelper.cssValidator(formRedeSocialControls.nome)"
+                  />
+                  <div *ngIf="formRedeSocialControls.nome.errors?.required" class="invalid-feedback">
+                    Required field.
+                  </div>
+
+                  <div *ngIf="formRedeSocialControls.nome.errors?.minlength" class="invalid-feedback">
+                    Minimum length 4 caracters.
+                  </div>
+
+                  <div *ngIf="formRedeSocialControls.nome.errors?.max" class="invalid-feedback">
+                    Max length 100 caracters.
+                  </div>
+                </div>
+                <div class="form-group col-md-12">
+                  <label>Url</label>
+                  <a
+                    class="ml-2"
+                    *ngIf="redeSocial.url"
+                    [href]="redeSocial.url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <i class="fa fa-external-link-alt" aria-hidden="true"></i>
+                  </a>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="url"
+                    placeholder="https://www.linkedin.com/in/"
+                    [ngClass]="formHelper.cssValidator(formRedeSocialControls.url)"
+                  />
+                  <div *ngIf="formRedeSocialControls.url.errors?.required" class="invalid-feedback">
+                    Required field.
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg=12 text-center">
+                <button
+                  class="btn btn-primary col-lg-4 m-1"
+                  (click)="cadastrarAlterar()"
+                  [disabled]="!formRedeSocial.valid"
+                >
+                  {{ redeSocial.id === undefined ? 'Cadastrar' : 'Alterar'}}
+                </button>
+                <button
+                  class="btn btn-warning col-lg-3 m-1"
+                  (click)="formHelper.resetForm(formRedeSocial)"
+                >
+                  Limpar
+                </button>
+                <button
+                  class="btn btn-danger col-lg-3 m-1"
+                  (click)="deletar()"
+                  [disabled]="redeSocial.id === undefined"
+                >
+                Excluir
+              </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

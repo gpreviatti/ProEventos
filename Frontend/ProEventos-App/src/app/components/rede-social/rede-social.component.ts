@@ -1,9 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RedeSocial } from '@app/models/RedeSocial';
 import { RedeSocialService } from '@app/services/rede-social.service';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
+import { RedeSocialDetalheComponent } from './rede-social-detalhe/rede-social-detalhe.component';
 
 @Component({
   selector: 'app-rede-social',
@@ -12,6 +13,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class RedeSocialComponent implements OnInit {
   @Input() palestranteId = 0;
+  public bsModalRef?: BsModalRef;
   redesSociais = [] as RedeSocial[];
 
   constructor(
@@ -22,7 +24,6 @@ export class RedeSocialComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log(this.palestranteId);
     this.carregarRedesSociais();
   }
 
@@ -35,7 +36,14 @@ export class RedeSocialComponent implements OnInit {
   }
 
   detalhar(redeSocial: RedeSocial): any {
-    console.log(redeSocial);
+    const initialState = {
+      palestranteId : this.palestranteId,
+      redeSocial: redeSocial
+    };
+    this.bsModalRef = this.modalService.show(
+      RedeSocialDetalheComponent,
+      { initialState }
+    );
   }
 
 }

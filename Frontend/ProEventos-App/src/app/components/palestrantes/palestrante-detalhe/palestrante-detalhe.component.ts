@@ -1,6 +1,7 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { RedeSocialDetalheComponent } from '@app/components/rede-social/rede-social-detalhe/rede-social-detalhe.component';
 import { FormHelper } from '@app/helpers/FormHelper';
 import { RouterHelper } from '@app/helpers/RouterHelper';
 import { Palestrante } from '@app/models/Palestrante';
@@ -121,6 +122,16 @@ export class PalestranteDetalheComponent implements OnInit {
 
   private showSuccess(mensagem: string): void {
     this.toastr.success(mensagem);
+  }
+
+  detalharRedeSocial(): any {
+    const initialState = {
+      palestranteId : this.palestranteId
+    };
+    this.bsModalRef = this.modalService.show(
+      RedeSocialDetalheComponent,
+      { initialState }
+    );
   }
 
 }

@@ -8,11 +8,10 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss']
 })
-export class RegistrationComponent implements OnInit
-{
-  modalRef?: BsModalRef;
+export class RegistrationComponent implements OnInit {
+  bsModalRef?: BsModalRef;
 
-  formOptions : AbstractControlOptions = {
+  formOptions: AbstractControlOptions = {
     validators: this.formHelper.mustMatch('password', 'confirmPassword')
   };
 
@@ -20,7 +19,6 @@ export class RegistrationComponent implements OnInit
     firstName: ['', [Validators.required, Validators.minLength(4), Validators.max(120000)]],
     lastName: ['', [Validators.required, Validators.minLength(4), Validators.max(120000)]],
     email: ['', [Validators.required, Validators.email]],
-    userName: ['', [Validators.required, Validators.minLength(4), Validators.max(120000)]],
     password: ['', [Validators.required ]],
     confirmPassword: ['', [Validators.required ]]
   }, this.formOptions);
@@ -33,13 +31,12 @@ export class RegistrationComponent implements OnInit
     public formHelper: FormHelper,
   ) { }
 
-  ngOnInit(): void
-  {
+  ngOnInit(): void {
 
   }
 
   public openModal(template: TemplateRef<any>): void {
-    this.modalRef = this.modalService.show(template, { class: 'modal-lg' });
+    this.bsModalRef = this.modalService.show(template, { class: 'modal-lg' });
   }
 
 }
