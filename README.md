@@ -44,3 +44,48 @@ Event control application using the following [technologies](https://github.com/
 #### DSA
 
 <img src="https://user-images.githubusercontent.com/24505963/138560488-0101c3ba-8a07-43ca-b5ac-2c09e3d0314f.png" widght="150">
+
+## How to Run
+
+Dependencies to run project locally
+
+- Docker
+- Docker compose
+- .Net 5.0^
+- Angular Cli
+
+### Local
+
+In project root folder run following commands
+
+Database
+
+```cmd
+cd \InfraStructure\docker\
+docker-compose up
+```
+
+Backend
+
+```cmd
+cd Backend\src\ProEventos.API\
+dotnet run
+```
+
+Frontend
+
+```cmd
+cd Frontend\ProEventos-App\
+ng serve
+```
+
+### Kubernates
+
+Dependencies to run project in kubernates
+
+- kubectl
+
+```cmd
+cd InfraStructure\k8s
+kubectl apply -f .
+```
