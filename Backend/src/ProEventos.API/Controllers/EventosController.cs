@@ -16,6 +16,8 @@ namespace ProEventos.API.Controllers
         private readonly IEventoService _eventoService;
         private readonly IWebHostEnvironment _hostEnvironment;
 
+        private readonly string resourcesPath = @"Resources/Images/Eventos/";
+
         public EventosController(
             IEventoService eventoService, 
             IWebHostEnvironment hostEnvironment
@@ -186,7 +188,7 @@ namespace ProEventos.API.Controllers
 
             imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
 
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Images/Eventos/", imageName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, resourcesPath, imageName);
 
             using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
@@ -198,7 +200,7 @@ namespace ProEventos.API.Controllers
 
         private void DeleteImage(string imageName)
         {
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Images/Eventos/", imageName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, resourcesPath, imageName);
             if (System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
         }

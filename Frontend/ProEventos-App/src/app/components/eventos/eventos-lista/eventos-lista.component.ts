@@ -81,6 +81,6 @@ export class EventosListaComponent implements OnInit {
     if (imagemURL === '') {
       return '/assets/upload.png';
     }
-    return environment.apiUrl + 'Resources/Images/' + imagemURL;
+    return environment.apiUrl + 'Resources/Images/Eventos/' + imagemURL;
   }
 }

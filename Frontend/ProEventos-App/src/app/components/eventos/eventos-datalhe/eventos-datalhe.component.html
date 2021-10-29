@@ -129,7 +129,7 @@
               [disabled]="!form.valid"
               (click)="salvarAlteracao()"
             >
-              Salvar
+              {{ eventoId ? 'Alterar' : 'Cadastrar' }}
             </button>
             <button
               *ngIf="eventoId"
