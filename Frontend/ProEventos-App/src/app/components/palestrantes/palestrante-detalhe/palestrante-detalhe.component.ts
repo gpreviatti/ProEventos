@@ -21,13 +21,15 @@ export class PalestranteDetalheComponent implements OnInit {
   public bsModalRef?: BsModalRef;
   public palestranteId: any;
   public palestrante = {} as Palestrante;
-  public imageUrl = 'assets/upload.png';
+  public file: any;
+  public imagemURL = 'assets/upload.png';
 
   formPalestrante = this.formBuilder.group({
     nome: ['', [Validators.required, Validators.minLength(4), Validators.max(50)]],
     miniCurriculo: [''],
     telefone: ['', Validators.required ],
     email: ['', [Validators.required, Validators.email]],
+    imagemURL: ['']
   });
 
   public formControls = this.formPalestrante.controls;
@@ -58,7 +60,7 @@ export class PalestranteDetalheComponent implements OnInit {
             this.palestrante = {...palestrante};
             this.formPalestrante.patchValue(this.palestrante);
             if (this.palestrante.imagemURL !== '' && this.palestrante.imagemURL !== null) {
-              this.imageUrl = environment.apiUrl + 'Resources/Images/' + this.palestrante.imagemURL;
+              this.imagemURL = environment.apiUrl + 'Resources/Images/Palestrantes/' + this.palestrante.imagemURL;
             }
           },
           (error: any) => {
@@ -132,6 +134,29 @@ export class PalestranteDetalheComponent implements OnInit {
       RedeSocialDetalheComponent,
       { initialState }
     );
+  }
+
+  // Evento para atualizar a imagem
+  public onFileChange(event: any): void {
+    const reader = new FileReader();
+
+    reader.onload = (e: any) => this.imagemURL = e.target.result;
+
+    this.file = event.target.files;
+    reader.readAsDataURL(this.file[0]);
+
+    this.uploadImage();
+  }
+
+  public uploadImage(): void {
+    this.spinner.show();
+    this.palestranteService.uploadImage(this.palestranteId, this.file).subscribe(
+      () => {
+        this.routerHelper.reloadComponent(`/palestrantes/detalhe/${this.palestranteId}`);
+        this.showSuccess(`Imagem inserida com sucesso!`);
+      },
+      (error: any) => this.toastr.error(error.errors, 'Erro ao inserir imagem')
+    ).add(() => this.spinner.hide());
   }
 
 }

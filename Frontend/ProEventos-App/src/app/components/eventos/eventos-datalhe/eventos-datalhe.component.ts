@@ -66,7 +66,7 @@ export class EventosDatalheComponent implements OnInit {
             this.evento = {...evento};
             this.form.patchValue(this.evento);
             if (this.evento.imagemURL !== '') {
-              this.imageUrl = environment.apiUrl + 'Resources/Images/' + this.evento.imagemURL;
+              this.imageUrl = environment.apiUrl + 'Resources/Images/Eventos/' + this.evento.imagemURL;
             }
           },
           (error: any) => {

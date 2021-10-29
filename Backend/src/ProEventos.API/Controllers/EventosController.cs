@@ -82,12 +82,12 @@ namespace ProEventos.API.Controllers
             }
         }
 
-        [HttpPost("upload-image/{eventoId}")]
-        public async Task<IActionResult> UploadImage(int eventoId)
+        [HttpPost("upload-image/{id}")]
+        public async Task<IActionResult> UploadImage(int id)
         {
             try
             {
-                var evento = await _eventoService.GetEventoByIdAsync(eventoId, true);
+                var evento = await _eventoService.GetEventoByIdAsync(id, true);
                 if (evento == null) return NoContent();
 
                 var file = Request.Form.Files[0];
@@ -96,7 +96,7 @@ namespace ProEventos.API.Controllers
                     DeleteImage(evento.ImagemURL);
                     evento.ImagemURL = await SaveImage(file);
                 }
-                var EventoRetorno = await _eventoService.UpdateEvento(eventoId, evento);
+                var EventoRetorno = await _eventoService.UpdateEvento(id, evento);
 
                 return Ok(EventoRetorno);
             }
@@ -186,7 +186,7 @@ namespace ProEventos.API.Controllers
 
             imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
 
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Images", imageName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Images/Eventos/", imageName);
 
             using (var fileStream = new FileStream(imagePath, FileMode.Create))
             {
@@ -198,7 +198,7 @@ namespace ProEventos.API.Controllers
 
         private void DeleteImage(string imageName)
         {
-            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Images", imageName);
+            var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, @"Resources/Images/Eventos/", imageName);
             if (System.IO.File.Exists(imagePath))
                 System.IO.File.Delete(imagePath);
         }
