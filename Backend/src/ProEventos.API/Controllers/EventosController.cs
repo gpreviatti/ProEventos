@@ -98,7 +98,7 @@ namespace ProEventos.API.Controllers
                     DeleteImage(evento.ImagemURL);
                     evento.ImagemURL = await SaveImage(file);
                 }
-                var EventoRetorno = await _eventoService.UpdateEvento(id, evento);
+                var EventoRetorno = await _eventoService.SalvarAsync(evento);
 
                 return Ok(EventoRetorno);
             }
@@ -116,26 +116,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var evento = await _eventoService.AddEventos(model);
-                if (evento == null) return NoContent();
-
-                return Created("", evento);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(
-                    StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar adicionar eventos. Erro: {ex.Message}"
-                );
-            }
-        }
-
-        [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, EventoDto model)
-        {
-            try
-            {
-                var evento = await _eventoService.UpdateEvento(id, model);
+                var evento = await _eventoService.SalvarAsync(model);
                 if (evento == null) return NoContent();
 
                 return Ok(evento);
@@ -144,7 +125,7 @@ namespace ProEventos.API.Controllers
             {
                 return StatusCode(
                     StatusCodes.Status500InternalServerError,
-                    $"Erro ao tentar atualizar eventos. Erro: {ex.Message}"
+                    $"Erro ao tentar adicionar/alterar evento. Erro: {ex.Message}"
                 );
             }
         }

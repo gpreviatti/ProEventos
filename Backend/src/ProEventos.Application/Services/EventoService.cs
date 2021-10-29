@@ -16,39 +16,28 @@ namespace ProEventos.Application
             _eventoRepository = eventoRepository;
         }
 
-        public async Task<EventoDto> AddEventos(EventoDto model)
+        public async Task<EventoDto> SalvarAsync(EventoDto eventoDto)
         {
-            var evento = _mapper.Map<Evento>(model);
+            var evento = new Evento();
 
-            var result = await _eventoRepository.Add(evento);
-
-            if (result)
+            if (eventoDto.Id == 0)
             {
-                var eventoRetorno = await _eventoRepository.GetEventoByIdAsync(evento.Id, true);
+                evento = _mapper.Map<Evento>(eventoDto);
 
-                return _mapper.Map<EventoDto>(eventoRetorno);
+                await _eventoRepository.Add(evento);
             }
-            return null;
-        }
-
-        public async Task<EventoDto> UpdateEvento(int eventoId, EventoDto model)
-        {
-            var evento = await _eventoRepository.GetEventoByIdAsync(eventoId, false);
-            if (evento == null) return null;
-
-            model.Id = evento.Id;
-
-            _mapper.Map(model, evento);
-
-            var result = await _eventoRepository.Update(evento);
-
-            if (result)
+            else
             {
-                var eventoRetorno = await _eventoRepository.GetEventoByIdAsync(evento.Id, false);
+                evento = await _eventoRepository.GetById(eventoDto.Id);
+                if (evento == null) 
+                    return null;
 
-                return _mapper.Map<EventoDto>(eventoRetorno);
+                evento = _mapper.Map<Evento>(eventoDto);
+
+                await _eventoRepository.Update(evento);
             }
-            return null;
+
+            return _mapper.Map<EventoDto>(evento);
         }
 
         public async Task<bool> DeleteEvento(int eventoId)

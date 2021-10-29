@@ -17,10 +17,6 @@ export class EventoService extends BaseServiceService<Evento> {
     return this.http.get<Evento[]>(`${this.baseUrl}/${tema}/tema`);
   }
 
-  public put(evento: Evento): Observable<Evento> {
-    return this.http.put<Evento>(`${this.baseUrl}/${evento.id}`, evento);
-  }
-
   public postUpload(eventoId: Number, file: any): Observable<Evento> {
     const fileToUpload = file[0] as File;
     const formData = new FormData();

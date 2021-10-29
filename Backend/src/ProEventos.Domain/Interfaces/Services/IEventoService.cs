@@ -4,8 +4,7 @@ namespace ProEventos.Domain
 {
     public interface IEventoService
     {
-        Task<EventoDto> AddEventos(EventoDto model);
-        Task<EventoDto> UpdateEvento(int eventoId, EventoDto model);
+        Task<EventoDto> SalvarAsync(EventoDto model);
         Task<bool> DeleteEvento(int eventoId);
 
         Task<EventoDto[]> GetAllEventosAsync(bool includePalestrantes = false);

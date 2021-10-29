@@ -76,7 +76,7 @@ export class EventosDatalheComponent implements OnInit {
     }
   }
 
-  public salvarAlteracao(): void {
+  public cadastrarAlterar(): void {
     this.spinner.show();
     if (this.form.invalid) {
       this.toastr.error('Formulário invalido');
@@ -84,24 +84,20 @@ export class EventosDatalheComponent implements OnInit {
       return;
     }
 
-    this.evento = {...this.form.value};
+    const evento = {...this.form.value} as Evento;
 
-    if (this.eventoId) {
-      this.evento.id = +this.eventoId;
+    let message = 'cadastrado';
+    if (this.evento.id !== undefined) {
+      evento.id = this.evento.id;
+      message = 'alterado';
     }
 
-    this.eventoService[this.eventoId ? 'put' : 'post'](this.evento).subscribe(
-      (evento: Evento) => {
-        let message = 'cadastrado';
-        if (this.eventoId !== undefined) {
-          message = 'alterado';
-        }
-
-        this.toastr.success(`Evento ${evento.tema} ${message} com sucesso`, 'Sucesso');
-        this.evento.id = evento.id;
-        this.routerHelper.reloadComponent(`/eventos/detalhe/${evento.id}`);
+    this.eventoService.post(evento).subscribe(
+      (eventoResponse: Evento) => {
+        this.toastr.success(`Evento ${eventoResponse.tema} ${message} com sucesso`, 'Sucesso');
+        this.routerHelper.reloadComponent(`/eventos/detalhe/${eventoResponse.id}`);
       },
-      (error: any) => this.toastr.error(error?.title, 'Erro ao cadastrar/alterar evento'),
+      (error: any) => this.toastr.error(error.message, 'Error!')
     ).add(() => this.spinner.hide());
   }
 
