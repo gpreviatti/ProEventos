@@ -28,11 +28,33 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAsync()
         {
             try
             {
-                var eventos = await _eventoService.GetAllEventosAsync(true);
+                var eventos = await _eventoService.GetAllEventosAsync();
+                if (eventos == null) return NoContent();
+
+                return Ok(eventos);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"
+                );
+            }
+        }
+
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetPaginatedAsync(
+            [FromQuery] int skip, 
+            [FromQuery] int take
+        )
+        {
+            try
+            {
+                var eventos = await _eventoService.GetAllEventosPaginatedAsync(skip, take);
                 if (eventos == null) return NoContent();
 
                 return Ok(eventos);

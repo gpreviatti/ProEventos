@@ -9,24 +9,27 @@ namespace ProEventos.Persistence
     {
         public EventoRepository(ProEventosContext context) : base(context) { }
 
-        public async Task<Evento[]> GetAllEventosAsync(bool includePalestrantes = false)
+        public async Task<Evento[]> GetAllAsync()
         {
-            IQueryable<Evento> query = _context.Eventos
-                .Include(e => e.Lotes);
-
-            if (includePalestrantes)
-            {
-                query = query
-                    .Include(e => e.PalestrantesEventos)
-                    .ThenInclude(pe => pe.Palestrante);
-            }
-
-            query = query.AsNoTracking().OrderBy(e => e.Id);
-
-            return await query.ToArrayAsync();
+            return await _context
+                .Eventos
+                .AsNoTracking()
+                .OrderBy(e => e.Id)
+                .ToArrayAsync();
         }
 
-        public async Task<Evento[]> GetAllEventosByTemaAsync(string tema, bool includePalestrantes = false)
+        public async Task<Evento[]> GetAllPaginatedAsync(int skip, int take)
+        {
+            return await _context
+                .Eventos
+                .OrderBy(e => e.Id)
+                .Skip(skip)
+                .Take(take)
+                .AsNoTracking()
+                .ToArrayAsync();
+        }
+
+        public async Task<Evento[]> GetAllByTemaAsync(string tema, bool includePalestrantes = false)
         {
             IQueryable<Evento> query = _context.Eventos
                 .Include(e => e.Lotes);
@@ -46,7 +49,7 @@ namespace ProEventos.Persistence
             return await query.ToArrayAsync();
         }
 
-        public async Task<Evento> GetEventoByIdAsync(int eventoId, bool includePalestrantes = false)
+        public async Task<Evento> GetByIdAsync(int eventoId, bool includePalestrantes = false)
         {
             IQueryable<Evento> query = _context.Eventos
                 .Include(e => e.Lotes);
