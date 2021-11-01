@@ -45,7 +45,7 @@ Event control application using the following [technologies](https://github.com/
 
 <img src="https://user-images.githubusercontent.com/24505963/138560488-0101c3ba-8a07-43ca-b5ac-2c09e3d0314f.png" widght="150">
 
-## How to Run
+## How to Run 🏃
 
 Dependencies to run project locally
 
