@@ -70,7 +70,7 @@ namespace ProEventos.Application
 
             var dataMapped = _mapper.Map<EventoDto[]>(data);
 
-            return  new PaginatedResponse<IEnumerable<EventoDto>>(
+            return new PaginatedResponse<IEnumerable<EventoDto>>(
                 dataMapped,
                 pageNumber,
                 pageSize,

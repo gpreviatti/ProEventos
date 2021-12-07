@@ -32,7 +32,7 @@ namespace ProEventos.Persistence
             var query = _context.Eventos.AsQueryable();
 
             if (!string.IsNullOrEmpty(searchValue))
-                query = query.Where(e => e.Tema.Contains(searchValue));
+                query = query.Where(e => e.Tema.ToLower().Contains(searchValue.ToLower()));
 
             return await query
                 .OrderBy(e => e.Id)
