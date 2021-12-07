@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -60,23 +61,23 @@ namespace ProEventos.Application
             return resultado;
         }
 
-        public async Task<PaginatedListResponse<EventoDto>> GetAllEventosPaginatedAsync(int skip, int take)
+        public async Task<PaginatedResponse<IEnumerable<EventoDto>>> GetAllEventosPaginatedAsync(int pageNumber, int pageSize, string searchValue = "")
         {
-            var eventos = await _eventoRepository.GetAllPaginatedAsync(skip, take);
-            if (eventos == null) return null;
+            var data = await _eventoRepository.GetAllPaginatedAsync(pageNumber, pageSize, searchValue);
+            if (data == null) return null;
 
-            var total = await _eventoRepository.GetAllAsync();
+            var total = await _eventoRepository.GetAllCount();
 
-            var resultado = _mapper.Map<EventoDto[]>(eventos);
+            var dataMapped = _mapper.Map<EventoDto[]>(data);
 
-            return new PaginatedListResponse<EventoDto>{
-                Valid = true,
-                RecordsTotal = total.Count(),
-                RecordsFiltered = resultado.Count(),
-                Skip = skip,
-                Take = take,
-                Data = resultado
-            };
+            return  new PaginatedResponse<IEnumerable<EventoDto>>(
+                dataMapped,
+                pageNumber,
+                pageSize,
+                total,
+                dataMapped.Count(),
+                searchValue
+            );
         }
 
         public async Task<EventoDto[]> GetAllEventosByTemaAsync(string tema, bool includePalestrantes = false)

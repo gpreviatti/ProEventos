@@ -48,13 +48,14 @@ namespace ProEventos.API.Controllers
 
         [HttpGet("paginated")]
         public async Task<IActionResult> GetPaginatedAsync(
-            [FromQuery] int skip, 
-            [FromQuery] int take
+            [FromQuery] int pageNumber, 
+            [FromQuery] int pageSize,
+            [FromQuery] string searchValue
         )
         {
             try
             {
-                var eventos = await _eventoService.GetAllEventosPaginatedAsync(skip, take);
+                var eventos = await _eventoService.GetAllEventosPaginatedAsync(pageNumber, pageSize, searchValue);
                 if (eventos == null) return NoContent();
 
                 return Ok(eventos);

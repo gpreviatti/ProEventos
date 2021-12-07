@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -18,13 +19,25 @@ namespace ProEventos.Persistence
                 .ToArrayAsync();
         }
 
-        public async Task<Evento[]> GetAllPaginatedAsync(int skip, int take)
+        public async Task<int> GetAllCount()
         {
             return await _context
                 .Eventos
+                .AsNoTracking()
+                .CountAsync();
+        }
+
+        public async Task<Evento[]> GetAllPaginatedAsync(int pageNumber, int pageSize, string searchValue = "")
+        {
+            var query = _context.Eventos.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchValue))
+                query = query.Where(e => e.Tema.Contains(searchValue));
+
+            return await query
                 .OrderBy(e => e.Id)
-                .Skip(skip)
-                .Take(take)
+                .Skip((pageNumber-1) * pageSize)
+                .Take(pageSize)
                 .AsNoTracking()
                 .ToArrayAsync();
         }

@@ -8,13 +8,9 @@
             "preLaunchTask": "build",
             "program": "${workspaceFolder}/Backend/src/ProEventos.API/bin/Debug/net5.0/ProEventos.API.dll",
             "args": [],
-            "launchBrowser": {
-                "enabled": false
-            },
             "cwd": "${workspaceFolder}/Backend/src/ProEventos.API",
             "stopAtEntry": false,
             "serverReadyAction": {
-                "action": "openExternally",
                 "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
             },
             "env": {
@@ -22,17 +18,6 @@
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"
-            }
-        },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach",
-            "launchBrowser": {
-                "enabled": false
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
             }
         }
     ]
