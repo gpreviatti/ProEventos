@@ -10,24 +10,22 @@ namespace ProEventos.Persistence
     {
         public EventoRepository(ProEventosContext context) : base(context) { }
 
-        public async Task<Evento[]> GetAllAsync()
-        {
-            return await _context
-                .Eventos
-                .AsNoTracking()
-                .OrderBy(e => e.Id)
-                .ToArrayAsync();
-        }
+        public async Task<Evento[]> GetAllAsync() => await _context
+            .Eventos
+            .AsNoTracking()
+            .OrderBy(e => e.Id)
+            .ToArrayAsync();
 
-        public async Task<int> GetAllCount()
-        {
-            return await _context
-                .Eventos
-                .AsNoTracking()
-                .CountAsync();
-        }
+        public async Task<int> GetAllCount() => await _context
+            .Eventos
+            .AsNoTracking()
+            .CountAsync();
 
-        public async Task<Evento[]> GetAllPaginatedAsync(int pageNumber, int pageSize, string searchValue = "")
+        public async Task<Evento[]> GetAllPaginatedAsync(
+            int pageNumber, 
+            int pageSize, 
+            string searchValue = ""
+        )
         {
             var query = _context.Eventos.AsQueryable();
 
