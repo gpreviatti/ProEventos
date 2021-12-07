@@ -70,6 +70,24 @@
     </tfoot>
   </table>
 
+  <div class="d-flex justify-content-center">
+    <pagination
+      [boundaryLinks]="true"
+
+      [totalItems]="paginatedRequest.totalItems"
+      [itemsPerPage]="paginatedRequest.pageSize"
+      [(ngModel)]="paginatedRequest.pageNumber"
+      (pageChanged)="pageChanged($event)"
+
+      pageBtnClass="btn"
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+    >
+    </pagination>
+  </div>
+
 </div>
 
 <ngx-spinner

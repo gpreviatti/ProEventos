@@ -6,6 +6,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Evento } from '@app/models/Evento';
 import { EventoService } from '@app/services/evento.service';
 import { environment } from '@environments/environment';
+import { PaginatedRequest } from '@app/messages/PaginatedRequest';
+import { PaginatedResponse } from '@app/messages/PaginatedResponse';
 
 @Component({
   selector: 'app-eventos-lista',
@@ -22,6 +24,7 @@ export class EventosListaComponent implements OnInit {
   public marginImg = 2;
   public showImg = true;
   public temaAtual = '';
+  public paginatedRequest = {} as PaginatedRequest;
 
   private _filtroLista = '';
 
@@ -41,24 +44,44 @@ export class EventosListaComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
+    this.paginatedRequest = {
+      pageNumber: 1,
+      pageSize: 10,
+      totalItems: 100,
+      totalPages: 1,
+    };
+
     this.getEventos();
   }
 
   public getEventos(): any {
     this.spinner.show();
     this.eventoService
-      .get()
-      .subscribe({
-        next: (eventos: Evento[]) => {
-          this.eventos = eventos;
+      .getPaginated(this.paginatedRequest)
+      .subscribe(
+        (response: PaginatedResponse<Evento[]>) => {
+          this.eventos = response.data;
           this.eventosFiltrados = this.eventos;
+
+          this.paginatedRequest = {
+            pageNumber: response.pageNumber,
+            pageSize: response.pageSize,
+            totalItems: response.recordsTotal,
+            totalPages: response.recordsTotal
+          } as PaginatedRequest;
+
         },
-        error: (error: any) => {
+        (error: any) => {
           this.spinner.hide();
           this.toastr.error(error.message, 'Erro!');
         },
-        complete: () => this.spinner.hide()
-      });
+        () => this.spinner.hide()
+      );
+  }
+
+  public pageChanged(event: any): void {
+    this.paginatedRequest.pageNumber = event.page;
+    this.getEventos();
   }
 
   public alterarImage(): any {
