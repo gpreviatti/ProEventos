@@ -22,7 +22,7 @@ namespace ProEventos.Persistence
             .CountAsync();
 
         public async Task<Evento[]> GetAllPaginatedAsync(
-            int pageNumber, 
+            int currentPage, 
             int pageSize, 
             string searchValue = ""
         )
@@ -34,7 +34,7 @@ namespace ProEventos.Persistence
 
             return await query
                 .OrderBy(e => e.Id)
-                .Skip((pageNumber-1) * pageSize)
+                .Skip((currentPage-1) * pageSize)
                 .Take(pageSize)
                 .AsNoTracking()
                 .ToArrayAsync();

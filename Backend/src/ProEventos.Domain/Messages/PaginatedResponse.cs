@@ -6,7 +6,7 @@ namespace ProEventos.Domain.Messages
     {
         public PaginatedResponse(
             T data,
-            int pageNumber,
+            int currentPage,
             int pageSize,
             int recordsTotal, 
             int recordsFiltered,
@@ -17,7 +17,7 @@ namespace ProEventos.Domain.Messages
 
             RecordsTotal = recordsTotal;
             RecordsFiltered = recordsFiltered;
-            PageNumber = pageNumber != 0 ? pageNumber : 1;
+            CurrentPage = currentPage != 0 ? currentPage : 1;
             PageSize = pageSize > 100 ? 100 : pageSize;
             TotalPages = (int) Math.Ceiling((recordsTotal/(double) pageSize));
             SearchValue = searchValue;
@@ -29,7 +29,7 @@ namespace ProEventos.Domain.Messages
         public int RecordsFiltered { get; set; }
         public int RecordsTotal { get; set; }
         public int TotalPages { get; set; }
-        public int PageNumber { get; set; }
+        public int CurrentPage { get; set; }
         public int PageSize { get; set; }
     }
 }

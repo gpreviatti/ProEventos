@@ -2,7 +2,7 @@
 export interface PaginatedResponse<T> {
   valid: boolean;
   data: T;
-  pageNumber: number;
+  currentPage: number;
   pageSize: number;
   recordsTotal: number;
   recordsFiltered: number;

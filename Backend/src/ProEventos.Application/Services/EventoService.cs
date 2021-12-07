@@ -61,9 +61,9 @@ namespace ProEventos.Application
             return resultado;
         }
 
-        public async Task<PaginatedResponse<IEnumerable<EventoDto>>> GetAllEventosPaginatedAsync(int pageNumber, int pageSize, string searchValue = "")
+        public async Task<PaginatedResponse<IEnumerable<EventoDto>>> GetAllEventosPaginatedAsync(int currentPage, int pageSize, string searchValue = "")
         {
-            var data = await _eventoRepository.GetAllPaginatedAsync(pageNumber, pageSize, searchValue);
+            var data = await _eventoRepository.GetAllPaginatedAsync(currentPage, pageSize, searchValue);
             if (data == null) return null;
 
             var total = await _eventoRepository.GetAllCount();
@@ -72,7 +72,7 @@ namespace ProEventos.Application
 
             return new PaginatedResponse<IEnumerable<EventoDto>>(
                 dataMapped,
-                pageNumber,
+                currentPage,
                 pageSize,
                 total,
                 dataMapped.Count(),

@@ -28,13 +28,13 @@ export class EventosListaComponent implements OnInit {
 
   private _filtroLista = '';
 
-  public get filtroLista(): string {
-    return this._filtroLista;
-  }
-  public set filtroLista(v: string) {
-    this._filtroLista = v;
-    this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
-  }
+  // public get filtroLista(): string {
+  //   return this._filtroLista;
+  // }
+  // public set filtroLista(v: string) {
+  //   this._filtroLista = v;
+  //   this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
+  // }
 
   constructor(
     private eventoService: EventoService,
@@ -45,10 +45,10 @@ export class EventosListaComponent implements OnInit {
 
   public ngOnInit(): void {
     this.paginatedRequest = {
-      pageNumber: 1,
+      currentPage: 1,
       pageSize: 10,
       totalItems: 100,
-      totalPages: 1,
+      totalPages: 1
     };
 
     this.getEventos();
@@ -64,7 +64,7 @@ export class EventosListaComponent implements OnInit {
           this.eventosFiltrados = this.eventos;
 
           this.paginatedRequest = {
-            pageNumber: response.pageNumber,
+            currentPage: response.currentPage,
             pageSize: response.pageSize,
             totalItems: response.recordsTotal,
             totalPages: response.recordsTotal
@@ -80,7 +80,7 @@ export class EventosListaComponent implements OnInit {
   }
 
   public pageChanged(event: any): void {
-    this.paginatedRequest.pageNumber = event.page;
+    this.paginatedRequest.currentPage = event.page;
     this.getEventos();
   }
 
@@ -88,12 +88,9 @@ export class EventosListaComponent implements OnInit {
     this.showImg = !this.showImg;
   }
 
-  public filtrarEventos(filtrarPor: string): Evento[] {
-    filtrarPor = filtrarPor.toLowerCase();
-    return this.eventos.filter(
-      (evento: Evento) => evento.tema.toLocaleLowerCase().indexOf(filtrarPor) !== -1 ||
-        evento.local.toLocaleLowerCase().indexOf(filtrarPor) !== -1
-    );
+  public filtrarEventos(filtrarPor: any): void {
+    this.paginatedRequest.searchValue = filtrarPor;
+    this.getEventos();
   }
 
   public detalheEvento(id: number): void {

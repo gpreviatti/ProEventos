@@ -48,14 +48,14 @@ namespace ProEventos.API.Controllers
 
         [HttpGet("paginated")]
         public async Task<IActionResult> GetPaginatedAsync(
-            [FromQuery] int pageNumber, 
+            [FromQuery] int currentPage, 
             [FromQuery] int pageSize,
             [FromQuery] string searchValue
         )
         {
             try
             {
-                var eventos = await _eventoService.GetAllEventosPaginatedAsync(pageNumber, pageSize, searchValue);
+                var eventos = await _eventoService.GetAllEventosPaginatedAsync(currentPage, pageSize, searchValue);
                 if (eventos == null) return NoContent();
 
                 return Ok(eventos);
@@ -142,7 +142,7 @@ namespace ProEventos.API.Controllers
                 var evento = await _eventoService.SalvarAsync(model);
                 if (evento == null) return NoContent();
 
-                return Ok(evento);
+                return Created("", evento);
             }
             catch (Exception ex)
             {

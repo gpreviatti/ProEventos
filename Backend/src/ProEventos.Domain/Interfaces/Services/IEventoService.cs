@@ -9,7 +9,7 @@ namespace ProEventos.Domain
         Task<EventoDto> SalvarAsync(EventoDto model);
         Task<bool> DeleteEvento(int eventoId);
         Task<EventoDto[]> GetAllEventosAsync();
-        Task<PaginatedResponse<IEnumerable<EventoDto>>> GetAllEventosPaginatedAsync(int pageNumber, int pageSize, string searchValue = "");
+        Task<PaginatedResponse<IEnumerable<EventoDto>>> GetAllEventosPaginatedAsync(int currentPage, int pageSize, string searchValue = "");
         Task<EventoDto[]> GetAllEventosByTemaAsync(string tema, bool includePalestrantes = false);
         Task<EventoDto> GetEventoByIdAsync(int eventoId, bool includePalestrantes = false);
     }
