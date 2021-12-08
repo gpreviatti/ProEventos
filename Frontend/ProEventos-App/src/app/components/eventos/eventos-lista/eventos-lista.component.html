@@ -7,7 +7,7 @@
           placeholder="Filtro"
           class="form-control"
           placeholder="Buscar"
-          (input)="filtrarEventos($event.target)"
+          (input)="pageChanged($event.target)"
         >
       </div>
 
@@ -38,10 +38,10 @@
         <th class="d-none d-md-table-cell">Qtd Pessoas</th>
       </tr>
     </thead>
-    <tbody *ngIf="eventos && eventosFiltrados.length">
+    <tbody *ngIf="eventos">
       <tr
-        *ngFor="let evento of eventosFiltrados"
-        (click)="detalheEvento(evento.id)"
+        *ngFor="let evento of eventos"
+        (click)="detalharEvento(evento.id)"
         style="cursor: pointer;"
       >
         <td class="d-none d-md-table-cell">
@@ -80,7 +80,6 @@
       (pageChanged)="pageChanged($event)"
       [maxSize]="10"
 
-      pageBtnClass="btn"
       previousText="&lsaquo;"
       nextText="&rsaquo;"
       firstText="&laquo;"

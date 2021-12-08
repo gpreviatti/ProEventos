@@ -9,17 +9,17 @@ import { take, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class BaseServiceService<Type> {
+export class BaseServiceService<T> {
 
   protected baseUrl = environment.apiUrl;
 
   constructor(protected http: HttpClient) { }
 
-  public get(): Observable<Type[]> {
-    return this.http.get<Type[]>(this.baseUrl);
+  public get(): Observable<T[]> {
+    return this.http.get<T[]>(this.baseUrl);
   }
 
-  public getPaginated(paginatedRequest: PaginatedRequest): Observable<PaginatedResponse<Type[]>> {
+  public getPaginated(paginatedRequest: PaginatedRequest): Observable<PaginatedResponse<T[]>> {
     let params = new HttpParams;
 
     if (paginatedRequest.currentPage !== null && paginatedRequest.pageSize !== null) {
@@ -32,28 +32,28 @@ export class BaseServiceService<Type> {
     }
 
     return this.http
-      .get<PaginatedResponse<Type[]>>(`${this.baseUrl}/paginated`, {observe: 'response', params})
+      .get<PaginatedResponse<T[]>>(`${this.baseUrl}/paginated`, {observe: 'response', params})
       .pipe(
         take(1),
         map(response => {
           return {
-            data: response.body?.data as Type[],
+            data: response.body?.data as T[],
             currentPage: response.body?.currentPage as number,
             pageSize: response.body?.pageSize as number,
             recordsTotal: response.body?.recordsTotal as number,
             recordsFiltered: response.body?.recordsTotal as number,
             totalPages: response.body?.totalPages as number
-          } as PaginatedResponse<Type[]>;
+          } as PaginatedResponse<T[]>;
         })
       );
   }
 
-  public getById(id: number): Observable<Type> {
-    return this.http.get<Type>(`${this.baseUrl}/${id}`);
+  public getById(id: number): Observable<T> {
+    return this.http.get<T>(`${this.baseUrl}/${id}`);
   }
 
-  public post(entity: Type): Observable<Type> {
-    return this.http.post<Type>(this.baseUrl, entity);
+  public post(entity: T): Observable<T> {
+    return this.http.post<T>(this.baseUrl, entity);
   }
 
   public delete(id: number): Observable<boolean> {

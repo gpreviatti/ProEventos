@@ -1,6 +1,6 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Evento } from '@app/models/Evento';
@@ -8,6 +8,8 @@ import { EventoService } from '@app/services/evento.service';
 import { environment } from '@environments/environment';
 import { PaginatedRequest } from '@app/messages/PaginatedRequest';
 import { PaginatedResponse } from '@app/messages/PaginatedResponse';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-eventos-lista',
@@ -17,7 +19,6 @@ import { PaginatedResponse } from '@app/messages/PaginatedResponse';
 export class EventosListaComponent implements OnInit {
   modalRef?: BsModalRef;
 
-  public eventosFiltrados: Evento[] = [];
   public evento = {} as Evento;
   public eventos: Evento[] = [];
   public widthImg = 100;
@@ -25,16 +26,7 @@ export class EventosListaComponent implements OnInit {
   public showImg = true;
   public temaAtual = '';
   public paginatedRequest = {} as PaginatedRequest;
-
-  private _filtroLista = '';
-
-  // public get filtroLista(): string {
-  //   return this._filtroLista;
-  // }
-  // public set filtroLista(v: string) {
-  //   this._filtroLista = v;
-  //   this.eventosFiltrados = this.filtroLista ? this.filtrarEventos(this.filtroLista) : this.eventos;
-  // }
+  public searchValueChanged: Subject<string> = new Subject<string>();
 
   constructor(
     private eventoService: EventoService,
@@ -61,7 +53,6 @@ export class EventosListaComponent implements OnInit {
       .subscribe(
         (response: PaginatedResponse<Evento[]>) => {
           this.eventos = response.data;
-          this.eventosFiltrados = this.eventos;
 
           this.paginatedRequest = {
             currentPage: response.currentPage,
@@ -80,21 +71,24 @@ export class EventosListaComponent implements OnInit {
   }
 
   public pageChanged(event: any): void {
-    this.paginatedRequest.currentPage = event.page;
-    this.getEventos();
+    if (this.searchValueChanged.observers.length === 0) {
+      this.searchValueChanged.pipe(debounceTime(500))
+      .subscribe(
+        (filter) => {
+          this.paginatedRequest.searchValue = filter;
+          this.getEventos();
+        }
+      );
+    }
+    this.searchValueChanged.next(event.value);
+  }
+
+  public detalharEvento(id: number): void {
+    this.router.navigate([`/eventos/detalhe/${id}`]);
   }
 
   public alterarImage(): any {
     this.showImg = !this.showImg;
-  }
-
-  public filtrarEventos(filtrarPor: any): void {
-    this.paginatedRequest.searchValue = filtrarPor;
-    this.getEventos();
-  }
-
-  public detalheEvento(id: number): void {
-    this.router.navigate([`/eventos/detalhe/${id}`]);
   }
 
   public showImage(imagemURL: any) {
