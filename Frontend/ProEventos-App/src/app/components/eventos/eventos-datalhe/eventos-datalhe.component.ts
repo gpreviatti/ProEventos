@@ -156,7 +156,7 @@ export class EventosDatalheComponent implements OnInit {
   public uploadImage(): void {
     this.spinner.show();
 
-    this.eventoService.postUpload(this.eventoId, this.file).subscribe(
+    this.eventoService.uploadImage(this.eventoId, this.file).subscribe(
       () => {
         this.routerHelper.reloadComponent(`/eventos/detalhe/${this.eventoId}`);
         this.showSuccess(`Imagem inserida com sucesso!`);

@@ -12,11 +12,7 @@ export class EventoService extends BaseServiceService<Evento> {
     this.baseUrl = this.baseUrl + 'eventos';
   }
 
-  public getByTema(tema: string): Observable<Evento[]> {
-    return this.http.get<Evento[]>(`${this.baseUrl}/${tema}/tema`);
-  }
-
-  public postUpload(eventoId: Number, file: any): Observable<Evento> {
+  public uploadImage(eventoId: Number, file: any): Observable<Evento> {
     const fileToUpload = file[0] as File;
     const formData = new FormData();
     formData.append('file', fileToUpload);
