@@ -6,7 +6,8 @@
           type="text"
           placeholder="Filtro"
           class="form-control"
-          placeholder="buscar"
+          placeholder="Buscar"
+          (input)="pageChanged($event.target)"
         >
       </div>
 
@@ -47,6 +48,24 @@
       </tr>
     </tfoot>
   </table>
+
+  <div class="d-flex justify-content-center">
+    <pagination
+      [boundaryLinks]="true"
+
+      [totalItems]="paginatedRequest.totalItems"
+      [itemsPerPage]="paginatedRequest.pageSize"
+      [(ngModel)]="paginatedRequest.currentPage"
+      (pageChanged)="pageChanged($event)"
+      [maxSize]="10"
+
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+    >
+    </pagination>
+  </div>
 
 </div>
 
