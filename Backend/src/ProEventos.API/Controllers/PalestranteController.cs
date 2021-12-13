@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProEventos.Domain;
+using ProEventos.Domain.Messages;
 using System;
 using System.IO;
 using System.Linq;
@@ -13,18 +14,18 @@ namespace ProEventos.API.Controllers
     [Route("[controller]")]
     public class PalestranteController : ControllerBase
     {
-        private readonly IPalestranteService _service;
+        private readonly IPalestranteService _palestranteService;
         private readonly IWebHostEnvironment _hostEnvironment;
 
         private readonly string resourcesPath = @"Resources/Images/Palestrantes/";
 
         public PalestranteController(
-            IPalestranteService service,
+            IPalestranteService palestranteService,
             IWebHostEnvironment hostEnvironment
         )
         {
             _hostEnvironment = hostEnvironment;
-            _service = service;
+            _palestranteService = palestranteService;
         }
 
         [HttpGet]
@@ -32,7 +33,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var palestrantes = await _service.GetPalestrantesAsync();
+                var palestrantes = await _palestranteService.GetPalestrantesAsync();
 
                 if (palestrantes == null)
                     return NoContent();
@@ -48,12 +49,31 @@ namespace ProEventos.API.Controllers
             }
         }
 
+        [HttpGet("paginated")]
+        public async Task<IActionResult> GetPaginatedAsync([FromQuery] PaginatedRequest paginatedRequest)
+        {
+            try
+            {
+                var eventos = await _palestranteService.GetPalestrantesPaginatedAsync(paginatedRequest);
+                if (eventos == null) return NoContent();
+
+                return Ok(eventos);
+            }
+            catch (Exception ex)
+            {
+                return this.StatusCode(
+                    StatusCodes.Status500InternalServerError,
+                    $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"
+                );
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
             try
             {
-                var palestrante = await _service.GetPalestranteByIdAsync(id);
+                var palestrante = await _palestranteService.GetPalestranteByIdAsync(id);
 
                 if (palestrante == null)
                     return NoContent();
@@ -74,7 +94,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var palestrante = await _service.SalvarAsync(palestranteDto);
+                var palestrante = await _palestranteService.SalvarAsync(palestranteDto);
                 if (palestrante == null) return NoContent();
 
                 return Created("", palestrante);
@@ -93,7 +113,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var redeSocial = await _service.DeletarAsync(id);
+                var redeSocial = await _palestranteService.DeletarAsync(id);
 
                 if (!redeSocial)
                     return NoContent();
@@ -114,7 +134,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var palestrante = await _service.GetPalestranteByIdAsync(id);
+                var palestrante = await _palestranteService.GetPalestranteByIdAsync(id);
                 if (palestrante == null) return NoContent();
 
                 var file = Request.Form.Files[0];
@@ -123,7 +143,7 @@ namespace ProEventos.API.Controllers
                     DeleteImage(palestrante.ImagemURL);
                     palestrante.ImagemURL = await SaveImage(file);
                 }
-                var EventoRetorno = await _service.SalvarAsync(palestrante);
+                var EventoRetorno = await _palestranteService.SalvarAsync(palestrante);
 
                 return Ok(EventoRetorno);
             }

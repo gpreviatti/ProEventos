@@ -14,13 +14,16 @@ namespace ProEventos.Persistence
             _context = context;
         }
 
-        public async Task<IEnumerable<T>> Get()
-        {
-            return await _context
-                .Set<T>()
-                .AsNoTracking()
-                .ToListAsync();
-        }
+        public async Task<IEnumerable<T>> Get() => await _context
+            .Set<T>()
+            .AsNoTracking()
+            .OrderBy(e => e.Id)
+            .ToArrayAsync();
+
+        public async Task<int> GetAllCount() => await _context
+            .Set<T>()
+            .AsNoTracking()
+            .CountAsync();
 
         public async Task<T> GetById(int id)
         {

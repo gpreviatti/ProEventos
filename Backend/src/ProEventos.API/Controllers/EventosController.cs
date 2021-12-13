@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProEventos.Domain;
+using ProEventos.Domain.Messages;
 
 namespace ProEventos.API.Controllers
 {
@@ -47,15 +48,11 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpGet("paginated")]
-        public async Task<IActionResult> GetPaginatedAsync(
-            [FromQuery] int currentPage, 
-            [FromQuery] int pageSize,
-            [FromQuery] string searchValue
-        )
+        public async Task<IActionResult> GetPaginatedAsync([FromQuery] PaginatedRequest paginatedRequest)
         {
             try
             {
-                var eventos = await _eventoService.GetAllEventosPaginatedAsync(currentPage, pageSize, searchValue);
+                var eventos = await _eventoService.GetAllEventosPaginatedAsync(paginatedRequest);
                 if (eventos == null) return NoContent();
 
                 return Ok(eventos);

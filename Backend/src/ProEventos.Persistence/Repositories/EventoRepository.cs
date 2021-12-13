@@ -10,17 +10,6 @@ namespace ProEventos.Persistence
     {
         public EventoRepository(ProEventosContext context) : base(context) { }
 
-        public async Task<Evento[]> GetAllAsync() => await _context
-            .Eventos
-            .AsNoTracking()
-            .OrderBy(e => e.Id)
-            .ToArrayAsync();
-
-        public async Task<int> GetAllCount() => await _context
-            .Eventos
-            .AsNoTracking()
-            .CountAsync();
-
         public async Task<Evento[]> GetAllPaginatedAsync(
             int currentPage, 
             int pageSize, 

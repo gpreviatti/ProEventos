@@ -53,7 +53,7 @@ namespace ProEventos.Application
 
         public async Task<EventoDto[]> GetAllEventosAsync()
         {
-            var eventos = await _eventoRepository.GetAllAsync();
+            var eventos = await _eventoRepository.Get();
             if (eventos == null) return null;
 
             var resultado = _mapper.Map<EventoDto[]>(eventos);
@@ -61,9 +61,13 @@ namespace ProEventos.Application
             return resultado;
         }
 
-        public async Task<PaginatedResponse<IEnumerable<EventoDto>>> GetAllEventosPaginatedAsync(int currentPage, int pageSize, string searchValue = "")
+        public async Task<PaginatedResponse<IEnumerable<EventoDto>>> GetAllEventosPaginatedAsync(PaginatedRequest paginatedRequest)
         {
-            var data = await _eventoRepository.GetAllPaginatedAsync(currentPage, pageSize, searchValue);
+            var data = await _eventoRepository.GetAllPaginatedAsync(
+                paginatedRequest.CurrentPage,
+                paginatedRequest.PageSize,
+                paginatedRequest.SearchValue
+            );
             if (data == null) return null;
 
             var total = await _eventoRepository.GetAllCount();
@@ -72,12 +76,12 @@ namespace ProEventos.Application
 
             return new PaginatedResponse<IEnumerable<EventoDto>>(
                 dataMapped,
-                currentPage,
-                pageSize,
+                paginatedRequest.CurrentPage,
+                paginatedRequest.PageSize,
                 total,
                 dataMapped.Count(),
-                searchValue
-            );
+                paginatedRequest.SearchValue
+            ); ;
         }
 
         public async Task<EventoDto[]> GetAllEventosByTemaAsync(string tema, bool includePalestrantes = false)

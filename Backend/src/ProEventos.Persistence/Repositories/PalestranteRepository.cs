@@ -9,12 +9,25 @@ namespace ProEventos.Persistence
     {
         public PalestranteRepository(ProEventosContext context) : base(context) { }
 
-        public async Task<Palestrante[]> GetAllPalestrantesAsync()
+        public async Task<Palestrante[]> GetAllPaginatedAsync(
+            int currentPage, 
+            int pageSize, 
+            string searchValue = ""
+        )
         {
-            return await _context
-                .Palestrantes
+            var query = _context.Palestrantes.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchValue))
+                query = query.Where(
+                    e => e.Email.ToLower().Contains(searchValue.ToLower()) || 
+                        e.Nome.ToLower().Contains(searchValue.ToLower()) 
+                );
+
+            return await query
+                .OrderBy(e => e.Id)
+                .Skip((currentPage-1) * pageSize)
+                .Take(pageSize)
                 .AsNoTracking()
-                .OrderBy(p => p.Id)
                 .ToArrayAsync();
         }
 
