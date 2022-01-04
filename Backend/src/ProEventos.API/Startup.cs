@@ -58,8 +58,10 @@ namespace ProEventos.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseDeveloperExceptionPage();
+
+            app.UseStaticFiles();
             app.UseSwagger();
-            app.UseSwaggerUI();
+            app.UseSwaggerUI(c => c.InjectStylesheet("/swagger-ui/SwaggerDark.css"));
 
             // Configurando o storage das imagens
             app.UseStaticFiles(new StaticFileOptions()
@@ -81,10 +83,7 @@ namespace ProEventos.API
                 .AllowAnyOrigin()
             );
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }
 }
