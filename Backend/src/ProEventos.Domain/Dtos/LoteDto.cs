@@ -1,6 +1,6 @@
 using System;
 
-namespace ProEventos.Domain
+namespace ProEventos.Domain.Dtos
 {
     public class LoteDto
     {

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProEventos.Domain;
+using ProEventos.Domain.Interfaces;
 
 namespace ProEventos.Persistence
 {
@@ -22,6 +23,6 @@ namespace ProEventos.Persistence
                 return await _context.RedesSociais.Where(r => r.PalestranteId == palestranteId).ToArrayAsync();
             }
 
-            public async Task<RedeSocial> GetRedeSocialByIdAsync(int redeSocialId) => await GetById(redeSocialId);
+            public async Task<RedeSocial> GetRedeSocialByIdAsync(int redeSocialId) => await GetByIdAsync(redeSocialId);
     }
 }

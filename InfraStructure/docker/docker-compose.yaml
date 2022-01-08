@@ -4,11 +4,23 @@ services:
   db:
     image: postgres
     environment:
-      POSTGRES_PASSWORD: "admin"
+      POSTGRES_PASSWORD: "admin" #user = postgres
     ports:
       - "5432:5432"
     volumes:
       - ./volumes:/var/lib/postgresql/data 
+    networks:
+      - postgres-compose-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "giovanni.previatti@outlook.com"
+      PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019"
+    ports:
+      - "16543:80"
+    depends_on:
+      - db
     networks:
       - postgres-compose-network
 

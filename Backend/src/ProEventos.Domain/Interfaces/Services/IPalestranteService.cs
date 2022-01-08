@@ -1,8 +1,9 @@
+using ProEventos.Domain.Dtos;
 using ProEventos.Domain.Messages;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ProEventos.Domain
+namespace ProEventos.Domain.Interfaces
 {
     public interface IPalestranteService
     {

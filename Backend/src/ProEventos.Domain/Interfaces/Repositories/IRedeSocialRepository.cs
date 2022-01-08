@@ -1,8 +1,10 @@
 using System.Threading.Tasks;
-using ProEventos.Domain;
 
-public interface IRedeSocialRepository : IBaseRepository<RedeSocial>
+namespace ProEventos.Domain.Interfaces
 {
-    Task<RedeSocial[]> GetRedesSociaisByPalestranteIdAsync(int palestranteId);
-    Task<RedeSocial> GetRedeSocialByIdAsync(int redeSocialId);
+    public interface IRedeSocialRepository : IBaseRepository<RedeSocial>
+    {
+        Task<RedeSocial[]> GetRedesSociaisByPalestranteIdAsync(int palestranteId);
+        Task<RedeSocial> GetRedeSocialByIdAsync(int redeSocialId);
+    }
 }

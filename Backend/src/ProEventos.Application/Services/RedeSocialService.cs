@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ProEventos.Domain;
+using ProEventos.Domain.Dtos;
+using ProEventos.Domain.Interfaces;
 
 namespace ProEventos.Application
 {
@@ -44,16 +46,16 @@ namespace ProEventos.Application
             {
                 redeSocial = _mapper.Map<RedeSocial>(redeSocialDto);
 
-                await _redeSocialRepository.Add(redeSocial);
+                await _redeSocialRepository.AddAsync(redeSocial);
             }
             else
             {
-                redeSocial = await _redeSocialRepository.GetById(redeSocialDto.Id);
+                redeSocial = await _redeSocialRepository.GetByIdAsync(redeSocialDto.Id);
                 if (redeSocial == null) return null;
 
                 redeSocial = _mapper.Map<RedeSocial>(redeSocialDto);
 
-                await _redeSocialRepository.Update(redeSocial);
+                await _redeSocialRepository.UpdateAsync(redeSocial);
             }
 
             return _mapper.Map<RedeSocialDto>(redeSocial);
@@ -61,12 +63,12 @@ namespace ProEventos.Application
 
         public async Task<bool> DeletarAsync(int id)
         {
-            var redeSocial = await _redeSocialRepository.GetById(id);
+            var redeSocial = await _redeSocialRepository.GetByIdAsync(id);
 
             if (redeSocial == null) 
                 throw new Exception("Rede social não encontrada.");
 
-            return await _redeSocialRepository.Delete(redeSocial);
+            return await _redeSocialRepository.DeleteAsync(redeSocial);
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProEventos.Domain;
+using ProEventos.Domain.Interfaces;
 
 namespace ProEventos.Persistence
 {
@@ -20,12 +21,12 @@ namespace ProEventos.Persistence
             .OrderBy(e => e.Id)
             .ToArrayAsync();
 
-        public async Task<int> GetAllCount() => await _context
+        public async Task<int> GetAllCountAsync() => await _context
             .Set<T>()
             .AsNoTracking()
             .CountAsync();
 
-        public async Task<T> GetById(int id)
+        public async Task<T> GetByIdAsync(int id)
         {
             return await _context.
                 Set<T>()
@@ -33,7 +34,7 @@ namespace ProEventos.Persistence
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        public async Task<bool> Add(T entity) 
+        public async Task<bool> AddAsync(T entity) 
         {
             await _context.AddAsync(entity);
 
@@ -41,21 +42,21 @@ namespace ProEventos.Persistence
         } 
             
 
-        public async Task<bool> Update(T entity) 
+        public async Task<bool> UpdateAsync(T entity) 
         {
             await Task.Run(() => _context.Update(entity));
 
             return await SaveChangesAsync();
         }
 
-        public async Task<bool> Delete(T entity) 
+        public async Task<bool> DeleteAsync(T entity) 
         {
             await Task.Run(() =>_context.Remove(entity));
 
             return await SaveChangesAsync();
         } 
 
-        public async Task<bool> DeleteRange(T[] entityArray)
+        public async Task<bool> DeleteRangeAsync(T[] entityArray)
         {
             await Task.Run(() => _context.RemoveRange(entityArray));
 

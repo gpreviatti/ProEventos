@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ProEventos.Domain;
+using ProEventos.Domain.Dtos;
+using ProEventos.Domain.Interfaces;
 using ProEventos.Domain.Messages;
 
 namespace ProEventos.Application
@@ -38,7 +40,7 @@ namespace ProEventos.Application
             );
             if (data == null) return null;
 
-            var total = await _palestranteRepository.GetAllCount();
+            var total = await _palestranteRepository.GetAllCountAsync();
 
             var dataMapped = _mapper.Map<PalestranteDto[]>(data);
 
@@ -67,17 +69,17 @@ namespace ProEventos.Application
             {
                 palestrante = _mapper.Map<Palestrante>(palestranteDto);
 
-                await _palestranteRepository.Add(palestrante);
+                await _palestranteRepository.AddAsync(palestrante);
             }
             else
             {
-                palestrante = await _palestranteRepository.GetById(palestranteDto.Id);
+                palestrante = await _palestranteRepository.GetByIdAsync(palestranteDto.Id);
                 if (palestrante == null) 
                     return null;
 
                 palestrante = _mapper.Map<Palestrante>(palestranteDto);
 
-                await _palestranteRepository.Update(palestrante);
+                await _palestranteRepository.UpdateAsync(palestrante);
             }
 
             return _mapper.Map<PalestranteDto>(palestrante);
@@ -85,11 +87,11 @@ namespace ProEventos.Application
 
         public async Task<bool> DeletarAsync(int palestranteId)
         {
-            var palestrante = await _palestranteRepository.GetById(palestranteId);
+            var palestrante = await _palestranteRepository.GetByIdAsync(palestranteId);
             if (palestrante == null) 
                 throw new Exception("Palestrante para encontrado.");
 
-            return await _palestranteRepository.Delete(palestrante);
+            return await _palestranteRepository.DeleteAsync(palestrante);
         }
     }
 }

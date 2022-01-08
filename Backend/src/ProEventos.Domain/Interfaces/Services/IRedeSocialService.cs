@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
+using ProEventos.Domain.Dtos;
 
-namespace ProEventos.Domain
+namespace ProEventos.Domain.Interfaces
 {
     public interface IRedeSocialService
     {

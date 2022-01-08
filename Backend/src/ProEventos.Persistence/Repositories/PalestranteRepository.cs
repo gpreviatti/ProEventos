@@ -2,6 +2,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProEventos.Domain;
+using ProEventos.Domain.Interfaces;
 
 namespace ProEventos.Persistence
 {
@@ -19,8 +20,9 @@ namespace ProEventos.Persistence
 
             if (!string.IsNullOrEmpty(searchValue))
                 query = query.Where(
-                    e => e.Email.ToLower().Contains(searchValue.ToLower()) || 
-                        e.Nome.ToLower().Contains(searchValue.ToLower()) 
+                    e => e.User.Email.ToLower().Contains(searchValue.ToLower()) ||
+                         e.User.UserName.ToLower().Contains(searchValue.ToLower()) ||
+                         e.User.LastName.ToLower().Contains(searchValue.ToLower())
                 );
 
             return await query

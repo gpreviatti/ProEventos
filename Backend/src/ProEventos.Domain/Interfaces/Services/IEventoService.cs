@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ProEventos.Domain.Dtos;
 using ProEventos.Domain.Messages;
 
-namespace ProEventos.Domain
+namespace ProEventos.Domain.Interfaces
 {
     public interface IEventoService
     {

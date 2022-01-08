@@ -3,6 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ProEventos.Domain;
+using ProEventos.Domain.Dtos;
+using ProEventos.Domain.Interfaces;
 
 namespace ProEventos.Application
 {
@@ -25,7 +27,7 @@ namespace ProEventos.Application
                 var loteEntity = _mapper.Map<Lote>(loteDto);
                 loteEntity.EventoId = loteDto.EventoId;
 
-                await _loteRepository.Add(loteEntity);
+                await _loteRepository.AddAsync(loteEntity);
             }
             else
             {
@@ -38,7 +40,7 @@ namespace ProEventos.Application
 
                 loteEntity = _mapper.Map<Lote>(loteDto);
 
-                await _loteRepository.Update(loteEntity);
+                await _loteRepository.UpdateAsync(loteEntity);
             }
 
             return _mapper.Map<LoteDto>(loteDto);
@@ -46,10 +48,10 @@ namespace ProEventos.Application
 
         public async Task<bool> Deletar(int id)
         {
-            var lote = await _loteRepository.GetById(id);
+            var lote = await _loteRepository.GetByIdAsync(id);
             if (lote == null) throw new Exception("Lote para delete não encontrado.");
 
-            return await _loteRepository.Delete(lote);
+            return await _loteRepository.DeleteAsync(lote);
         }
 
         public async Task<LoteDto[]> GetLotesByEventoIdAsync(int eventoId)
@@ -64,7 +66,7 @@ namespace ProEventos.Application
 
         public async Task<LoteDto> GetLoteByIdsAsync(int loteId)
         {
-            var lote = await _loteRepository.GetById(loteId);
+            var lote = await _loteRepository.GetByIdAsync(loteId);
             if (lote == null) return null;
 
             var resultado = _mapper.Map<LoteDto>(lote);

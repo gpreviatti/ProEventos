@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace ProEventos.Domain
+namespace ProEventos.Domain.Interfaces
 {
     public interface IPalestranteRepository : IBaseRepository<Palestrante>
     {

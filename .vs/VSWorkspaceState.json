@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Backend",
+    "\\Backend\\src",
+    "\\Backend\\src\\ProEventos.API",
+    "\\Frontend",
+    "\\Frontend\\ProEventos-App",
+    "\\Frontend\\ProEventos-App\\src",
+    "\\Frontend\\ProEventos-App\\src\\app",
+    "\\Frontend\\ProEventos-App\\src\\app\\services"
+  ],
+  "PreviewInSolutionExplorer": false
+}

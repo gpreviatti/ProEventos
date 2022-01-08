@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using ProEventos.Domain;
+using ProEventos.Domain.Dtos;
+using ProEventos.Domain.Interfaces;
 using ProEventos.Domain.Messages;
 
 namespace ProEventos.Application
@@ -21,23 +22,23 @@ namespace ProEventos.Application
 
         public async Task<EventoDto> SalvarAsync(EventoDto eventoDto)
         {
-            var evento = new Evento();
+            Evento evento;
 
             if (eventoDto.Id == 0)
             {
                 evento = _mapper.Map<Evento>(eventoDto);
 
-                await _eventoRepository.Add(evento);
+                await _eventoRepository.AddAsync(evento);
             }
             else
             {
-                evento = await _eventoRepository.GetById(eventoDto.Id);
+                evento = await _eventoRepository.GetByIdAsync(eventoDto.Id);
                 if (evento == null) 
                     return null;
 
                 evento = _mapper.Map<Evento>(eventoDto);
 
-                await _eventoRepository.Update(evento);
+                await _eventoRepository.UpdateAsync(evento);
             }
 
             return _mapper.Map<EventoDto>(evento);
@@ -48,7 +49,7 @@ namespace ProEventos.Application
             var evento = await _eventoRepository.GetByIdAsync(eventoId, false);
             if (evento == null) throw new Exception("Evento para delete não encontrado.");
 
-            return await _eventoRepository.Delete(evento);
+            return await _eventoRepository.DeleteAsync(evento);
         }
 
         public async Task<EventoDto[]> GetAllEventosAsync()
@@ -70,7 +71,7 @@ namespace ProEventos.Application
             );
             if (data == null) return null;
 
-            var total = await _eventoRepository.GetAllCount();
+            var total = await _eventoRepository.GetAllCountAsync();
 
             var dataMapped = _mapper.Map<EventoDto[]>(data);
 
@@ -79,7 +80,7 @@ namespace ProEventos.Application
                 paginatedRequest.CurrentPage,
                 paginatedRequest.PageSize,
                 total,
-                dataMapped.Count(),
+                dataMapped.Length,
                 paginatedRequest.SearchValue
             ); ;
         }

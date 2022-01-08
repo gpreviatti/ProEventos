@@ -6,8 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using ProEventos.Application;
-using ProEventos.Domain;
+using ProEventos.Domain.Interfaces;
 using ProEventos.Persistence;
+using ProUsers.Application;
 using System;
 using System.IO;
 
@@ -22,46 +23,56 @@ namespace ProEventos.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public void DependencyInjection(IServiceCollection services)
         {
-            // AddNewtonSoftJson corrigi problema de referencia ciclica
-            services
-                .AddControllers()
-                .AddNewtonsoftJson(
-                    j => j.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-                );
-
-            services.AddCors();
-            services.AddSwaggerGen();
-
             // Services
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<ILoteService, LoteService>();
             services.AddScoped<IPalestranteService, PalestranteService>();
             services.AddScoped<IRedeSocialService, RedeSocialService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             // AutoMappers
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-            // Data
+            // Context
             services.AddDbContext<ProEventosContext>(
                 context => context.UseNpgsql(Configuration.GetConnectionString("App"))
             );
+
+            // Repositories
             services.AddScoped<IEventoRespository, EventoRepository>();
             services.AddScoped<ILoteRepository, LoteRepository>();
             services.AddScoped<IPalestranteRepository, PalestranteRepository>();
             services.AddScoped<IRedeSocialRepository, RedeSocialRepository>();
         }
 
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            // AddNewtonSoftJson corrigi problema de referencia ciclica
+            services
+            .AddControllers()
+            .AddNewtonsoftJson(
+                j => j.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
+
+            services.AddCors();
+            services.AddSwaggerGen();
+
+            DependencyInjection(services);
+        }
+
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
+            if (env.EnvironmentName.Equals("Development"))
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
-            app.UseStaticFiles();
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.InjectStylesheet("/swagger-ui/SwaggerDark.css"));
+            app.UseSwaggerUI();
 
             // Configurando o storage das imagens
             app.UseStaticFiles(new StaticFileOptions()
