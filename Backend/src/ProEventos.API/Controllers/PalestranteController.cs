@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ProEventos.Domain;
+using ProEventos.Domain.Dtos;
+using ProEventos.Domain.Interfaces;
 using ProEventos.Domain.Messages;
 using System;
 using System.IO;

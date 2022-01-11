@@ -6,6 +6,7 @@ namespace ProEventos.Domain.Identity
 {
     public class User : IdentityUser<int>
     {
+        public string FirstName { get; set; }
         public string LastName { get; set; }
         public Titulo Title { get; set; }
         public string Description { get; set; }

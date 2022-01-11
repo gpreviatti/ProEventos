@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProEventos.Domain;
+using ProEventos.Domain.Dtos;
+using ProEventos.Domain.Interfaces;
 using System;
 using System.Threading.Tasks;
 

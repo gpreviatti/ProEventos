@@ -2,7 +2,8 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProEventos.Domain;
+using ProEventos.Domain.Dtos;
+using ProEventos.Domain.Interfaces;
 
 namespace ProEventos.API.Controllers
 {

@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using ProEventos.Domain.Dtos;
 using ProEventos.Domain.Identity;
 using ProEventos.Domain.Interfaces;
@@ -62,5 +63,26 @@ namespace ProUsers.Application
 
             return resultado;
         }
+
+        public async Task<bool> UserExists(string name)
+        {
+            var user = await _userRepository.GetByNameAsync(name);
+
+            return user != null;
+        }
+        public async Task<UserDto> GetByNameAsync(string name)
+        {
+            var User = await _userRepository.GetByNameAsync(name);
+            if (User == null) return null;
+
+            var resultado = _mapper.Map<UserDto>(User);
+
+            return resultado;
+        }
+
+        // private async Task<SignInResult> CheckUserPasswordAsync(UserDto user)
+        // {
+
+        // }
     }
 }
