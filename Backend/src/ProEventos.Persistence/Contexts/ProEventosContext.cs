@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProEventos.Domain;
@@ -5,7 +6,7 @@ using ProEventos.Domain.Identity;
 
 namespace ProEventos.Persistence
 {
-    public class ProEventosContext : IdentityDbContext<User, Role, int>
+    public class ProEventosContext : IdentityDbContext<User, Role, int, IdentityUserClaim<int>, UserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public ProEventosContext(DbContextOptions<ProEventosContext> options) : base(options) 
         { 

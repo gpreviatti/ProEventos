@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using ProEventos.Domain;
 using ProEventos.Domain.Interfaces;
 
-namespace ProEventos.Persistence
+namespace ProEventos.Persistence.Repositories
 {
     public abstract class BaseRepository<T> : IBaseRepository<T> where T : Entity
     {

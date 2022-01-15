@@ -1,88 +1,184 @@
+using AutoMapper;
 using System;
 using System.Threading.Tasks;
-using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using ProEventos.Domain.Dtos;
 using ProEventos.Domain.Identity;
 using ProEventos.Domain.Interfaces;
+using System.Collections.Generic;
+using System.Security.Claims;
+using System.Linq;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace ProUsers.Application
 {
     public class AccountService : IAccountService
     {
+        private readonly UserManager<User> _userManager;
         private readonly IUserRepository _userRepository;
         protected readonly IMapper _mapper;
 
+        private readonly SymmetricSecurityKey _key;
+
         public AccountService(
+            IConfiguration config,
+            UserManager<User> userManager,
             IUserRepository userRepository,
             IMapper mapper
         )
         {
+            _userManager = userManager;
             _userRepository = userRepository;
             _mapper = mapper;
+            _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
 
-        public async Task<UserDto> SalvarAsync(UserDto UserDto)
+        public async Task<UserDto> SalvarAsync(UserCreateDto userDto)
         {
-            User User;
-
-            if (UserDto.Id == 0)
+            try
             {
-                User = _mapper.Map<User>(UserDto);
+                var user = _mapper.Map<User>(userDto);
 
-                await _userRepository.AddAsync(User);
+                await _userManager.CreateAsync(user, userDto.Password);
+
+                return _mapper.Map<UserDto>(user);
             }
-            else
+            catch (Exception exception)
             {
-                User = await _userRepository.GetByIdAsync(UserDto.Id);
-                if (User == null) 
-                    return null;
-
-                User = _mapper.Map<User>(UserDto);
-
-                await _userRepository.UpdateAsync(User);
+                throw new Exception($"Erro ao tentar criar conta. Erro: {exception.Message}");
             }
+        }
 
-            return _mapper.Map<UserDto>(User);
+        public async Task<UserDto> UpdateAsync(UserUpdateDto userDto)
+        {
+            try
+            {
+                var user = await _userRepository.GetByIdAsync(userDto.Id);
+
+                if (user == null) return null;
+
+                user = _mapper.Map<User>(userDto);
+
+                //var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                //var result = await _userManager.ResetPasswordAsync(user, token, userDto.Password);
+
+                await _userManager.UpdateAsync(user);
+
+                var usuarioAtualizado = await _userRepository.GetByIdAsync(userDto.Id);
+                return _mapper.Map<UserDto>(usuarioAtualizado);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception($"Erro ao tentar atualizar usuario. Erro: {exception.Message}");
+            }
         }
 
         public async Task<bool> DeletarAsync(int UserId)
         {
-            var User = await _userRepository.GetByIdAsync(UserId);
-            if (User == null) throw new Exception("User para delete não encontrado.");
+            try
+            {
+                var User = await _userRepository.GetByIdAsync(UserId);
+                if (User == null) throw new Exception("Usuario para remoção não encontrado");
 
-            return await _userRepository.DeleteAsync(User);
+                return await _userRepository.DeleteAsync(User);
+            }
+            catch (Exception exception)
+            {
+
+                throw new Exception($"Erro ao tentar deletar conta. Erro: {exception.Message}");
+            }
         }
 
         public async Task<UserDto> GetByIdAsync(int UserId)
         {
-            var User = await _userRepository.GetByIdAsync(UserId);
-            if (User == null) return null;
+            try
+            {
+                var User = await _userRepository.GetByIdAsync(UserId);
+                if (User == null) return null;
 
-            var resultado = _mapper.Map<UserDto>(User);
+                var resultado = _mapper.Map<UserDto>(User);
 
-            return resultado;
+                return resultado;
+            }
+            catch (Exception exception)
+            {
+                throw new Exception($"Erro: {exception.Message}");
+            }
         }
 
-        public async Task<bool> UserExists(string name)
+        public async Task<UserDto> GetByUserNameAsync(string name)
         {
-            var user = await _userRepository.GetByNameAsync(name);
+            try
+            {
+                var User = await _userRepository.GetByUserNameAsync(name);
+                if (User == null) return null;
 
-            return user != null;
+                var resultado = _mapper.Map<UserDto>(User);
+
+                return resultado;
+            }
+            catch (Exception exception)
+            {
+
+                throw new Exception($"Erro: {exception.Message}");
+            }
         }
-        public async Task<UserDto> GetByNameAsync(string name)
+
+        public async Task<bool> CheckUserPasswordAsync(UserLoginDto userLoginDto)
         {
-            var User = await _userRepository.GetByNameAsync(name);
-            if (User == null) return null;
+            try
+            {
+                var user = await _userManager
+                .Users
+                .SingleOrDefaultAsync(u => u.Password.ToLower() == userLoginDto.Password.ToLower());
 
-            var resultado = _mapper.Map<UserDto>(User);
-
-            return resultado;
+                return await _userManager.CheckPasswordAsync(user, userLoginDto.Password);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception($"Erro ao tentar verificar senha. Erro: {exception.Message}");
+            }
         }
 
-        // private async Task<SignInResult> CheckUserPasswordAsync(UserDto user)
-        // {
+        public async Task<string> CreateToken(UserDto userDto)
+        {
+            try
+            {
+                var user = _mapper.Map<User>(userDto);
 
-        // }
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    new Claim(ClaimTypes.Name, user.UserName)
+                };
+
+                var roles = await _userManager.GetRolesAsync(user);
+
+                claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+                
+                var creds = new SigningCredentials(_key, SecurityAlgorithms.HmacSha512Signature);
+
+                var tokenDescription = new SecurityTokenDescriptor
+                {
+                    Subject = new ClaimsIdentity(claims),
+                    Expires = DateTime.UtcNow.AddHours(1),
+                    SigningCredentials = creds
+                };
+
+                var tokenHandler = new JwtSecurityTokenHandler();
+
+                var token = tokenHandler.CreateToken(tokenDescription);
+
+                return tokenHandler.WriteToken(token);
+            }
+            catch (Exception exception)
+            {
+                throw new Exception($"Não foi possível gerar o token. Erro: {exception.Message}");
+            }
+        }
     }
 }

@@ -5,10 +5,12 @@ namespace ProEventos.Domain.Interfaces
 {
     public interface IAccountService
     {
-        Task<bool> UserExists(string name);
-        Task<UserDto> SalvarAsync(UserDto UserDto);
+        Task<UserDto> SalvarAsync(UserCreateDto UserDto);
+        Task<UserDto> UpdateAsync(UserUpdateDto UserDto);
         Task<bool> DeletarAsync(int UserId);
         Task<UserDto> GetByIdAsync(int UserId);
-        Task<UserDto> GetByNameAsync(string name);
+        Task<UserDto> GetByUserNameAsync(string name);
+        Task<bool> CheckUserPasswordAsync(UserLoginDto userLoginDto);
+        Task<string> CreateToken(UserDto userDto);
     }
 }

@@ -37,7 +37,7 @@ namespace ProEventos.Persistence.Repositories
 
         public async Task<User> GetByIdAsync(int id) => await _context.Users.FindAsync(id);
 
-        public async Task<User> GetByNameAsync(string name) => await _context
+        public async Task<User> GetByUserNameAsync(string name) => await _context
             .Users
             .FirstOrDefaultAsync(u => u.UserName == name);
 

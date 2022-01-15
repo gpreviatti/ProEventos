@@ -4,8 +4,9 @@ namespace ProEventos.Domain.Interfaces
 {
     public interface IEventoRespository : IBaseRepository<Evento>
     {
-        Task<Evento[]> GetAllPaginatedAsync(int currentPage, int pageSize, string searchValue = "");
-        Task<Evento[]> GetAllByTemaAsync(string tema, bool includePalestrantes = false);
-        Task<Evento> GetByIdAsync(int eventoId, bool includePalestrantes = false);
+        Task<Evento[]> Get(int userId);
+        Task<Evento[]> GetAllByTemaAsync(int userId, string tema, bool includePalestrantes = false);
+        Task<Evento> GetByIdAsync(int userId, int eventoId, bool includePalestrantes = false);
+        Task<Evento[]> GetAllPaginatedAsync(int userId, int currentPage, int pageSize, string searchValue = "");
     }
 }

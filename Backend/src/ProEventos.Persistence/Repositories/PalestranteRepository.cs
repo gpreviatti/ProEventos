@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using ProEventos.Domain;
 using ProEventos.Domain.Interfaces;
 
-namespace ProEventos.Persistence
+namespace ProEventos.Persistence.Repositories
 {
     public class PalestranteRepository : BaseRepository<Palestrante>, IPalestranteRepository
     {

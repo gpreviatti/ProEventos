@@ -20,9 +20,10 @@ namespace ProEventos.Application
             _eventoRepository = eventoRepository;
         }
 
-        public async Task<EventoDto> SalvarAsync(EventoDto eventoDto)
+        public async Task<EventoDto> SalvarAsync(int userId, EventoDto eventoDto)
         {
             Evento evento;
+            eventoDto.UserId = userId;
 
             if (eventoDto.Id == 0)
             {
@@ -44,17 +45,17 @@ namespace ProEventos.Application
             return _mapper.Map<EventoDto>(evento);
         }
 
-        public async Task<bool> DeleteEvento(int eventoId)
+        public async Task<bool> DeleteEvento(int userId, int eventoId)
         {
-            var evento = await _eventoRepository.GetByIdAsync(eventoId, false);
+            var evento = await _eventoRepository.GetByIdAsync(userId, eventoId, false);
             if (evento == null) throw new Exception("Evento para delete não encontrado.");
 
             return await _eventoRepository.DeleteAsync(evento);
         }
 
-        public async Task<EventoDto[]> GetAllEventosAsync()
+        public async Task<EventoDto[]> GetAllEventosAsync(int userId)
         {
-            var eventos = await _eventoRepository.Get();
+            var eventos = await _eventoRepository.Get(userId);
             if (eventos == null) return null;
 
             var resultado = _mapper.Map<EventoDto[]>(eventos);
@@ -62,9 +63,10 @@ namespace ProEventos.Application
             return resultado;
         }
 
-        public async Task<PaginatedResponse<IEnumerable<EventoDto>>> GetAllEventosPaginatedAsync(PaginatedRequest paginatedRequest)
+        public async Task<PaginatedResponse<IEnumerable<EventoDto>>> GetAllEventosPaginatedAsync(int userId, PaginatedRequest paginatedRequest)
         {
             var data = await _eventoRepository.GetAllPaginatedAsync(
+                userId,
                 paginatedRequest.CurrentPage,
                 paginatedRequest.PageSize,
                 paginatedRequest.SearchValue
@@ -85,9 +87,9 @@ namespace ProEventos.Application
             ); ;
         }
 
-        public async Task<EventoDto[]> GetAllEventosByTemaAsync(string tema, bool includePalestrantes = false)
+        public async Task<EventoDto[]> GetAllEventosByTemaAsync(int userId, string tema, bool includePalestrantes = false)
         {
-            var eventos = await _eventoRepository.GetAllByTemaAsync(tema, includePalestrantes);
+            var eventos = await _eventoRepository.GetAllByTemaAsync(userId, tema, includePalestrantes);
             if (eventos == null) return null;
 
             var resultado = _mapper.Map<EventoDto[]>(eventos);
@@ -95,9 +97,9 @@ namespace ProEventos.Application
             return resultado;
         }
 
-        public async Task<EventoDto> GetEventoByIdAsync(int eventoId, bool includePalestrantes = false)
+        public async Task<EventoDto> GetEventoByIdAsync(int userId, int eventoId, bool includePalestrantes = false)
         {
-            var evento = await _eventoRepository.GetByIdAsync(eventoId, includePalestrantes);
+            var evento = await _eventoRepository.GetByIdAsync(userId, eventoId, includePalestrantes);
             if (evento == null) return null;
 
             var resultado = _mapper.Map<EventoDto>(evento);
