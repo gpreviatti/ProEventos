@@ -60,7 +60,7 @@ namespace ProUsers.Application
                 var user = await _userRepository.GetByIdAsync(userDto.Id);
                 if (user == null) return null;
 
-                _mapper.Map(userDto, user);
+                var updatedUser = _mapper.Map(userDto, user);
 
                 if (userDto.Password != null)
                 {
@@ -68,14 +68,8 @@ namespace ProUsers.Application
                     await _userManager.ResetPasswordAsync(user, token, userDto.Password);
                 }
 
-                await _userRepository.UpdateAsync(user);
-
-                if (await _userRepository.SaveChangesAsync())
-                {
-                    var userRetorno = await _userRepository.GetByIdAsync(user.Id);
-
-                    return _mapper.Map<UserDto>(userRetorno);
-                }
+                if (await _userRepository.UpdateAsync(updatedUser))
+                    return _mapper.Map<UserDto>(updatedUser);
 
                 return null;
             }
@@ -122,10 +116,10 @@ namespace ProUsers.Application
         {
             try
             {
-                var User = await _userRepository.GetByUserNameAsync(name);
-                if (User == null) return null;
+                var user = await _userRepository.GetByUserNameAsync(name);
+                if (user == null) return null;
 
-                var resultado = _mapper.Map<UserDto>(User);
+                var resultado = _mapper.Map<UserDto>(user);
 
                 return resultado;
             }

@@ -7,8 +7,6 @@ namespace ProEventos.Persistence.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        protected readonly ProEventosContext _context;
-
         public UserRepository(ProEventosContext context) : base(context) { }
 
         public async Task<User> GetByIdAsync(int id) => await _context

@@ -25,9 +25,9 @@ namespace ProEventos.Persistence.Repositories
         } 
             
 
-        public async Task<bool> UpdateAsync(T entity) 
+        public async Task<bool> UpdateAsync(T entity)
         {
-            await Task.Run(() => _context.Update(entity));
+            _context.Update(entity);
 
             return await SaveChangesAsync();
         }
@@ -44,8 +44,8 @@ namespace ProEventos.Persistence.Repositories
             await Task.Run(() => _context.RemoveRange(entityArray));
 
             return await SaveChangesAsync();
-        } 
+        }
 
-        public async Task<bool> SaveChangesAsync() => await _context.SaveChangesAsync() > 0;
+        public async Task<bool> SaveChangesAsync() => (await _context.SaveChangesAsync()) > 0;
     }
 }
