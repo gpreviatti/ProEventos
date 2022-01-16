@@ -15,9 +15,9 @@ namespace ProEventos.Domain.Dtos
         public string PhoneNumber { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Titulo Titulo { get; set; }
+        public Titulo Title { get; set; }
         public string Description { get; set; }
-        public Funcao Funcao { get; set; }
+        public Funcao Function { get; set; }
         public string ImageUrl { get; set; }
 
     }

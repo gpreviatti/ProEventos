@@ -32,7 +32,7 @@ namespace ProEventos.Application
             else
             {
                 var lotes = await _loteRepository
-                    .GetLotesByEventoIdAsync(loteDto.EventoId);
+                    .GetByEventoIdAsync(loteDto.EventoId);
                 if (lotes == null) return null;
 
                 var loteEntity = lotes.FirstOrDefault(lote => lote.Id == lote.Id);
@@ -56,7 +56,7 @@ namespace ProEventos.Application
 
         public async Task<LoteDto[]> GetLotesByEventoIdAsync(int eventoId)
         {
-            var lotes = await _loteRepository.GetLotesByEventoIdAsync(eventoId);
+            var lotes = await _loteRepository.GetByEventoIdAsync(eventoId);
             if (lotes == null) return null;
 
             var resultado = _mapper.Map<LoteDto[]>(lotes);

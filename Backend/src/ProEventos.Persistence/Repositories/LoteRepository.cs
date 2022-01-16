@@ -10,7 +10,7 @@ namespace ProEventos.Persistence.Repositories
     {
         public LoteRepository(ProEventosContext context) : base(context) { }
 
-        public async Task<Lote> GetByIdsAsync(int id)
+        public async Task<Lote> GetByIdAsync(int id)
         {
             IQueryable<Lote> query = _context.Lotes;
 
@@ -19,7 +19,7 @@ namespace ProEventos.Persistence.Repositories
                 .FirstOrDefaultAsync(lote => lote.Id == id);
         }
 
-        public async Task<Lote[]> GetLotesByEventoIdAsync(int eventoId)
+        public async Task<Lote[]> GetByEventoIdAsync(int eventoId)
         {
             IQueryable<Lote> query = _context.Lotes;
 

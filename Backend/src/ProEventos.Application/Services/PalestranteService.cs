@@ -56,7 +56,7 @@ namespace ProEventos.Application
 
         public async Task<PalestranteDto> GetPalestranteByIdAsync(int palestranteId) 
         {
-            var palestrante = await _palestranteRepository.GetPalestranteByIdAsync(palestranteId, false);
+            var palestrante = await _palestranteRepository.GetByIdAsync(palestranteId, false);
 
             return _mapper.Map<PalestranteDto>(palestrante);
         }
@@ -73,7 +73,7 @@ namespace ProEventos.Application
             }
             else
             {
-                palestrante = await _palestranteRepository.GetByIdAsync(palestranteDto.Id);
+                palestrante = await _palestranteRepository.GetByIdAsync(palestranteDto.Id, false);
                 if (palestrante == null) 
                     return null;
 
@@ -87,7 +87,7 @@ namespace ProEventos.Application
 
         public async Task<bool> DeletarAsync(int palestranteId)
         {
-            var palestrante = await _palestranteRepository.GetByIdAsync(palestranteId);
+            var palestrante = await _palestranteRepository.GetByIdAsync(palestranteId, false);
             if (palestrante == null) 
                 throw new Exception("Palestrante para encontrado.");
 

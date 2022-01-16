@@ -34,7 +34,7 @@ namespace ProEventos.Application
         public async Task<RedeSocialDto> GetRedeSocialByIdAsync(int redeSocialId)
         {
             var redeSocial = await _redeSocialRepository
-                .GetRedeSocialByIdAsync(redeSocialId);
+                .GetByIdAsync(redeSocialId);
 
             return _mapper.Map<RedeSocialDto>(redeSocial);
         }

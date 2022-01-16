@@ -33,7 +33,7 @@ namespace ProEventos.Application
             }
             else
             {
-                evento = await _eventoRepository.GetByIdAsync(eventoDto.Id);
+                evento = await _eventoRepository.GetByIdAsync(userId, eventoDto.Id);
                 if (evento == null) 
                     return null;
 

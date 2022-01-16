@@ -10,6 +10,12 @@ namespace ProEventos.Persistence.Repositories
     {
         public PalestranteRepository(ProEventosContext context) : base(context) { }
 
+        public async Task<Palestrante[]> Get() => await _context
+            .Palestrantes
+            .AsNoTracking()
+            .OrderBy(e => e.Id)
+            .ToArrayAsync();
+
         public async Task<Palestrante[]> GetAllPaginatedAsync(
             int currentPage, 
             int pageSize, 
@@ -33,7 +39,7 @@ namespace ProEventos.Persistence.Repositories
                 .ToArrayAsync();
         }
 
-        public async Task<Palestrante> GetPalestranteByIdAsync(int palestranteId, bool includeEventos)
+        public async Task<Palestrante> GetByIdAsync(int palestranteId, bool includeEventos)
         {
             IQueryable<Palestrante> query = _context.Palestrantes
                 .Include(p => p.RedesSociais);

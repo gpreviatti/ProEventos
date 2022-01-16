@@ -10,5 +10,6 @@ namespace ProEventos.Domain.Interfaces
         Task<bool> AddAsync(User entity);
         Task<bool> UpdateAsync(User entity);
         Task<bool> DeleteAsync(User entity);
+        Task<bool> SaveChangesAsync();
     }
 }

@@ -58,22 +58,30 @@ namespace ProUsers.Application
             try
             {
                 var user = await _userRepository.GetByIdAsync(userDto.Id);
-
                 if (user == null) return null;
 
-                user = _mapper.Map<User>(userDto);
+                _mapper.Map(userDto, user);
 
-                //var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-                //var result = await _userManager.ResetPasswordAsync(user, token, userDto.Password);
+                if (userDto.Password != null)
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    await _userManager.ResetPasswordAsync(user, token, userDto.Password);
+                }
 
-                await _userManager.UpdateAsync(user);
+                await _userRepository.UpdateAsync(user);
 
-                var usuarioAtualizado = await _userRepository.GetByIdAsync(userDto.Id);
-                return _mapper.Map<UserDto>(usuarioAtualizado);
+                if (await _userRepository.SaveChangesAsync())
+                {
+                    var userRetorno = await _userRepository.GetByIdAsync(user.Id);
+
+                    return _mapper.Map<UserDto>(userRetorno);
+                }
+
+                return null;
             }
-            catch (Exception exception)
+            catch (System.Exception ex)
             {
-                throw new Exception($"Erro ao tentar atualizar usuario. Erro: {exception.Message}");
+                throw new Exception($"Erro ao tentar atualizar usuário. Erro: {ex.Message}");
             }
         }
 
