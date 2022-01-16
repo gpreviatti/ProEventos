@@ -19,11 +19,10 @@ namespace ProEventos.Persistence.Repositories
 
         public async Task<bool> AddAsync(T entity) 
         {
-            await _context.AddAsync(entity);
+            _context.Add(entity);
 
             return await SaveChangesAsync();
-        } 
-            
+        }
 
         public async Task<bool> UpdateAsync(T entity)
         {
@@ -34,14 +33,14 @@ namespace ProEventos.Persistence.Repositories
 
         public async Task<bool> DeleteAsync(T entity) 
         {
-            await Task.Run(() =>_context.Remove(entity));
+            _context.Remove(entity);
 
             return await SaveChangesAsync();
         } 
 
         public async Task<bool> DeleteRangeAsync(T[] entityArray)
         {
-            await Task.Run(() => _context.RemoveRange(entityArray));
+            _context.RemoveRange(entityArray);
 
             return await SaveChangesAsync();
         }
