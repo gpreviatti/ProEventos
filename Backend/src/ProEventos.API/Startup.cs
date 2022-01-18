@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProEventos.Application;
+using ProEventos.Application.Helpers;
 using ProEventos.Domain.Identity;
 using ProEventos.Domain.Interfaces;
 using ProEventos.Persistence;
@@ -39,7 +41,13 @@ namespace ProEventos.API
         public void DependencyInjection(IServiceCollection services)
         {
             // AutoMappers
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            var config = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new ProEventosProfile());
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
 
             // Services
             services.AddScoped<IEventoService, EventoService>();
@@ -163,11 +171,11 @@ namespace ProEventos.API
             app.UseSwaggerUI();
 
             // Configurando o storage das imagens
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources")),
-                RequestPath = new PathString("/Resources")
-            });
+            //app.UseStaticFiles(new StaticFileOptions()
+            //{
+            //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources")),
+            //    RequestPath = new PathString("/Resources")
+            //});
 
             app.UseHttpsRedirection();
 

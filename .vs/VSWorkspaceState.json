@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Backend",
-    "\\Backend\\src",
-    "\\Backend\\src\\ProEventos.Test.Integration"
+    ""
   ],
-  "SelectedNode": "\\Backend\\src\\ProEventos.Test.Integration\\TestFixture.cs",
+  "SelectedNode": "\\ProEventos.sln",
   "PreviewInSolutionExplorer": false
 }

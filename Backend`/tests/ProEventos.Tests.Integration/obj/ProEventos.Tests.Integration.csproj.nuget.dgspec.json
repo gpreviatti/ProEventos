@@ -4,14 +4,188 @@
     "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend`\\tests\\ProEventos.Tests.Integration\\ProEventos.Tests.Integration.csproj": {}
   },
   "projects": {
-    "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend`\\tests\\ProEventos.Tests.Integration\\ProEventos.Tests.Integration.csproj": {
+    "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.API\\ProEventos.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend`\\tests\\ProEventos.Tests.Integration\\ProEventos.Tests.Integration.csproj",
-        "projectName": "ProEventos.Tests.Integration",
-        "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend`\\tests\\ProEventos.Tests.Integration\\ProEventos.Tests.Integration.csproj",
+        "projectUniqueName": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.API\\ProEventos.API.csproj",
+        "projectName": "ProEventos.API",
+        "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.API\\ProEventos.API.csproj",
         "packagesPath": "C:\\Users\\giovanni.previatti\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend`\\tests\\ProEventos.Tests.Integration\\obj\\",
+        "outputPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.API\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\giovanni.previatti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nexus.viavarejo.com.br/repository/b2b-nuget/": {},
+          "http://nuget.cnova.com/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Application\\ProEventos.Application.csproj": {
+                "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Application\\ProEventos.Application.csproj"
+              },
+              "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\ProEventos.Domain.csproj": {
+                "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\ProEventos.Domain.csproj"
+              },
+              "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Persistence\\ProEventos.Persistence.csproj": {
+                "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Persistence\\ProEventos.Persistence.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.11, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Application\\ProEventos.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Application\\ProEventos.Application.csproj",
+        "projectName": "ProEventos.Application",
+        "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Application\\ProEventos.Application.csproj",
+        "packagesPath": "C:\\Users\\giovanni.previatti\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\giovanni.previatti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nexus.viavarejo.com.br/repository/b2b-nuget/": {},
+          "http://nuget.cnova.com/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\ProEventos.Domain.csproj": {
+                "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\ProEventos.Domain.csproj"
+              },
+              "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Persistence\\ProEventos.Persistence.csproj": {
+                "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Persistence\\ProEventos.Persistence.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.1.1, )"
+            },
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[6.15.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.15.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\ProEventos.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\ProEventos.Domain.csproj",
+        "projectName": "ProEventos.Domain",
+        "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\ProEventos.Domain.csproj",
+        "packagesPath": "C:\\Users\\giovanni.previatti\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\giovanni.previatti\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -42,6 +216,235 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Persistence\\ProEventos.Persistence.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Persistence\\ProEventos.Persistence.csproj",
+        "projectName": "ProEventos.Persistence",
+        "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Persistence\\ProEventos.Persistence.csproj",
+        "packagesPath": "C:\\Users\\giovanni.previatti\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Persistence\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\giovanni.previatti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nexus.viavarejo.com.br/repository/b2b-nuget/": {},
+          "http://nuget.cnova.com/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\ProEventos.Domain.csproj": {
+                "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\ProEventos.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer.Design": {
+              "target": "Package",
+              "version": "[1.1.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\tests\\ProEventos.Tests.Common\\ProEventos.Tests.Common.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\tests\\ProEventos.Tests.Common\\ProEventos.Tests.Common.csproj",
+        "projectName": "ProEventos.Tests.Common",
+        "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\tests\\ProEventos.Tests.Common\\ProEventos.Tests.Common.csproj",
+        "packagesPath": "C:\\Users\\giovanni.previatti\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\tests\\ProEventos.Tests.Common\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\giovanni.previatti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nexus.viavarejo.com.br/repository/b2b-nuget/": {},
+          "http://nuget.cnova.com/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\ProEventos.Domain.csproj": {
+                "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.Domain\\ProEventos.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Bogus": {
+              "target": "Package",
+              "version": "[34.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend`\\tests\\ProEventos.Tests.Integration\\ProEventos.Tests.Integration.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend`\\tests\\ProEventos.Tests.Integration\\ProEventos.Tests.Integration.csproj",
+        "projectName": "ProEventos.Tests.Integration",
+        "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend`\\tests\\ProEventos.Tests.Integration\\ProEventos.Tests.Integration.csproj",
+        "packagesPath": "C:\\Users\\giovanni.previatti\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend`\\tests\\ProEventos.Tests.Integration\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\giovanni.previatti\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nexus.viavarejo.com.br/repository/b2b-nuget/": {},
+          "http://nuget.cnova.com/nuget": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.API\\ProEventos.API.csproj": {
+                "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\src\\ProEventos.API\\ProEventos.API.csproj"
+              },
+              "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\tests\\ProEventos.Tests.Common\\ProEventos.Tests.Common.csproj": {
+                "projectPath": "C:\\Users\\giovanni.previatti\\Projetos\\Outros\\ProEventos\\Backend\\tests\\ProEventos.Tests.Common\\ProEventos.Tests.Common.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.TestHost": {
+              "target": "Package",
+              "version": "[5.0.13, )"
+            },
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[16.11.0, )"

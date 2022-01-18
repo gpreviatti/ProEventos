@@ -70,11 +70,11 @@ namespace ProEventos.API.Controllers
             if (await _accountService.CheckUserPasswordAsync(userLoginDto) == false)  
                 return Unauthorized("senha está incorreta");
 
-            var token = await _accountService.CreateToken(user);
-            return Ok(new {
+            return Ok(new UserLoginResultDto
+            {
                 UserName = user.UserName,
                 FirstName = user.FirstName,
-                token = token
+                Token = await _accountService.CreateToken(user)
             });
         }
     }
