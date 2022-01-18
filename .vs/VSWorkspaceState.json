@@ -3,12 +3,8 @@
     "",
     "\\Backend",
     "\\Backend\\src",
-    "\\Backend\\src\\ProEventos.API",
-    "\\Frontend",
-    "\\Frontend\\ProEventos-App",
-    "\\Frontend\\ProEventos-App\\src",
-    "\\Frontend\\ProEventos-App\\src\\app",
-    "\\Frontend\\ProEventos-App\\src\\app\\services"
+    "\\Backend\\src\\ProEventos.Test.Integration"
   ],
+  "SelectedNode": "\\Backend\\src\\ProEventos.Test.Integration\\TestFixture.cs",
   "PreviewInSolutionExplorer": false
 }
