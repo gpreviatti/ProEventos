@@ -37,16 +37,18 @@ namespace ProEventos.Tests.Integration
             _client = server.CreateClient();
         }
 
-        #region "Set Api Communication"
+        #region "Api Helpers"
         public async Task AdicionarToken()
         {
             var loginDto = new UserLoginDto()
             {
+                UserName = "admin",
                 Email = "admin@admin.com",
                 Password = "mudar@123"
             };
 
-            var resultLogin = await PostAsync<UserLoginResultDto>(loginDto, "account/loginAsync");
+            var response = await PostAsync(loginDto, "account/loginAsync");
+            var resultLogin = await DeserializeResponse<UserLoginResultDto>(response);
 
             //Add default authorization in each request
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
@@ -55,28 +57,21 @@ namespace ProEventos.Tests.Integration
             );
         }
 
-        public static async Task<HttpResponseMessage> GetAsync(string url) => await _client.GetAsync(_hostApi + url);
+        public async Task<HttpResponseMessage> GetAsync(string url) => await _client.GetAsync(_hostApi + url);
 
-        public static async Task<T> PostAsync<T>(object dataclass, string url)
-        {
-            var response = await _client.PostAsync(
-                _hostApi + url,
-                new StringContent(JsonConvert.SerializeObject(dataclass), Encoding.UTF8, "application/json")
-            );
-            var result = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(result);
-        }
+        public async Task<HttpResponseMessage> PostAsync(dynamic dataclass, string url) => 
+            await _client.PostAsync(_hostApi + url, SerializeRequest(dataclass));
 
-        public static async Task<HttpResponseMessage> PutAsync(object dataclass, string url)
-        {
-            return await _client.PutAsync(
-                _hostApi + url,
-                new StringContent(JsonConvert.SerializeObject(dataclass), Encoding.UTF8, "application/json")
-            );
-        }
+        public async Task<HttpResponseMessage> PutAsync(dynamic data, string url) => 
+            await _client.PutAsync(_hostApi + url, SerializeRequest(data));
 
-        public static async Task<HttpResponseMessage> DeleteAsync(string url) => await _client.DeleteAsync(_hostApi + url);
+        public async Task<HttpResponseMessage> DeleteAsync(string url) => await _client.DeleteAsync(_hostApi + url);
 
+        public StringContent SerializeRequest(dynamic request) =>
+            new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+
+        public async Task<T> DeserializeResponse<T>(HttpResponseMessage response) =>
+            JsonConvert.DeserializeObject<T>(await response.Content.ReadAsStringAsync());
         #endregion
     }
 }

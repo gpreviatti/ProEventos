@@ -16,9 +16,15 @@ namespace ProEventos.Tests.Integration
         {
             // arrange
             var userCreateDto = UserCreateDtoGenerator.Create().Generate();
+            var loginDto = new UserLoginDto()
+            {
+                UserName = "admin",
+                Email = "admin@admin.com",
+                Password = "mudar@123"
+            };
 
             // act
-            var result = await PostAsync<UserDto>(userCreateDto, "account/registerAsync");
+            var result = await PostAsync<UserDto>(loginDto, "account/registerAsync");
 
             // assert
             Assert.NotNull(result);
