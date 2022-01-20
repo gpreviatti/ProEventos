@@ -45,7 +45,7 @@ namespace ProEventos.API.Controllers
             userUpdateDto.Id = User.GetUserId();
             var user = await _accountService.UpdateAsync(userUpdateDto);
             if (user != null)
-                return Ok("Usuário atualizado com sucesso");
+                return Ok(user);
 
             return BadRequest("Erro ao atualizar usuário. Tente mais tarde!");
         }

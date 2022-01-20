@@ -11,7 +11,6 @@ namespace ProEventos.Persistence.Repositories
 
         public async Task<User> GetByIdAsync(int id) => await _context
             .Users
-            .AsNoTracking()
             .FirstOrDefaultAsync(u => u.Id == id);
 
         public async Task<User> GetByUserNameAsync(string name) => await _context
