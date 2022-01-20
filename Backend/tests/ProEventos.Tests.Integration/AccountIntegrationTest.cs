@@ -9,18 +9,19 @@ namespace ProEventos.Tests.Integration
     {
         [Theory]
         [InlineData("admin", "admin@admin.com", "mudar@123")]
-        public async void Should_Get_All_Eventos_Async_With_Success(string userName, string email, string password)
+        public async void Should_Get_User_By_Name_Async_With_Success(string userName, string email, string password)
         {
             // arrange
             await _apiHelper.AddBearerTokenHeader(userName, email, password);
 
             // act
-            var response = await _apiHelper.GetAsync("account/getAsync");
-            var result = await _apiHelper.DeserializeResponse<EventoDto[]>(response);
+            var response = await _apiHelper.GetAsync("account/getUserByNameAsync");
+            var result = await _apiHelper.DeserializeResponse<UserDto>(response);
 
             // assert
             Assert.NotNull(response);
             Assert.Equal(StatusCodes.Status200OK, (int)response.StatusCode);
+            Assert.NotNull(result.UserName);
         }
 
         [Fact]

@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{64EA31AF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProEventos.Tests.Common", "tests\ProEventos.Tests.Common\ProEventos.Tests.Common.csproj", "{7AE3964F-7872-4201-856A-4CF8E662C268}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEventos.Tests.Integration", "..\Backend`\tests\ProEventos.Tests.Integration\ProEventos.Tests.Integration.csproj", "{F5DCE479-E9F1-4005-8D8A-00217CAF1764}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProEventos.Tests.Integration", "tests\ProEventos.Tests.Integration\ProEventos.Tests.Integration.csproj", "{83229051-C664-4BCA-AC61-AB31791CB5B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,10 +45,10 @@ Global
 		{7AE3964F-7872-4201-856A-4CF8E662C268}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AE3964F-7872-4201-856A-4CF8E662C268}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AE3964F-7872-4201-856A-4CF8E662C268}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F5DCE479-E9F1-4005-8D8A-00217CAF1764}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F5DCE479-E9F1-4005-8D8A-00217CAF1764}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F5DCE479-E9F1-4005-8D8A-00217CAF1764}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F5DCE479-E9F1-4005-8D8A-00217CAF1764}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83229051-C664-4BCA-AC61-AB31791CB5B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83229051-C664-4BCA-AC61-AB31791CB5B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83229051-C664-4BCA-AC61-AB31791CB5B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83229051-C664-4BCA-AC61-AB31791CB5B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,7 +59,7 @@ Global
 		{B2E0A24B-E13E-4318-BF52-D1F82957F70E} = {A402DB42-D391-4F6C-9E8F-C4E77DCDFC1A}
 		{D86CA8DA-B45F-4E79-998F-3E5F2AD8BEF0} = {A402DB42-D391-4F6C-9E8F-C4E77DCDFC1A}
 		{7AE3964F-7872-4201-856A-4CF8E662C268} = {64EA31AF-959E-4BEB-A560-550F7720495A}
-		{F5DCE479-E9F1-4005-8D8A-00217CAF1764} = {64EA31AF-959E-4BEB-A560-550F7720495A}
+		{83229051-C664-4BCA-AC61-AB31791CB5B7} = {64EA31AF-959E-4BEB-A560-550F7720495A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {22BAD92D-9070-48CF-A475-7AE36F8C3297}
