@@ -27,7 +27,7 @@ namespace ProEventos.Tests.Integration
                 Password = password
             };
 
-            var response = await PostAsync(loginDto, "account/loginAsync");
+            var response = await PostAsync("account/loginAsync", loginDto);
             var resultLogin = await DeserializeResponse<UserLoginResultDto>(response);
 
             _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(
@@ -38,10 +38,10 @@ namespace ProEventos.Tests.Integration
 
         public async Task<HttpResponseMessage> GetAsync(string url) => await _httpClient.GetAsync(_hostApi + url);
 
-        public async Task<HttpResponseMessage> PostAsync(dynamic dataclass, string url) =>
+        public async Task<HttpResponseMessage> PostAsync(string url, dynamic dataclass) =>
             await _httpClient.PostAsync(_hostApi + url, SerializeRequest(dataclass));
 
-        public async Task<HttpResponseMessage> PutAsync(dynamic data, string url) =>
+        public async Task<HttpResponseMessage> PutAsync(string url, dynamic data) =>
             await _httpClient.PutAsync(_hostApi + url, SerializeRequest(data));
 
         public async Task<HttpResponseMessage> DeleteAsync(string url) => await _httpClient.DeleteAsync(_hostApi + url);

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using ProEventos.Domain.Dtos;
-using ProEventos.Tests.Common.Generators.Dtos;
+using ProEventos.Tests.Common.Generators;
 using Xunit;
 
 namespace ProEventos.Tests.Integration
@@ -25,13 +25,13 @@ namespace ProEventos.Tests.Integration
         }
 
         [Fact]
-        public async void Should_Create_Evento_Async_With_Success()
+        public async void Should_Register_User_Async_With_Success()
         {
             // arrange
-            var userCreateDto = UserCreateDtoGenerator.Create().Generate();
+            var userCreateDto = DtoGenerator.UserCreateDto.Generate();
 
             // act
-            var response = await _apiHelper.PostAsync(userCreateDto, "account/registerAsync");
+            var response = await _apiHelper.PostAsync("account/registerAsync", userCreateDto);
             var result = await _apiHelper.DeserializeResponse<UserDto> (response);
 
             // assert
@@ -52,7 +52,7 @@ namespace ProEventos.Tests.Integration
             };
 
             // act
-            var response = await _apiHelper.PostAsync(userLoginDto, "account/loginAsync");
+            var response = await _apiHelper.PostAsync("account/loginAsync", userLoginDto);
             var result = await _apiHelper.DeserializeResponse<UserLoginResultDto>(response);
 
             // assert
@@ -67,8 +67,8 @@ namespace ProEventos.Tests.Integration
         public async void Should_Update_User_Async_With_Success()
         {
             // arrange
-            var userCreateDto = UserCreateDtoGenerator.Create().Generate();
-            var responseCreate = await _apiHelper.PostAsync(userCreateDto, "account/registerAsync");
+            var userCreateDto = DtoGenerator.UserCreateDto.Generate();
+            var responseCreate = await _apiHelper.PostAsync("account/registerAsync", userCreateDto);
             var resultCreate = await _apiHelper.DeserializeResponse<UserDto>(responseCreate);
 
             await _apiHelper.AddBearerTokenHeader(userCreateDto.UserName, userCreateDto.Email, userCreateDto.Password);
@@ -81,7 +81,7 @@ namespace ProEventos.Tests.Integration
             };
 
             // act
-            var response = await _apiHelper.PutAsync(userUpdateDto, "account/updateAsync");
+            var response = await _apiHelper.PutAsync("account/updateAsync", userUpdateDto);
             var result = await _apiHelper.DeserializeResponse<UserDto>(response);
 
             // assert
@@ -97,8 +97,8 @@ namespace ProEventos.Tests.Integration
         public async void Should_Delete_User_Async_With_Success()
         {
             // arrange
-            var userCreateDto = UserCreateDtoGenerator.Create().Generate();
-            var responseCreate = await _apiHelper.PostAsync(userCreateDto, "account/registerAsync");
+            var userCreateDto = DtoGenerator.UserCreateDto.Generate();
+            var responseCreate = await _apiHelper.PostAsync("account/registerAsync", userCreateDto);
 
             await _apiHelper.AddBearerTokenHeader(userCreateDto.UserName, userCreateDto.Email, userCreateDto.Password);
 
