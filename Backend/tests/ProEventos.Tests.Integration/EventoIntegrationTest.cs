@@ -2,6 +2,8 @@
 using ProEventos.Domain.Dtos;
 using ProEventos.Tests.Common.Generators;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace ProEventos.Tests.Integration
@@ -21,15 +23,17 @@ namespace ProEventos.Tests.Integration
         public async void Should_Get_Evento_Async_With_Success()
         {
             // arrange
-            await _apiHelper.PostAsync(RESOURCE_URL, DtoGenerator.EventoDto.Generate());
+            var eventoCreateDto = DtoGenerator.EventoDto.Generate();
+            await _apiHelper.PostAsync(RESOURCE_URL, eventoCreateDto);
 
             // act
             var response = await _apiHelper.GetAsync(RESOURCE_URL);
-            var result = await _apiHelper.DeserializeResponse<EventoDto>(response);
+            var result = await _apiHelper.DeserializeResponse<IEnumerable<EventoDto>>(response);
 
             // assert
             Assert.NotNull(response);
             Assert.Equal(StatusCodes.Status200OK, (int)response.StatusCode);
+            Assert.True(result.Count() > 0);
         }
 
         [Fact]
@@ -54,22 +58,18 @@ namespace ProEventos.Tests.Integration
             var responseCreate = await _apiHelper.PostAsync(RESOURCE_URL, eventoCreateDto);
             var resultCreate = await _apiHelper.DeserializeResponse<EventoDto>(responseCreate);
 
-            var userUpdateDto = new EventoDto
-            {
-                Id = resultCreate.Id,
-                Tema = "Sustentabilidade",
-                DataEvento = DateTime.Now.ToString()
-            };
+            resultCreate.Tema = "Sustentabilidade";
+            resultCreate.DataEvento = DateTime.Now.ToString();
 
             // act
-            var response = await _apiHelper.PutAsync("Eventos", userUpdateDto);
+            var response = await _apiHelper.PostAsync(RESOURCE_URL, resultCreate);
             var result = await _apiHelper.DeserializeResponse<EventoDto>(response);
 
             // assert
             Assert.NotNull(result);
-            Assert.Equal(StatusCodes.Status200OK, (int)response.StatusCode);
-            Assert.Equal(userUpdateDto.Tema, result.Tema);
-            Assert.Equal(userUpdateDto.DataEvento, result.DataEvento);
+            Assert.Equal(StatusCodes.Status201Created, (int)response.StatusCode);
+            Assert.Equal(resultCreate.Tema, result.Tema);
+            Assert.Equal(resultCreate.DataEvento, result.DataEvento);
         }
 
         [Fact]
@@ -77,16 +77,17 @@ namespace ProEventos.Tests.Integration
         {
             // arrange
             var eventoCreateDto = DtoGenerator.EventoDto.Generate();
-            await _apiHelper.PostAsync(RESOURCE_URL, eventoCreateDto);
+            var responseCreate =  await _apiHelper.PostAsync(RESOURCE_URL, eventoCreateDto);
+            var resultCreate = await _apiHelper.DeserializeResponse<EventoDto>(responseCreate);
 
             // act
-            var response = await _apiHelper.DeleteAsync("account/deleteAsync");
+            var response = await _apiHelper.DeleteAsync($"eventos/{resultCreate.Id}");
             var result = await response.Content.ReadAsStringAsync();
 
             // assert
             Assert.NotNull(response);
             Assert.Equal(StatusCodes.Status200OK, (int)response.StatusCode);
-            Assert.Equal("Evento removido com sucesso!", result);
+            Assert.Contains("Evento removido com sucesso!", result);
         }
     }
 }

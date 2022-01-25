@@ -28,7 +28,8 @@ namespace ProEventos.Tests.Common.Generators
                 .RuleFor(c => c.DataEvento, f => f.Date.Recent().ToString())
                 .RuleFor(c => c.QtdPessoas, f => f.Random.Int(1, 1000))
                 .RuleFor(c => c.Tema, f => f.Name.JobTitle())
-                .RuleFor(c => c.ImagemURL, f => f.Image.LoremFlickrUrl());
+                .RuleFor(c => c.Telefone, f => f.Person.Phone)
+                .RuleFor(c => c.ImagemURL, f => f.Image.LoremFlickrUrl() + ".jpg");
 
         public static Faker<RedeSocialDto> RedeSocialDto { get; set; } = new Faker<RedeSocialDto>("pt_BR")
                 .StrictMode(false)
