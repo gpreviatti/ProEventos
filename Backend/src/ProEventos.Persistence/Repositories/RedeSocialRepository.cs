@@ -22,10 +22,5 @@ namespace ProEventos.Persistence.Repositories
 
             return await _context.RedesSociais.Where(r => r.PalestranteId == palestranteId).ToArrayAsync();
         }
-
-        public async Task<RedeSocial> GetByIdAsync(int id) => await _context
-            .RedesSociais
-            .AsNoTracking()
-            .FirstOrDefaultAsync(r => r.Id == id);
     }
 }

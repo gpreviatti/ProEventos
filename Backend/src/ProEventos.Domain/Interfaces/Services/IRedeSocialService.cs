@@ -3,11 +3,8 @@ using ProEventos.Domain.Dtos;
 
 namespace ProEventos.Domain.Interfaces
 {
-    public interface IRedeSocialService
+    public interface IRedeSocialService : IBaseService<RedeSocial>
     {
         Task<RedeSocialDto[]> GetRedesSociaisByPalestranteIdAsync(int palestranteId);
-        Task<RedeSocialDto> GetRedeSocialByIdAsync(int redeSocialId);
-        Task<RedeSocialDto> SalvarAsync(RedeSocialDto redeSocial);
-        Task<bool> DeletarAsync(int id);
     }
 }

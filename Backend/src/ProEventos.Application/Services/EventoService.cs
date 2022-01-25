@@ -13,44 +13,12 @@ namespace ProEventos.Application
     {
         private readonly IEventoRespository _eventoRepository;
         public EventoService(
+            IBaseRepository<Evento> baseRepository,
             IEventoRespository eventoRepository,
             IMapper mapper
-        ) : base(mapper)
+        ) : base(baseRepository, mapper)
         {
             _eventoRepository = eventoRepository;
-        }
-
-        public async Task<EventoDto> SalvarAsync(int userId, EventoDto eventoDto)
-        {
-            Evento evento;
-            eventoDto.UserId = userId;
-
-            if (eventoDto.Id == 0)
-            {
-                evento = _mapper.Map<Evento>(eventoDto);
-
-                await _eventoRepository.AddAsync(evento);
-            }
-            else
-            {
-                evento = await _eventoRepository.GetByIdAsync(userId, eventoDto.Id);
-                if (evento == null) 
-                    return null;
-
-                evento = _mapper.Map<Evento>(eventoDto);
-
-                await _eventoRepository.UpdateAsync(evento);
-            }
-
-            return _mapper.Map<EventoDto>(evento);
-        }
-
-        public async Task<bool> DeleteEvento(int userId, int eventoId)
-        {
-            var evento = await _eventoRepository.GetByIdAsync(userId, eventoId, false);
-            if (evento == null) throw new Exception("Evento para delete não encontrado.");
-
-            return await _eventoRepository.DeleteAsync(evento);
         }
 
         public async Task<EventoDto[]> GetAllEventosAsync(int userId)
@@ -93,16 +61,6 @@ namespace ProEventos.Application
             if (eventos == null) return null;
 
             var resultado = _mapper.Map<EventoDto[]>(eventos);
-
-            return resultado;
-        }
-
-        public async Task<EventoDto> GetEventoByIdAsync(int userId, int eventoId, bool includePalestrantes = false)
-        {
-            var evento = await _eventoRepository.GetByIdAsync(userId, eventoId, includePalestrantes);
-            if (evento == null) return null;
-
-            var resultado = _mapper.Map<EventoDto>(evento);
 
             return resultado;
         }

@@ -2,9 +2,8 @@ using System;
 
 namespace ProEventos.Domain.Dtos
 {
-    public class LoteDto
+    public class LoteDto : EntityDto
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         public decimal Preco { get; set; }
         public DateTime? DataInicio { get; set; }

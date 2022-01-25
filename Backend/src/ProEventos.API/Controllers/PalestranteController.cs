@@ -77,7 +77,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var palestrante = await _palestranteService.GetPalestranteByIdAsync(id);
+                var palestrante = await _palestranteService.GetByIdAsync<PalestranteDto>(id);
 
                 if (palestrante == null)
                     return NoContent();
@@ -138,7 +138,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var palestrante = await _palestranteService.GetPalestranteByIdAsync(id);
+                var palestrante = await _palestranteService.GetByIdAsync<PalestranteDto>(id);
                 if (palestrante == null) return NoContent();
 
                 var file = Request.Form.Files[0];

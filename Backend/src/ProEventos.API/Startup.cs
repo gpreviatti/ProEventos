@@ -50,6 +50,7 @@ namespace ProEventos.API
             services.AddSingleton(mapper);
 
             // Services
+            services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
             services.AddScoped<IEventoService, EventoService>();
             services.AddScoped<ILoteService, LoteService>();
             services.AddScoped<IPalestranteService, PalestranteService>();
@@ -57,6 +58,7 @@ namespace ProEventos.API
             services.AddTransient<IAccountService, AccountService>();
 
             // Repositories
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IEventoRespository, EventoRepository>();
             services.AddScoped<ILoteRepository, LoteRepository>();

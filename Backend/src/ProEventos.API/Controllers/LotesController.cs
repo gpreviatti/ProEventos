@@ -44,7 +44,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var lotes = await _loteService.Salvar(lote);
+                var lotes = await _loteService.SalvarAsync(lote);
                 if (lotes == null) return NoContent();
 
                 return Created("",lotes);
@@ -63,10 +63,10 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var lote = await _loteService.GetLoteByIdsAsync(id);
+                var lote = await _loteService.GetByIdAsync<LoteDto>(id);
                 if (lote == null) return NoContent();
 
-                return await _loteService.Deletar(id) 
+                return await _loteService.DeletarAsync(id) 
                        ? Ok(new { message = "Lote Deletado" }) 
                        : throw new Exception("Ocorreu um problem não específico ao tentar deletar Lote.");
             }

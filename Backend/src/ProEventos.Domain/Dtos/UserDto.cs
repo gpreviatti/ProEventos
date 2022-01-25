@@ -2,13 +2,10 @@ using ProEventos.Domain.Enum;
 
 namespace ProEventos.Domain.Dtos
 {
-    public class UserDto
-    {
-        public int Id { get; set; }
-        
+    public class UserDto : EntityDto
+    {   
         public string UserName { get; set; }
         public string Email { get; set; }
-
 
         public string PhoneNumber { get; set; }
         public string FirstName { get; set; }

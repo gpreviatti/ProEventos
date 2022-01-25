@@ -54,7 +54,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var redeSocial = await _service.GetRedeSocialByIdAsync(id);
+                var redeSocial = await _service.GetByIdAsync<RedeSocialDto>(id);
 
                 if (redeSocial == null)
                     return NoContent();

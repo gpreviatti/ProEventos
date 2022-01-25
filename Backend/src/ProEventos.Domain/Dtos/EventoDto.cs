@@ -3,9 +3,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProEventos.Domain.Dtos
 {
-    public class EventoDto
+    public class EventoDto : EntityDto
     {
-        public int Id { get; set; }
         public string Local { get; set; }
         public string DataEvento { get; set; }
 

@@ -1,10 +1,11 @@
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ProEventos.Domain;
 using ProEventos.Domain.Interfaces;
 
 namespace ProEventos.Persistence.Repositories
 {
-    public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : Entity
     {
         protected readonly ProEventosContext _context;
         public BaseRepository(ProEventosContext context)
@@ -12,10 +13,15 @@ namespace ProEventos.Persistence.Repositories
             _context = context;
         }
 
-        public async Task<int> GetAllCountAsync() => await _context
-            .Set<T>()
-            .AsNoTracking()
-            .CountAsync();
+        public async Task<T> GetByIdAsync(int id) =>
+            await _context.Set<T>()
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.Id == id);
+
+        public async Task<int> GetAllCountAsync() => 
+            await _context.Set<T>()
+                .AsNoTracking()
+                .CountAsync();
 
         public async Task<bool> AddAsync(T entity) 
         {
@@ -45,6 +51,7 @@ namespace ProEventos.Persistence.Repositories
             return await SaveChangesAsync();
         }
 
-        public async Task<bool> SaveChangesAsync() => (await _context.SaveChangesAsync()) > 0;
+        private async Task<bool> SaveChangesAsync() => 
+            (await _context.SaveChangesAsync()) > 0;
     }
 }

@@ -2,9 +2,8 @@ using System.Collections.Generic;
 
 namespace ProEventos.Domain.Dtos
 {
-    public class PalestranteDto
+    public class PalestranteDto : EntityDto
     {
-        public int Id { get; set; }
         public string Nome { get; set; }
         public string MiniCurriculo { get; set; }
         public string ImagemURL { get; set; }

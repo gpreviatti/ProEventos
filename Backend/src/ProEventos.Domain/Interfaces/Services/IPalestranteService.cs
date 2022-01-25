@@ -5,12 +5,9 @@ using System.Threading.Tasks;
 
 namespace ProEventos.Domain.Interfaces
 {
-    public interface IPalestranteService
+    public interface IPalestranteService : IBaseService<Palestrante>
     {
         Task<PalestranteDto[]> GetPalestrantesAsync();
         Task<PaginatedResponse<IEnumerable<PalestranteDto>>> GetPalestrantesPaginatedAsync(PaginatedRequest paginatedRequest);
-        Task<PalestranteDto> GetPalestranteByIdAsync(int palestranteId);
-        Task<PalestranteDto> SalvarAsync(PalestranteDto palestrante);
-        Task<bool> DeletarAsync(int palestranteId);
     }
 }
