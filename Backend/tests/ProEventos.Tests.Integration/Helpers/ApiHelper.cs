@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace ProEventos.Tests.Integration
+namespace ProEventos.Tests.Integration.Helpers
 {
     public class ApiHelper
     {

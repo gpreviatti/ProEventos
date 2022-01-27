@@ -98,7 +98,7 @@ namespace ProEventos.Tests.Integration
         {
             // arrange
             var userCreateDto = DtoGenerator.UserCreateDto.Generate();
-            var responseCreate = await _apiHelper.PostAsync("account/registerAsync", userCreateDto);
+            await _apiHelper.PostAsync("account/registerAsync", userCreateDto);
 
             await _apiHelper.AddBearerTokenHeader(userCreateDto.UserName, userCreateDto.Email, userCreateDto.Password);
 

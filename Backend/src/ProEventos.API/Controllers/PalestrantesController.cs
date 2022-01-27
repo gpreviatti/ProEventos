@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ProEventos.Domain;
 using ProEventos.Domain.Dtos;
 using ProEventos.Domain.Interfaces;
 using ProEventos.Domain.Messages;
@@ -16,14 +15,14 @@ namespace ProEventos.API.Controllers
     [Authorize]
     [ApiController]
     [Route("[controller]")]
-    public class PalestranteController : ControllerBase
+    public class PalestrantesController : ControllerBase
     {
         private readonly IPalestranteService _palestranteService;
         private readonly IWebHostEnvironment _hostEnvironment;
 
         private readonly string resourcesPath = @"Resources/Images/Palestrantes/";
 
-        public PalestranteController(
+        public PalestrantesController(
             IPalestranteService palestranteService,
             IWebHostEnvironment hostEnvironment
         )

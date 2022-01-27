@@ -33,7 +33,7 @@ namespace ProEventos.Tests.Integration
             // assert
             Assert.NotNull(response);
             Assert.Equal(StatusCodes.Status200OK, (int)response.StatusCode);
-            Assert.True(result.Count() > 0);
+            Assert.True(result.Any());
         }
 
         [Fact]

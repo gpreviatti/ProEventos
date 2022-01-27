@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using ProEventos.API;
+using ProEventos.Tests.Integration.Helpers;
 using System.IO;
 
 namespace ProEventos.Tests.Integration
@@ -10,6 +11,7 @@ namespace ProEventos.Tests.Integration
     {
         protected ApiHelper _apiHelper;
         private readonly string _environment = "Development";
+        private readonly string _apiUrl = "http://localhost/";
 
         public TestFixture()
         {
@@ -25,7 +27,7 @@ namespace ProEventos.Tests.Integration
 
             var server = new TestServer(builder);
 
-            _apiHelper = new ApiHelper("http://localhost/", server.CreateClient());
+            _apiHelper = new ApiHelper(_apiUrl, server.CreateClient());
         }
     }
 }
