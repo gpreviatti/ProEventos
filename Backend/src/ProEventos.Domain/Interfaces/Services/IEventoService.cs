@@ -10,5 +10,6 @@ namespace ProEventos.Domain.Interfaces
         Task<EventoDto[]> GetAllEventosAsync(int userId);
         Task<PaginatedResponse<IEnumerable<EventoDto>>> GetAllEventosPaginatedAsync(int userId, PaginatedRequest paginatedRequest);
         Task<EventoDto[]> GetAllEventosByTemaAsync(int userId, string tema, bool includePalestrantes = false);
+        Task<bool> DeletarAsync(int userId, int id);
     }
 }

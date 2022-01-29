@@ -12,5 +12,7 @@ namespace ProEventos.Domain.Interfaces
             int userId,
             PaginatedRequest paginatedRequest
         );
+
+        Task<bool> DeletarAsync(int userId, int id);
     }
 }

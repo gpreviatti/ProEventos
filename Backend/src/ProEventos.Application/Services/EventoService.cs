@@ -64,5 +64,13 @@ namespace ProEventos.Application
 
             return resultado;
         }
+
+        public async Task<bool> DeletarAsync(int userId, int id)
+        {
+            var entity = await _eventoRepository.GetByIdAsync(userId, id, false);
+            if (entity == null) throw new Exception("Recurso não encontrado para remoção");
+
+            return await _baseRepository.DeleteAsync(entity);
+        }
     }
 }

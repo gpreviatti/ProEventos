@@ -58,5 +58,13 @@ namespace ProEventos.Application
                 paginatedRequest.SearchValue
             ); ;
         }
+
+        public async Task<bool> DeletarAsync(int userId, int id)
+        {
+            var entity = await _palestranteRepository.GetByIdAsync(userId, id, false);
+            if (entity == null) throw new Exception("Recurso não encontrado para remoção");
+
+            return await _baseRepository.DeleteAsync(entity);
+        }
     }
 }

@@ -164,7 +164,7 @@ namespace ProEventos.API.Controllers
                 var evento = await _eventoService.GetByIdAsync<EventoDto>(id);
                 if (evento == null) return NoContent();
 
-                if (await _eventoService.DeletarAsync(id))
+                if (await _eventoService.DeletarAsync(User.GetUserId(), id))
                 {
                     DeleteImage(evento.ImagemURL);
                     return Ok(new { message = "Evento removido com sucesso!" });

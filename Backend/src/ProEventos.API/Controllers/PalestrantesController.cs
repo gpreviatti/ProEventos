@@ -122,7 +122,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var redeSocial = await _palestranteService.DeletarAsync(id);
+                var redeSocial = await _palestranteService.DeletarAsync(User.GetUserId(), id);
 
                 if (!redeSocial)
                     return NoContent();
