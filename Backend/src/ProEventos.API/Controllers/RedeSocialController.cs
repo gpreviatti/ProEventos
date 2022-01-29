@@ -15,14 +15,11 @@ namespace ProEventos.API.Controllers
     public class RedeSocialController : ControllerBase
     {
         private readonly IRedeSocialService _service;
-        private readonly IWebHostEnvironment _hostEnvironment;
 
         public RedeSocialController(
-            IRedeSocialService service,
-            IWebHostEnvironment hostEnvironment
+            IRedeSocialService service
         )
         {
-            _hostEnvironment = hostEnvironment;
             _service = service;
         }
 
@@ -94,12 +91,10 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var redeSocial = await _service.DeletarAsync(id);
-
-                if (!redeSocial)
+                if (!await _service.DeletarAsync(id))
                     return NoContent();
 
-                return Ok(redeSocial);
+                return Ok("RedeSocial removido com sucesso!");
             }
             catch (Exception ex)
             {

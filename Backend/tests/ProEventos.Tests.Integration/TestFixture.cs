@@ -2,8 +2,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using ProEventos.API;
+using ProEventos.Domain.Dtos;
+using ProEventos.Tests.Common.Generators;
 using ProEventos.Tests.Integration.Helpers;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace ProEventos.Tests.Integration
 {
@@ -28,6 +31,14 @@ namespace ProEventos.Tests.Integration
             var server = new TestServer(builder);
 
             _apiHelper = new ApiHelper(_apiUrl, server.CreateClient());
+        }
+
+        public async Task<PalestranteDto> CreatePalestrante()
+        {
+            var dto = DtoGenerator.PalestranteDto.Generate();
+            dto.RedesSociais = null;
+            var responseCreate = await _apiHelper.PostAsync("palestrantes", dto);
+            return await _apiHelper.DeserializeResponse<PalestranteDto>(responseCreate);
         }
     }
 }

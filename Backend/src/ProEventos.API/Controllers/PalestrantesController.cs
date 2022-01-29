@@ -8,6 +8,7 @@ using ProEventos.Domain.Messages;
 using System;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace ProEventos.API.Controllers
@@ -36,7 +37,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var palestrantes = await _palestranteService.GetPalestrantesAsync();
+                var palestrantes = await _palestranteService.GetPalestrantesAsync(User.GetUserId());
 
                 if (palestrantes == null)
                     return NoContent();
@@ -57,7 +58,11 @@ namespace ProEventos.API.Controllers
         {
             try
             {
-                var eventos = await _palestranteService.GetPalestrantesPaginatedAsync(paginatedRequest);
+                var eventos = await _palestranteService.GetPalestrantesPaginatedAsync(
+                    User.GetUserId(),
+                    paginatedRequest
+                );
+
                 if (eventos == null) return NoContent();
 
                 return Ok(eventos);
@@ -97,6 +102,7 @@ namespace ProEventos.API.Controllers
         {
             try
             {
+                palestranteDto.UserId = User.GetUserId();
                 var palestrante = await _palestranteService.SalvarAsync(palestranteDto);
                 if (palestrante == null) return NoContent();
 
@@ -121,7 +127,7 @@ namespace ProEventos.API.Controllers
                 if (!redeSocial)
                     return NoContent();
 
-                return Ok(redeSocial);
+                return Ok("Palestrante removido com sucesso!");
             }
             catch (Exception ex)
             {

@@ -4,8 +4,12 @@ namespace ProEventos.Domain.Interfaces
 {
     public interface IPalestranteRepository : IBaseRepository<Palestrante>
     {
-        Task<Palestrante[]> Get();
-        Task<Palestrante[]> GetAllPaginatedAsync(int currentPage, int pageSize, string searchValue = "");
-        Task<Palestrante> GetByIdAsync(int palestranteId, bool includeEventos);
+        Task<Palestrante[]> Get(int userId);
+        Task<Palestrante[]> GetAllPaginatedAsync(
+            int userId, int currentPage, int pageSize, string searchValue = ""
+        );
+        Task<Palestrante> GetByIdAsync(
+            int userId, int palestranteId, bool includeEventos
+        );
     }
 }

@@ -43,7 +43,7 @@ namespace ProEventos.Application
                 if (entity == null)
                     return null;
 
-                entity = _mapper.Map<T>(dto);
+                entity =  _mapper.Map(dto, entity);
 
                 await _baseRepository.UpdateAsync(entity);
             }
@@ -53,10 +53,10 @@ namespace ProEventos.Application
 
         public async Task<bool> DeletarAsync(int id)
         {
-            var lote = await _baseRepository.GetByIdAsync(id);
-            if (lote == null) throw new Exception("Recurso não encontrado para remoção");
+            var entity = await _baseRepository.GetByIdAsync(id);
+            if (entity == null) throw new Exception("Recurso não encontrado para remoção");
 
-            return await _baseRepository.DeleteAsync(lote);
+            return await _baseRepository.DeleteAsync(entity);
         }
     }
 }

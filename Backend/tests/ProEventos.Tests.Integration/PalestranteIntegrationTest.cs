@@ -22,8 +22,7 @@ namespace ProEventos.Tests.Integration
         public async void Should_Get_Palestrante_Async_With_Success()
         {
             // arrange
-            var dto = DtoGenerator.PalestranteDto.Generate();
-            await _apiHelper.PostAsync(RESOURCE_URL, dto);
+            var resultCreate = await CreatePalestrante();
 
             // act
             var response = await _apiHelper.GetAsync(RESOURCE_URL);
@@ -39,8 +38,7 @@ namespace ProEventos.Tests.Integration
         public async void Should_Get_Palestrante_Paginated_Async_With_Success()
         {
             // arrange
-            var dto = DtoGenerator.PalestranteDto.Generate();
-            await _apiHelper.PostAsync(RESOURCE_URL, dto);
+            await CreatePalestrante();
 
             // act
             var response = await _apiHelper.GetAsync(RESOURCE_URL);
@@ -56,8 +54,7 @@ namespace ProEventos.Tests.Integration
         public async void Should_Get_Palestrante_By_Id_Async_With_Success()
         {
             // arrange
-            var dto = DtoGenerator.PalestranteDto.Generate();
-            await _apiHelper.PostAsync(RESOURCE_URL, dto);
+            await CreatePalestrante();
 
             // act
             var response = await _apiHelper.GetAsync(RESOURCE_URL);
@@ -74,6 +71,7 @@ namespace ProEventos.Tests.Integration
         {
             // arrange
             var dto = DtoGenerator.PalestranteDto.Generate();
+            dto.RedesSociais = null;
 
             // act
             var response = await _apiHelper.PostAsync(RESOURCE_URL, dto);
@@ -87,9 +85,7 @@ namespace ProEventos.Tests.Integration
         public async void Should_Update_Palestrante_Async_With_Success()
         {
             // arrange
-            var dto = DtoGenerator.PalestranteDto.Generate();
-            var responseCreate = await _apiHelper.PostAsync(RESOURCE_URL, dto);
-            var resultCreate = await _apiHelper.DeserializeResponse<PalestranteDto>(responseCreate);
+            var resultCreate = await CreatePalestrante();
 
             resultCreate.Nome = "Joaquim da Silva";
             resultCreate.Telefone = "(33) 5555-55555";
@@ -109,18 +105,16 @@ namespace ProEventos.Tests.Integration
         public async void Should_Delete_Palestrante_Async_With_Success()
         {
             // arrange
-            var dto = DtoGenerator.PalestranteDto.Generate();
-            var responseCreate = await _apiHelper.PostAsync(RESOURCE_URL, dto);
-            var resultCreate = await _apiHelper.DeserializeResponse<PalestranteDto>(responseCreate);
+            var resultCreate = await CreatePalestrante();
 
             // act
-            var response = await _apiHelper.DeleteAsync($"eventos/{resultCreate.Id}");
+            var response = await _apiHelper.DeleteAsync($"{RESOURCE_URL}/{resultCreate.Id}");
             var result = await response.Content.ReadAsStringAsync();
 
             // assert
             Assert.NotNull(response);
             Assert.Equal(StatusCodes.Status200OK, (int)response.StatusCode);
-            Assert.Contains("Evento removido com sucesso!", result);
+            Assert.Contains("Palestrante removido com sucesso!", result);
         }
     }
 }

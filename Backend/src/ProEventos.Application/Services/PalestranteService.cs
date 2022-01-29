@@ -23,18 +23,22 @@ namespace ProEventos.Application
             _palestranteRepository = palestranteRepository;
         }
 
-        public async Task<PalestranteDto[]> GetPalestrantesAsync() 
+        public async Task<PalestranteDto[]> GetPalestrantesAsync(int userId) 
         {
-            var palestrantes = await _palestranteRepository.Get();
+            var palestrantes = await _palestranteRepository.Get(userId);
 
             var palestrantesDto = _mapper.Map<IEnumerable<PalestranteDto>>(palestrantes);
 
             return palestrantesDto.ToArray();
         }
 
-        public async Task<PaginatedResponse<IEnumerable<PalestranteDto>>> GetPalestrantesPaginatedAsync(PaginatedRequest paginatedRequest)
+        public async Task<PaginatedResponse<IEnumerable<PalestranteDto>>> GetPalestrantesPaginatedAsync(
+            int userId,
+            PaginatedRequest paginatedRequest
+        )
         {
             var data = await _palestranteRepository.GetAllPaginatedAsync(
+                userId,
                 paginatedRequest.CurrentPage,
                 paginatedRequest.PageSize,
                 paginatedRequest.SearchValue

@@ -7,7 +7,10 @@ namespace ProEventos.Domain.Interfaces
 {
     public interface IPalestranteService : IBaseService<Palestrante>
     {
-        Task<PalestranteDto[]> GetPalestrantesAsync();
-        Task<PaginatedResponse<IEnumerable<PalestranteDto>>> GetPalestrantesPaginatedAsync(PaginatedRequest paginatedRequest);
+        Task<PalestranteDto[]> GetPalestrantesAsync(int userId);
+        Task<PaginatedResponse<IEnumerable<PalestranteDto>>> GetPalestrantesPaginatedAsync(
+            int userId,
+            PaginatedRequest paginatedRequest
+        );
     }
 }

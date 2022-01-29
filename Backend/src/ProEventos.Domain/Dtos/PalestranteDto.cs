@@ -9,6 +9,8 @@ namespace ProEventos.Domain.Dtos
         public string ImagemURL { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
+        public int UserId { get; set; }
+        public UserDto User { get; set; }
         public IEnumerable<RedeSocialDto> RedesSociais { get; set; }
     }
 }

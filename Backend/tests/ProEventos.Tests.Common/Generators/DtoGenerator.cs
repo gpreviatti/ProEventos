@@ -22,7 +22,6 @@ namespace ProEventos.Tests.Common.Generators
 
         public static Faker<EventoDto> EventoDto { get; set; } = new Faker<EventoDto>("pt_BR")
                 .StrictMode(false)
-                .RuleFor(c => c.Id, f => f.IndexFaker)
                 .RuleFor(c => c.Local, f => f.Address.Locale)
                 .RuleFor(c => c.Email, f => f.Person.Email)
                 .RuleFor(c => c.DataEvento, f => f.Date.Recent().ToString())
@@ -33,14 +32,12 @@ namespace ProEventos.Tests.Common.Generators
 
         public static Faker<RedeSocialDto> RedeSocialDto { get; set; } = new Faker<RedeSocialDto>("pt_BR")
                 .StrictMode(false)
-                .RuleFor(c => c.Id, f => f.IndexFaker)
                 .RuleFor(c => c.Nome, f => f.Random.ListItem(new List<string> { "Facebook", "Instagram", "Linkedin", "Orkut" }))
                 .RuleFor(c => c.URL, f => f.Internet.Url())
                 .RuleFor(c => c.PalestranteId, f => f.IndexFaker);
 
         public static Faker<PalestranteDto> PalestranteDto { get; set; } = new Faker<PalestranteDto>("pt_BR")
                 .StrictMode(false)
-                .RuleFor(c => c.Id, f => f.IndexFaker)
                 .RuleFor(c => c.Nome, f => f.Person.FullName)
                 .RuleFor(c => c.Email, f => f.Person.Email)
                 .RuleFor(c => c.ImagemURL, f => f.Internet.Avatar())

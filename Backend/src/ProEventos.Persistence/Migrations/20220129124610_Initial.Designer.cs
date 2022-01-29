@@ -10,7 +10,7 @@ using ProEventos.Persistence;
 namespace ProEventos.Persistence.Migrations
 {
     [DbContext(typeof(ProEventosContext))]
-    [Migration("20220115174751_Initial")]
+    [Migration("20220129124610_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -314,7 +314,19 @@ namespace ProEventos.Persistence.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImagemURL")
+                        .HasColumnType("text");
+
                     b.Property<string>("MiniCurriculo")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Telefone")
                         .HasColumnType("text");
 
                     b.Property<int>("UserId")

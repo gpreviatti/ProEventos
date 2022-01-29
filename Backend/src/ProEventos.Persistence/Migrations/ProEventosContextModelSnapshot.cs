@@ -312,7 +312,19 @@ namespace ProEventos.Persistence.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImagemURL")
+                        .HasColumnType("text");
+
                     b.Property<string>("MiniCurriculo")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Telefone")
                         .HasColumnType("text");
 
                     b.Property<int>("UserId")
