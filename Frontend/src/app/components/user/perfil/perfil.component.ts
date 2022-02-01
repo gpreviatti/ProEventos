@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FormHelper } from '@app/helpers/FormHelper';
+import { User } from '@app/Identity/User';
+import { AccountService } from '@app/services/account.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-perfil',
@@ -8,6 +12,8 @@ import { FormHelper } from '@app/helpers/FormHelper';
   styleUrls: ['./perfil.component.scss']
 })
 export class PerfilComponent implements OnInit {
+
+  public user = {} as User;
 
   formOptions: AbstractControlOptions = {
     validators: this.formHelper.mustMatch('password', 'confirmPassword')
@@ -25,7 +31,10 @@ export class PerfilComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    public formHelper: FormHelper
+    public formHelper: FormHelper,
+    public accountService: AccountService,
+    public router: Router,
+    public toaster: ToastrService
   ) { }
 
   ngOnInit(): void {

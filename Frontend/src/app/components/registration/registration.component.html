@@ -13,25 +13,25 @@
 	</div>
 
 	<div class="col-md-6">
-		<form class="p-1" [formGroup]="form">
+		<form class="p-1" [formGroup]="form" #loginForm="ngForm" (ngSubmit)="register()">
       <div class="form-row">
         <div class="form-group col-sm-12">
           <label>Primeiro Nome</label>
           <input
             type="text"
             class="form-control"
-            [ngClass]="formHelper.cssValidator(formControls.firstName)"
-            formControlName="firstName"
-            placeholder="Insira o Primeiro nome"
+            [ngClass]="formHelper.cssValidator(formControls.userName)"
+            formControlName="userName"
+            placeholder="Insira o nome do usuário"
           />
-          <div *ngIf="formControls.firstName.errors?.required" class="invalid-feedback">
+          <div *ngIf="formControls.userName.errors?.required" class="invalid-feedback">
             Required field.
           </div>
-          <div *ngIf="formControls.firstName.errors?.minlength" class="invalid-feedback">
+          <div *ngIf="formControls.userName.errors?.minlength" class="invalid-feedback">
             Minimum length 4 caracters.
           </div>
 
-          <div *ngIf="formControls.firstName.errors?.max" class="invalid-feedback">
+          <div *ngIf="formControls.userName.errors?.max" class="invalid-feedback">
             Max length 120000 caracters.
           </div>
         </div>
@@ -43,7 +43,7 @@
           [ngClass]="formHelper.cssValidator(formControls.email)"
           formControlName="email"
           type="text"
-          placeholder="Insira o Nome Completo"
+          placeholder="Insira o email"
         />
         <div *ngIf="formControls.email.errors?.required" class="invalid-feedback">
           Required field.
@@ -97,6 +97,7 @@
       <div class="form-row">
         <div class="form-group col-12">
           <button
+          type="submit"
             [disabled]="!form.valid"
             class="btn btn-md btn-primary btn-block px-5"
           >
