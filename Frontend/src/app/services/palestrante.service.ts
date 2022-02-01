@@ -11,7 +11,7 @@ export class PalestranteService extends BaseServiceService<Palestrante> {
 
   constructor(http: HttpClient) {
     super(http);
-    this.baseUrl = this.baseUrl + 'palestrante';
+    this.baseUrl = this.baseUrl + 'palestrantes';
   }
 
   public uploadImage(id: Number, file: any): Observable<Palestrante> {
@@ -20,6 +20,6 @@ export class PalestranteService extends BaseServiceService<Palestrante> {
     formData.append('file', fileToUpload);
 
     return this.http
-      .post<Palestrante>(`${this.baseUrl}/upload-image/${id}`, formData);
+      .post<Palestrante>(`${this.baseUrl}/upload-image/${id}`, formData, { headers: this.tokenHeader });
   }
 }

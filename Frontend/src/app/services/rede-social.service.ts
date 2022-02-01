@@ -15,6 +15,6 @@ export class RedeSocialService extends BaseServiceService<RedeSocial> {
   }
 
   public getByPalestranteId(palestranteId: number): Observable<RedeSocial[]> {
-    return this.http.get<RedeSocial[]>(`${this.baseUrl}/palestrante/${palestranteId}`);
+    return this.http.get<RedeSocial[]>(`${this.baseUrl}/palestrante/${palestranteId}`, { headers: this.tokenHeader });
   }
 }

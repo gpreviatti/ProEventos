@@ -13,10 +13,10 @@ export class LoteService extends BaseServiceService<Lote> {
   }
 
   public getByEventoById(eventoId: number): Observable<Lote[]> {
-    return this.http.get<Lote[]>(`${this.baseUrl}/${eventoId}`);
+    return this.http.get<Lote[]>(`${this.baseUrl}/${eventoId}`, { headers: this.tokenHeader });
   }
 
   public getByEventoByIdAndLoteId(eventoId: number, loteId: number): Observable<Lote> {
-    return this.http.get<Lote>(`${this.baseUrl}/${eventoId}/${loteId}`);
+    return this.http.get<Lote>(`${this.baseUrl}/${eventoId}/${loteId}`, { headers: this.tokenHeader });
   }
 }

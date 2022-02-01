@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Evento } from '../models/Evento';
@@ -18,6 +18,6 @@ export class EventoService extends BaseServiceService<Evento> {
     formData.append('file', fileToUpload);
 
     return this.http
-      .post<Evento>(`${this.baseUrl}/upload-image/${eventoId}`, formData);
+      .post<Evento>(`${this.baseUrl}/upload-image/${eventoId}`, formData, { headers: this.tokenHeader });
   }
 }

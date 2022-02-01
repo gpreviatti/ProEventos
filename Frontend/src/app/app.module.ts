@@ -18,6 +18,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { AccountService } from './services/account.service';
 import { EventoService } from './services/evento.service';
 import { LoteService } from './services/lote.service';
 import { PalestranteService } from './services/palestrante.service';
@@ -97,6 +98,7 @@ import { ContatoComponent } from './components/contato/contato.component';
     LoteService,
     PalestranteService,
     RedeSocialService,
+    AccountService,
     FormHelper,
     RouterHelper
   ],
