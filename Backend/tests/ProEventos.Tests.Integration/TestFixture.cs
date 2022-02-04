@@ -7,6 +7,7 @@ using ProEventos.Tests.Common.Generators;
 using ProEventos.Tests.Integration.Helpers;
 using System.IO;
 using System.Threading.Tasks;
+using System;
 
 namespace ProEventos.Tests.Integration
 {
@@ -22,6 +23,9 @@ namespace ProEventos.Tests.Integration
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile($"appsettings.{_environment}.json")
                 .Build();
+
+            Environment
+            .SetEnvironmentVariable("DB_CONNECTION", "Host=localhost;Port=5432;Database=ProEventos;Username=postgres;Password=admin");
 
             var builder = new WebHostBuilder()
                .UseEnvironment(_environment)

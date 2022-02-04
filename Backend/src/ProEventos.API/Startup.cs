@@ -2,12 +2,10 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ProEventos.Application;
@@ -19,7 +17,6 @@ using ProEventos.Persistence.Repositories;
 using ProUsers.Application;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -35,19 +32,22 @@ namespace ProEventos.API
         public IConfiguration Configuration { get; }
 
         /// <summary>
-        /// Injeção de dependencias
+        /// InjeÃ§Ã£o de dependencias
         /// </summary>
         /// <param name="services"></param>
         public void DependencyInjection(IServiceCollection services)
         {
             // AutoMappers
-            var config = new AutoMapper.MapperConfiguration(cfg =>
+            var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new ProEventosProfile());
             });
 
             IMapper mapper = config.CreateMapper();
             services.AddSingleton(mapper);
+
+            // Health Check
+            services.AddHealthChecks();
 
             // Services
             services.AddScoped(typeof(IBaseService<>), typeof(BaseService<>));
@@ -66,8 +66,9 @@ namespace ProEventos.API
             services.AddScoped<IRedeSocialRepository, RedeSocialRepository>();
 
             // Context
+            var dbConnection = Environment.GetEnvironmentVariable("DB_CONNECTION");
             services.AddDbContext<ProEventosContext>(
-                context => context.UseNpgsql(Configuration.GetConnectionString("App"))
+                context => context.UseNpgsql(dbConnection)
             );
 
             // Authentication
@@ -104,7 +105,7 @@ namespace ProEventos.API
         }
 
         /// <summary>
-        /// Configurações do swagger
+        /// Configuraï¿½ï¿½es do swagger
         /// </summary>
         /// <param name="services"></param>
         public void SwaggerConfigurations(IServiceCollection services)
@@ -115,7 +116,7 @@ namespace ProEventos.API
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"JWT Authorization header usando Bearer.
-                        Entre com 'Bearer' [espaço] então coloque seu token. 
+                        Entre com 'Bearer' [espaï¿½o] entï¿½o coloque seu token. 
                         Exemplo: 'Bearer 12345abcdef'",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
@@ -180,10 +181,10 @@ namespace ProEventos.API
             //});
 
             app.UseHttpsRedirection();
-
+            app.UseHealthChecks("/health");
             app.UseRouting();
 
-            // Adicionando suporte a autenticação e autorização
+            // Adicionando suporte a autenticaï¿½ï¿½o e autorizaï¿½ï¿½o
             app.UseAuthentication();
             app.UseAuthorization();
 

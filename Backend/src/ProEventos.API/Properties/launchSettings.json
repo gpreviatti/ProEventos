@@ -5,7 +5,8 @@
       "commandName": "Project",
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "DB_CONNECTION": "Host=postgres-service;Port=5432;Database=ProEventos;Username=postgres;Password=admin"
       },
       "sqlDebugging": true,
       "applicationUrl": "http://localhost:5000",
@@ -15,7 +16,8 @@
       "commandName": "Project",
       "launchUrl": "swagger",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Production"
+        "ASPNETCORE_ENVIRONMENT": "Production",
+        "DB_CONNECTION": ""
       },
       "applicationUrl": "http://localhost:5000",
       "dotnetRunMessages": "true"

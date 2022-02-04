@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ProEventos.Domain.Dtos;
 using ProEventos.Domain.Interfaces;
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
