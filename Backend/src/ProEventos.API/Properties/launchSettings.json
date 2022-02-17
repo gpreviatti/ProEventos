@@ -6,8 +6,9 @@
       "launchUrl": "swagger",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
-        "DB_CONNECTION": "Host=postgres-service;Port=5432;Database=ProEventos;Username=postgres;Password=admin"
+        "DB_CONNECTION": "Host=localhost;Port=5432;Database=ProEventos;User ID=postgres;Password=admin"
       },
+      "launchBrowser": false,
       "sqlDebugging": true,
       "applicationUrl": "http://localhost:5000",
       "dotnetRunMessages": "true"
@@ -19,7 +20,6 @@
         "ASPNETCORE_ENVIRONMENT": "Production",
         "DB_CONNECTION": ""
       },
-      "applicationUrl": "http://localhost:5000",
       "dotnetRunMessages": "true"
     }
   }
