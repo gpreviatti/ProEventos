@@ -16,13 +16,13 @@
 		<form class="p-1" [formGroup]="form" #loginForm="ngForm" (ngSubmit)="register()">
       <div class="form-row">
         <div class="form-group col-sm-12">
-          <label>Primeiro Nome</label>
+          <label>Login Usuario</label>
           <input
             type="text"
             class="form-control"
             [ngClass]="formHelper.cssValidator(formControls.userName)"
             formControlName="userName"
-            placeholder="Insira o nome do usuário"
+            placeholder="Insira o userName do usuario"
           />
           <div *ngIf="formControls.userName.errors?.required" class="invalid-feedback">
             Required field.

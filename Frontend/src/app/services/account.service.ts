@@ -24,14 +24,34 @@ export class AccountService extends BaseServiceService<User> {
         map((user: User) => {
           if (user) {
             localStorage.setItem('token', user.token);
+            localStorage.setItem('userName', user.userName);
+            localStorage.setItem('firstName', user.firstName);
+            localStorage.setItem('lastName', user.lastName);
+            localStorage.setItem('email', user.email);
           }
         })
       );
   }
 
+  public getUser(): User {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const user: User = {
+        token: token,
+        userName: localStorage.getItem('userName') as string,
+        email: localStorage.getItem('email') as string,
+        firstName: localStorage.getItem('firstName') as string,
+        lastName: localStorage.getItem('lastName') as string,
+        password: ''
+      };
+      return user;
+    }
+    return {} as User;
+  }
+
   public logout(): void {
     if (this.tokenHeader) {
-      localStorage.removeItem('token');
+      localStorage.clear();
     }
   }
 
