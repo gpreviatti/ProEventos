@@ -44,8 +44,8 @@ jobs:
       - name: Docker Build and Push Docker registry
         uses: docker/build-push-action@v2.7.0
         with:
-          context: ./Frontend/ProEventos-App/
-          file: ./Frontend/ProEventos-App/Dockerfile
+          context: ./Frontend/
+          file: ./Frontend/Dockerfile
           push: true
           tags: |
             giov3nn10/proeventos-frontend:latest
