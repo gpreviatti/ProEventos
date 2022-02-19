@@ -53,7 +53,7 @@ namespace ProUsers.Application
             }
         }
 
-        public async Task<UserDto> UpdateAsync(UserUpdateDto userDto)
+        public async Task<UserUpdateDto> UpdateAsync(UserUpdateDto userDto)
         {
             try
             {
@@ -61,19 +61,20 @@ namespace ProUsers.Application
                 if (user == null) return null;
 
                 var updatedUser = _mapper.Map(userDto, user);
-
+                string token = "";
+                token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                
                 if (userDto.Password != null)
-                {
-                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                     await _userManager.ResetPasswordAsync(user, token, userDto.Password);
-                }
 
-                if (await _userRepository.UpdateAsync(updatedUser))
-                    return _mapper.Map<UserDto>(updatedUser);
+                if (await _userRepository.UpdateAsync(updatedUser)) {
+                    userDto.Token = token;
+                    return userDto;
+                }
 
                 return null;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 throw new Exception($"Erro ao tentar atualizar usuário. Erro: {ex.Message}");
             }

@@ -6,7 +6,7 @@ namespace ProEventos.Domain.Interfaces
     public interface IAccountService
     {
         Task<UserDto> SalvarAsync(UserCreateDto UserDto);
-        Task<UserDto> UpdateAsync(UserUpdateDto UserDto);
+        Task<UserUpdateDto> UpdateAsync(UserUpdateDto UserDto);
         Task<bool> DeletarAsync(int UserId);
         Task<UserDto> GetByIdAsync(int UserId);
         Task<UserDto> GetByUserNameAsync(string name);

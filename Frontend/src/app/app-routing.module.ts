@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guard/auth.guard';
 
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
@@ -19,35 +20,43 @@ import { PalestranteDetalheComponent } from './components/palestrantes/palestran
 // Respeitar a precedencia
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'registration', component: RegistrationComponent },
   {
-      path: 'user', component: UserComponent,
-      children: [
-        { path: 'perfil', component: PerfilComponent }
-      ]
-  },
-  { path: 'eventos', redirectTo: 'eventos/lista' },
-  {
-    path: 'eventos', component: EventosComponent,
+    // Cria um guardião para as rotas abaixo
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [AuthGuard],
     children: [
-      { path: 'detalhe/:id', component: EventosDatalheComponent },
-      { path: 'detalhe', component: EventosDatalheComponent },
-      { path: 'lista', component: EventosListaComponent },
+      {
+        path: 'user', component: UserComponent,
+        children: [
+          { path: 'perfil', component: PerfilComponent }
+        ]
+      },
+      {
+        path: 'eventos', component: EventosComponent,
+        children: [
+          { path: 'detalhe/:id', component: EventosDatalheComponent },
+          { path: 'detalhe', component: EventosDatalheComponent },
+          { path: 'lista', component: EventosListaComponent },
+          { path: '', redirectTo: 'lista', pathMatch: 'full' }
+        ],
+      },
+      {
+        path: 'palestrantes', component: PalestrantesComponent,
+        children: [
+          { path: 'detalhe/:id', component: PalestranteDetalheComponent },
+          { path: 'detalhe', component: PalestranteDetalheComponent },
+          { path: 'lista', component: PalestranteListaComponent },
+        ]
+      },
+      { path: 'contatos', component: ContatoComponent },
+      { path: 'perfil', component: PerfilComponent },
     ]
   },
-  {
-    path: 'palestrantes', component: PalestrantesComponent,
-    children: [
-      { path: 'detalhe/:id', component: PalestranteDetalheComponent },
-      { path: 'detalhe', component: PalestranteDetalheComponent },
-      { path: 'lista', component: PalestranteListaComponent },
-    ]
-  },
-  { path: 'contatos', component: ContatoComponent },
-  { path: 'perfil', component: PerfilComponent },
   { path: 'notfound', component: NotfoundComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'notfound', pathMatch: 'full' },
+  { path: '**', redirectTo: 'notfound', pathMatch: 'full' }
 ];
 
 @NgModule({

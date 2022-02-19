@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProEventos.Domain.Dtos;
 using ProEventos.Domain.Interfaces;
-using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -21,10 +20,8 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpGet("GetUserByNameAsync")]
-        public async Task<IActionResult> GetUserAsync()
-        {
-            return Ok(await _accountService.GetByUserNameAsync(User.GetUserName()));
-        }
+        public async Task<IActionResult> GetUserAsync() =>
+            Ok(await _accountService.GetByUserNameAsync(User.GetUserName()));
 
         [AllowAnonymous]
         [HttpPost("RegisterAsync")]
@@ -74,7 +71,9 @@ namespace ProEventos.API.Controllers
             return Ok(new UserLoginResultDto
             {
                 UserName = user.UserName,
+                Email = user.Email,
                 FirstName = user.FirstName,
+                LastName = user.LastName,
                 Token = await _accountService.CreateToken(user)
             });
         }

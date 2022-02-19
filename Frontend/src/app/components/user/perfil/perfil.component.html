@@ -10,25 +10,24 @@
             <h3 class="border-bottom">Detalhe Perfil</h3>
           </div>
           <div class="form-group col-sm-12">
-            <label>Primeiro Nome</label>
+            <label>Login</label>
             <input
               type="text"
               class="form-control"
-              [ngClass]="formHelper.cssValidator(formControls.firstName)"
-              formControlName="firstName"
-              placeholder="Insira o Primeiro nome"
+              [ngClass]="formHelper.cssValidator(formControls.userName)"
+              formControlName="userName"
+              placeholder="Insira o login"
             />
-            <div *ngIf="formControls.firstName.errors?.required" class="invalid-feedback">
+            <div *ngIf="formControls.userName.errors?.required" class="invalid-feedback">
               Required field.
             </div>
-            <div *ngIf="formControls.firstName.errors?.minlength" class="invalid-feedback">
+            <div *ngIf="formControls.userName.errors?.minlength" class="invalid-feedback">
               Minimum length 4 caracters.
             </div>
 
-            <div *ngIf="formControls.firstName.errors?.max" class="invalid-feedback">
+            <div *ngIf="formControls.userName.errors?.max" class="invalid-feedback">
               Max length 120000 caracters.
             </div>
-
           </div>
         </div>
         <div class="form-row">
@@ -49,7 +48,49 @@
             </div>
           </div>
         </div>
-        <div>
+        <div class="form-row">
+            <div class="form-group col-sm-6">
+              <label>Primeiro Nome</label>
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="formHelper.cssValidator(formControls.firstName)"
+                formControlName="firstName"
+                placeholder="Insira o Primeiro nome"
+              />
+              <div *ngIf="formControls.firstName.errors?.required" class="invalid-feedback">
+                Required field.
+              </div>
+              <div *ngIf="formControls.firstName.errors?.minlength" class="invalid-feedback">
+                Minimum length 4 caracters.
+              </div>
+
+              <div *ngIf="formControls.firstName.errors?.max" class="invalid-feedback">
+                Max length 120000 caracters.
+              </div>
+            </div>
+            <div class="form-group col-sm-6">
+              <label>Sobrenome</label>
+              <input
+                type="text"
+                class="form-control"
+                [ngClass]="formHelper.cssValidator(formControls.lastName)"
+                formControlName="lastName"
+                placeholder="Insira o Sobrenome"
+              />
+              <div *ngIf="formControls.lastName.errors?.required" class="invalid-feedback">
+                Required field.
+              </div>
+              <div *ngIf="formControls.lastName.errors?.minlength" class="invalid-feedback">
+                Minimum length 4 caracters.
+              </div>
+
+              <div *ngIf="formControls.lastName.errors?.max" class="invalid-feedback">
+                Max length 120000 caracters.
+              </div>
+            </div>
+          </div>
+        <!-- <div>
           <h3 class="p-3 border-bottom">Mudar Senha</h3>
         </div>
         <div class="form-row">
@@ -82,7 +123,7 @@
               Passwords aren't equals.
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <div class="col-lg-6 d-md-none d-lg-block">
@@ -106,6 +147,7 @@
         <button
           class="btn btn-primary"
           [disabled]="!form.valid"
+          (click)="updateUser()"
         >
           <!-- <span class="spinner-border spinner-border-sm mr-1"></span> -->
           Salvar Alteração

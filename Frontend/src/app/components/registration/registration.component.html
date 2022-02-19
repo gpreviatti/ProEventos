@@ -12,8 +12,8 @@
 		</div>
 	</div>
 
-	<div class="col-md-6">
-		<form class="p-1" [formGroup]="form" #loginForm="ngForm" (ngSubmit)="register()">
+	<div class="col-md-6 card shadow-sm">
+		<form class="p-4" [formGroup]="form" #loginForm="ngForm" (ngSubmit)="register()">
       <div class="form-row">
         <div class="form-group col-sm-12">
           <label>Login Usuario</label>
@@ -22,7 +22,7 @@
             class="form-control"
             [ngClass]="formHelper.cssValidator(formControls.userName)"
             formControlName="userName"
-            placeholder="Insira o userName do usuario"
+            placeholder="Insira o login do usuário"
           />
           <div *ngIf="formControls.userName.errors?.required" class="invalid-feedback">
             Required field.
@@ -50,6 +50,48 @@
         </div>
         <div *ngIf="formControls.email.errors?.email" class="invalid-feedback">
           Invalid format.
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col-sm-6">
+          <label>Primeiro Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="formHelper.cssValidator(formControls.userName)"
+            formControlName="firstName"
+            placeholder="Insira o primeiro nome"
+          />
+          <div *ngIf="formControls.userName.errors?.required" class="invalid-feedback">
+            Required field.
+          </div>
+          <div *ngIf="formControls.userName.errors?.minlength" class="invalid-feedback">
+            Minimum length 4 caracters.
+          </div>
+
+          <div *ngIf="formControls.userName.errors?.max" class="invalid-feedback">
+            Max length 120000 caracters.
+          </div>
+        </div>
+        <div class="form-group col-sm-6">
+          <label>Segundo Nome</label>
+          <input
+            type="text"
+            class="form-control"
+            [ngClass]="formHelper.cssValidator(formControls.userName)"
+            formControlName="lastName"
+            placeholder="Insira o segundo nome"
+          />
+          <div *ngIf="formControls.userName.errors?.required" class="invalid-feedback">
+            Required field.
+          </div>
+          <div *ngIf="formControls.userName.errors?.minlength" class="invalid-feedback">
+            Minimum length 4 caracters.
+          </div>
+
+          <div *ngIf="formControls.userName.errors?.max" class="invalid-feedback">
+            Max length 120000 caracters.
+          </div>
         </div>
       </div>
       <div class="form-row">

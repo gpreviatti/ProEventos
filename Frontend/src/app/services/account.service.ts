@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { User } from '@app/Identity/User';
 import { UserLogin } from '@app/Identity/UserLogin';
+import { UserUpdate } from '@app/Identity/UserUpdate';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 import { BaseServiceService } from './base-service.service';
@@ -16,6 +17,14 @@ export class AccountService extends BaseServiceService<User> {
     this.baseUrl = this.baseUrl + 'account';
   }
 
+  public setUser(user: User) {
+    localStorage.setItem('token', user.token);
+    localStorage.setItem('userName', user.userName);
+    localStorage.setItem('firstName', user.firstName);
+    localStorage.setItem('lastName', user.lastName);
+    localStorage.setItem('email', user.email);
+  }
+
   public login(model: UserLogin): Observable<void> {
     return this.http
       .post<User>(this.baseUrl + '/loginAsync', model)
@@ -23,11 +32,7 @@ export class AccountService extends BaseServiceService<User> {
         take(1),
         map((user: User) => {
           if (user) {
-            localStorage.setItem('token', user.token);
-            localStorage.setItem('userName', user.userName);
-            localStorage.setItem('firstName', user.firstName);
-            localStorage.setItem('lastName', user.lastName);
-            localStorage.setItem('email', user.email);
+            this.setUser(user);
           }
         })
       );
@@ -63,6 +68,10 @@ export class AccountService extends BaseServiceService<User> {
         map((user: User) => {
         })
       );
+  }
+
+  public update(user: UserUpdate): Observable<UserUpdate> {
+    return this.http.put<UserUpdate>(this.baseUrl + '/UpdateAsync', user, { headers: this.tokenHeader });
   }
 
 }

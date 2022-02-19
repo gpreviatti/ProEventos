@@ -42,7 +42,7 @@
           aria-haspopup="true"
           aria-expanded="false"
         >
-          {{ getUser().userName }}
+          {{ getUser().firstName | titlecase }}
         </a>
         <div
           *dropdownMenu
