@@ -1,19 +1,27 @@
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS base
-WORKDIR /app
-EXPOSE 80
-EXPOSE 443
-
+##########
+# STAGE 1
+##########
 FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
+WORKDIR /app
 
+# Copy files
 COPY . .
 
-RUN dotnet restore "./src/ProEventos.API/ProEventos.API.csproj"  --force --no-cache
+# Run restore and publish
+RUN dotnet restore "./src/ProEventos.API/ProEventos.API.csproj"  --force --no-cache \
+ && dotnet publish "./src/ProEventos.API/ProEventos.API.csproj" -c Release -o /app/publish
 
-FROM build AS publish
-RUN dotnet publish "./src/ProEventos.API/ProEventos.API.csproj" -c Release -o /app/publish
-
-RUN date
-FROM base AS final
+###########
+# STAGE 2
+###########
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine
+ENV TZ=America/Sao_Paulo
 WORKDIR /app
-COPY --from=publish /app/publish .
+
+RUN apk add tzdata \
+ && ln -sf /usr/share/zoneinfo/${TZ} /etc/localtime \
+ && echo "${TZ}" > /etc/timezone
+
+COPY --from=build /app/publish .
+EXPOSE 80
 ENTRYPOINT ["dotnet", "ProEventos.API.dll"]
