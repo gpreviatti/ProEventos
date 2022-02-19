@@ -137,7 +137,7 @@ namespace ProUsers.Application
             {
                 var user = await _userManager
                 .Users
-                .SingleOrDefaultAsync(u => u.Password.ToLower() == userLoginDto.Password.ToLower());
+                .SingleOrDefaultAsync(u => u.UserName.ToLower() == userLoginDto.UserName.ToLower());
 
                 return await _userManager.CheckPasswordAsync(user, userLoginDto.Password);
             }

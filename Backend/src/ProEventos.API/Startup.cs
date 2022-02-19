@@ -58,7 +58,7 @@ namespace ProEventos.API
             services.AddScoped<ILoteService, LoteService>();
             services.AddScoped<IPalestranteService, PalestranteService>();
             services.AddScoped<IRedeSocialService, RedeSocialService>();
-            services.AddTransient<IAccountService, AccountService>();
+            services.AddScoped<IAccountService, AccountService>();
 
             // Repositories
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));

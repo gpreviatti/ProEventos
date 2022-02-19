@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProEventos.Domain.Dtos;
 using ProEventos.Domain.Interfaces;
 using ProEventos.Domain.Messages;
+using System.Security.Claims;
 
 namespace ProEventos.API.Controllers
 {
@@ -52,7 +53,9 @@ namespace ProEventos.API.Controllers
         }
 
         [HttpGet("paginated")]
-        public async Task<IActionResult> GetPaginatedAsync([FromQuery] PaginatedRequest paginatedRequest)
+        public async Task<IActionResult> GetPaginatedAsync(
+            [FromQuery] PaginatedRequest paginatedRequest
+        )
         {
             try
             {

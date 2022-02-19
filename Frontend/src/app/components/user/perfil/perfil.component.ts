@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControlOptions, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormHelper } from '@app/helpers/FormHelper';
-import { User } from '@app/Identity/User';
 import { UserUpdate } from '@app/Identity/UserUpdate';
 import { AccountService } from '@app/services/account.service';
 import { NgxSpinnerService } from 'ngx-spinner';

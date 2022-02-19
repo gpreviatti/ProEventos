@@ -65,8 +65,8 @@ namespace ProEventos.API.Controllers
             if (user == null) 
                 return Unauthorized("Usuário não existe");
 
-            // if (await _accountService.CheckUserPasswordAsync(userLoginDto) == false)  
-            //     return Unauthorized("senha está incorreta");
+            if (await _accountService.CheckUserPasswordAsync(userLoginDto) == false)  
+                return Unauthorized("senha está incorreta");
 
             return Ok(new UserLoginResultDto
             {
