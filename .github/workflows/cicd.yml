@@ -1,4 +1,4 @@
-name: CI and CD Backend and Frontend
+name: CI-CD Backend and Frontend
 
 on:
   # push:
@@ -27,7 +27,7 @@ jobs:
           push: true
           tags: |
             giov3nn10/proeventos-backend:latest
-            giov3nn10/proeventos-backend:${{ github.run_number }
+            giov3nn10/proeventos-backend:${{ github.run_number }}
           
   CI-CD-FrtontEnd:
     runs-on: ubuntu-latest
