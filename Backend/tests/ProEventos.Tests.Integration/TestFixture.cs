@@ -18,10 +18,7 @@ namespace ProEventos.Tests.Integration
         private readonly string _apiUrl = "http://localhost/";
 
         public TestFixture()
-        {
-            if (!Directory.Exists(Directory.GetCurrentDirectory() + "/Resources"))
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/Resources");
-            
+        {   
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile($"appsettings.{_environment}.json")
