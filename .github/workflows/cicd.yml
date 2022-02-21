@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  CI-CD-Backend:
+  Build-Backend:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +29,7 @@ jobs:
             giov3nn10/proeventos-backend:latest
             giov3nn10/proeventos-backend:${{ github.run_number }}
           
-  CI-CD-FrtontEnd:
+  Build-FrontEnd:
     runs-on: ubuntu-latest
 
     steps:
@@ -50,3 +50,18 @@ jobs:
           tags: |
             giov3nn10/proeventos-frontend:latest
             giov3nn10/proeventos-frontend:${{ github.run_number }} 
+
+  Deploy-Backend:
+    needs: Build-Backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build, Push and Deploy to Heroku # set whatever name you want to this step
+        id: heroku
+        uses: jctaveras/heroku-deploy@v1.0.0 # use the latest version of the action
+        with:
+          email: ${{ secrets.HEROKU_EMAIL }} # your heroku email
+          api_key: ${{ secrets.HEROKU_API_KEY }} # your heroku api key
+          app_name: ${{ secrets.HEROKU_BACKEND_APP_NAME }} # you aplication name
+          dockerfile_path: './Backend/Dockerfile' # set the path to the folder where the Dockerfile is located
