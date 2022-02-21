@@ -57,9 +57,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Build, Push and Deploy to Heroku # set whatever name you want to this step
+      
+      - name: Run List
         run: |
-          ls -la .
+            ls -la .
+
+      - name: Build, Push and Deploy to Heroku # set whatever name you want to this step
         id: heroku
         uses: jctaveras/heroku-deploy@v1.0.0 # use the latest version of the action
         with:
