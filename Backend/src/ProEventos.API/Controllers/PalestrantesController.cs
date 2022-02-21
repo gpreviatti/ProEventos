@@ -69,7 +69,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(
+                return StatusCode(
                     StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"
                 );
@@ -90,7 +90,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(
+                return StatusCode(
                     StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar recuperar recurso. Erro: {ex.Message}"
                 );
@@ -158,7 +158,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(
+                return StatusCode(
                     StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar adicionar imagem ao palestrante. Erro: {ex.Message}"
                 );
@@ -175,7 +175,7 @@ namespace ProEventos.API.Controllers
                 .ToArray()
             ).Replace(' ', '-');
 
-            imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
+            imageName = $"{imageName}{DateTime.UtcNow:yymmssfff}{Path.GetExtension(imageFile.FileName)}";
 
             var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, resourcesPath, imageName);
 

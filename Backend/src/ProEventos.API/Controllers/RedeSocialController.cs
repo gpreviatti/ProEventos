@@ -60,7 +60,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(
+                return StatusCode(
                     StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar recuperar recurso. Erro: {ex.Message}"
                 );

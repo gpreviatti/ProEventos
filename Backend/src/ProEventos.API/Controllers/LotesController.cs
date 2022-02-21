@@ -32,7 +32,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(
+                return StatusCode(
                     StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar recuperar lotes. Erro: {ex.Message}"
                 );
@@ -51,7 +51,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(
+                return StatusCode(
                     StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar salvar lotes. Erro: {ex.Message}"
                 );
@@ -72,7 +72,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(
+                return StatusCode(
                     StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar deletar lotes. Erro: {ex.Message}"
                 );

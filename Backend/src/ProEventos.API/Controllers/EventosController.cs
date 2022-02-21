@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 using ProEventos.Domain.Dtos;
 using ProEventos.Domain.Interfaces;
 using ProEventos.Domain.Messages;
-using System.Security.Claims;
 
 namespace ProEventos.API.Controllers
 {
@@ -66,7 +65,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(
+                return StatusCode(
                     StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"
                 );
@@ -85,7 +84,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(
+                return StatusCode(
                     StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"
                 );
@@ -104,7 +103,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(
+                return StatusCode(
                     StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar recuperar eventos. Erro: {ex.Message}"
                 );
@@ -132,7 +131,7 @@ namespace ProEventos.API.Controllers
             }
             catch (Exception ex)
             {
-                return this.StatusCode(
+                return StatusCode(
                     StatusCodes.Status500InternalServerError,
                     $"Erro ao tentar adicionar eventos. Erro: {ex.Message}"
                 );
@@ -196,14 +195,13 @@ namespace ProEventos.API.Controllers
                 .ToArray()
             ).Replace(' ', '-');
 
-            imageName = $"{imageName}{DateTime.UtcNow.ToString("yymmssfff")}{Path.GetExtension(imageFile.FileName)}";
+            imageName = $"{imageName}{DateTime.UtcNow:yymmssfff}{Path.GetExtension(imageFile.FileName)}";
 
             var imagePath = Path.Combine(_hostEnvironment.ContentRootPath, resourcesPath, imageName);
 
-            using (var fileStream = new FileStream(imagePath, FileMode.Create))
-            {
-                await imageFile.CopyToAsync(fileStream);
-            }
+            using var fileStream = new FileStream(imagePath, FileMode.Create);
+            
+            await imageFile.CopyToAsync(fileStream);
 
             return imageName;
         }
