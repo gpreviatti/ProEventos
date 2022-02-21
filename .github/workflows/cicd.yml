@@ -52,7 +52,7 @@ jobs:
   #           giov3nn10/proeventos-frontend:${{ github.run_number }} 
 
   Deploy-Backend:
-    needs: Build-Backend
+    # needs: Build-Backend
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
