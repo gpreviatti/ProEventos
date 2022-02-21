@@ -19,13 +19,16 @@ namespace ProEventos.Tests.Integration
 
         public TestFixture()
         {
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + "/Resources"))
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + "/Resources");
+            
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile($"appsettings.{_environment}.json")
                 .Build();
 
             Environment
-            .SetEnvironmentVariable("DB_CONNECTION", "Host=localhost;Port=5432;Database=ProEventos;Username=postgres;Password=admin");
+                .SetEnvironmentVariable("DB_CONNECTION", "Host=localhost;Port=5432;Database=ProEventos;Username=postgres;Password=admin");
 
             var builder = new WebHostBuilder()
                .UseEnvironment(_environment)

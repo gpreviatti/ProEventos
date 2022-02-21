@@ -1,3 +1,6 @@
 {
-    "dotnet-test-explorer.testProjectPath": "${{workspaceFolder}}/Backend/tests/ProEventos.Tests.*/*.csproj",
+    "dotnet-test-explorer.testProjectPath": "Backend\\tests\\*.Tests.*\\*.csproj",
+    "dotnet-test-explorer.treeMode": "full",
+    "dotnet-test-explorer.showCodeLens": true,
+    "dotnet-test-explorer.runInParallel": true
 }
