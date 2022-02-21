@@ -43,9 +43,11 @@ namespace ProUsers.Application
             {
                 var user = _mapper.Map<User>(userDto);
 
-                await _userManager.CreateAsync(user, userDto.Password);
+                var result = await _userManager.CreateAsync(user, userDto.Password);
+                if (result.Succeeded)
+                    return _mapper.Map<UserDto>(user);
 
-                return _mapper.Map<UserDto>(user);
+                return null;
             }
             catch (Exception exception)
             {
@@ -69,7 +71,7 @@ namespace ProUsers.Application
 
                 if (await _userRepository.UpdateAsync(updatedUser)) {
                     userDto.Token = token;
-                    return userDto;
+                    return _mapper.Map(user, userDto);
                 }
 
                 return null;

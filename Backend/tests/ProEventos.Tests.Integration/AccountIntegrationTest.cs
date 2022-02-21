@@ -24,6 +24,29 @@ namespace ProEventos.Tests.Integration
             Assert.NotNull(result.UserName);
         }
 
+        [Fact(Skip = "Rodar para criar o admin")]
+        public async void Should_Register_Admin_With_Success()
+        {
+            // arrange
+            var userCreateDto = new UserCreateDto
+            {
+                UserName = "admin",
+                Email = "admin@admin.com",
+                Password = "mudar@123",
+                FirstName = "Admin",
+                LastName = "System"
+            };
+
+            // act
+            var response = await _apiHelper.PostAsync("account/registerAsync", userCreateDto);
+            var result = await _apiHelper.DeserializeResponse<UserDto>(response);
+
+            // assert
+            Assert.NotNull(response);
+            Assert.Equal(StatusCodes.Status201Created, (int)response.StatusCode);
+            Assert.Equal(userCreateDto.FirstName, result.FirstName);
+        }
+
         [Fact]
         public async void Should_Register_User_Async_With_Success()
         {
