@@ -2,5 +2,6 @@
     "dotnet-test-explorer.testProjectPath": "Backend\\tests\\*.Tests.*\\*.csproj",
     "dotnet-test-explorer.treeMode": "full",
     "dotnet-test-explorer.showCodeLens": true,
-    "dotnet-test-explorer.runInParallel": true
+    "dotnet-test-explorer.runInParallel": true,
+    "dotnet.defaultSolution": "Backend/ProEventos.sln"
 }
